@@ -19,7 +19,7 @@ bp = Blueprint("broker", __name__, url_prefix='/broker')
 
 @bp.route('/')
 @login_required
-def show_comm():
+def show_comms():
     pending = db.session.query(PosViewModel).filter(PosViewModel.sale_line_id.notin_(CommLineModel.sale_line_id))
 
     result = db.session.query(
