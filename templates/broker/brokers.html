@@ -17,37 +17,35 @@
 {% endblock %}
 
 {% block main_content %}
-    <form method="post" name="commission_list" action="{{ url_for('broker.count') }}">
-        <table class="table table-bordered">
-            <thead>
-            <tr>
-                <th>項目</th>
-                <th>計算</th>
-                <th>團體</th>
-                <th>車次</th>
-                <th>總額</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for commission in commissions %}
-                <tr data-order_num="{{ commission.order_num }}"
-                    data-group_name="{{ commission.group_name }}"
-                    data-car="{{ commission.car }}"
-                    data-order_date="{{ commission.order_date }}"
-                    data-subtotal="{{ commission.subtotal }}">
-                    <td>{{ commission.order_num }}</td>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>項目</th>
+            <th>計算</th>
+            <th>團體</th>
+            <th>車次</th>
+            <th>總額</th>
+        </tr>
+        </thead>
+        <tbody>
+{#        action="{{ url_for('xxx') }}"#}
+        <form action="" method="post" name="broker_id_list">
+            {% for broker in brokers %}
+                <tr data-broker_id="{{ broker.broker_id }}">
                     <td>
-                        <input type="checkbox" name="commission" value="{{ commission.order_date }}"/>
+                        <label class="checkbox">
+                            <input type="checkbox" name="broker_id" value="{{ broker.broker_id }}"/>
+                        </label>
                     </td>
-                    <td>{{ commission.group_name }}</td>
-                    <td>{{ commission.car }}</td>
-                    <td>{{ commission.subtotal }}</td>
                 </tr>
             {% endfor %}
+            <button class="button is-danger count-car-btn">依車次彙總</button>
+            <button class="button is-danger count-group-btn">依團體彙總</button>
+        </form>
+        </tbody>
+    </table>
+{#    <div style="text-align: center">#}
+{#        {{ pagination.links }}#}
+{#    </div>#}
 
-
-            </tbody>
-        </table>
-        <button class="btn btn-warning" style="float: right">計算</button>
-    </form>
 {% endblock %}
