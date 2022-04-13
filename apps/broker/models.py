@@ -72,6 +72,6 @@ class CommBrokerModel(db.Model):
     updated_by = db.Column(db.String(10), db.ForeignKey("mc_user_all.account"), nullable=False)
 
     broker = db.relationship("BrokerModel", foreign_keys=[broker_id], backref='claimants')
-    comm = db.relationship("CommModel", foreign_key=[comm_id], backref='comms')
+    comm = db.relationship("CommModel", foreign_keys=[comm_id], backref='comms')
     creator = db.relationship("MCUser", foreign_keys=[created_by], backref='ccommbrokers')
     updater = db.relationship("MCUser", foreign_keys=[updated_by], backref='ucommbrokers')

@@ -6,9 +6,9 @@ from .forms import (
     TakeComm,
 )
 from apps.mc.models import MCUser
-from ..models import PosViewModel, BrokerModel, CommBrokerModel
+from ..models import PosViewModel
 from flask_paginate import Pagination, get_page_parameter
-from .models import CommModel, CommLineModel
+from .models import CommModel, CommLineModel, BrokerModel, CommBrokerModel
 from apps.decorators import login_required
 from sqlalchemy import func
 from exts import db

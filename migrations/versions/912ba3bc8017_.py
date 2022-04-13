@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 39100d49e1f3
+Revision ID: 912ba3bc8017
 Revises: 
-Create Date: 2022-04-12 14:21:54.390566
+Create Date: 2022-04-13 17:41:43.225334
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '39100d49e1f3'
+revision = '912ba3bc8017'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -54,6 +54,41 @@ def upgrade():
     sa.Column('qty', sa.Integer(), nullable=True),
     sa.Column('amt', sa.Integer(), nullable=True),
     sa.PrimaryKeyConstraint('sale_line_id')
+    )
+    op.create_table('broker',
+    sa.Column('broker_id', sa.Integer(), autoincrement=True, nullable=False),
+    sa.Column('broker_name', sa.String(length=50), nullable=False),
+    sa.Column('broker_num', sa.String(length=10), nullable=False),
+    sa.Column('travel', sa.String(length=50), nullable=False),
+    sa.Column('phone', sa.String(length=10), nullable=False),
+    sa.Column('address', sa.String(length=200), nullable=True),
+    sa.Column('created_at', sa.DateTime(), nullable=False),
+    sa.Column('created_by', sa.String(length=10), nullable=False),
+    sa.Column('updated_at', sa.DateTime(), nullable=False),
+    sa.Column('updated_by', sa.String(length=10), nullable=False),
+    sa.ForeignKeyConstraint(['created_by'], ['mc_user_all.account'], ),
+    sa.ForeignKeyConstraint(['updated_by'], ['mc_user_all.account'], ),
+    sa.PrimaryKeyConstraint('broker_id')
+    )
+    op.create_table('comm',
+    sa.Column('comm_id', sa.Integer(), autoincrement=True, nullable=False),
+    sa.Column('order_num', sa.String(length=30), nullable=False),
+    sa.Column('group_name', sa.String(length=50), nullable=False),
+    sa.Column('car', sa.String(length=30), nullable=True),
+    sa.Column('order_date', sa.DateTime(), nullable=False),
+    sa.Column('sale_amt', sa.Integer(), nullable=False),
+    sa.Column('rate', sa.Float(), nullable=False),
+    sa.Column('comm_amt', sa.Integer(), nullable=False),
+    sa.Column('comm_type', sa.String(length=30), nullable=False),
+    sa.Column('cal_type', sa.String(length=30), nullable=False),
+    sa.Column('status', sa.String(length=20), nullable=False),
+    sa.Column('created_at', sa.DateTime(), nullable=False),
+    sa.Column('created_by', sa.String(length=10), nullable=False),
+    sa.Column('updated_at', sa.DateTime(), nullable=False),
+    sa.Column('updated_by', sa.String(length=10), nullable=False),
+    sa.ForeignKeyConstraint(['created_by'], ['mc_user_all.account'], ),
+    sa.ForeignKeyConstraint(['updated_by'], ['mc_user_all.account'], ),
+    sa.PrimaryKeyConstraint('comm_id')
     )
     op.create_table('mc_id_set_all',
     sa.Column('id_no', sa.String(length=12), nullable=False),
@@ -118,6 +153,39 @@ def upgrade():
     sa.ForeignKeyConstraint(['comm_id'], ['mcs_comm.comm_id'], ),
     sa.PrimaryKeyConstraint('comm_line_id')
     )
+    op.create_table('comm_broker',
+    sa.Column('comm_broker_id', sa.Integer(), autoincrement=True, nullable=False),
+    sa.Column('broker_id', sa.Integer(), nullable=False),
+    sa.Column('comm_id', sa.Integer(), nullable=False),
+    sa.Column('created_at', sa.DateTime(), nullable=False),
+    sa.Column('created_by', sa.String(length=10), nullable=False),
+    sa.Column('updated_at', sa.DateTime(), nullable=False),
+    sa.Column('updated_by', sa.String(length=10), nullable=False),
+    sa.ForeignKeyConstraint(['broker_id'], ['broker.broker_id'], ),
+    sa.ForeignKeyConstraint(['comm_id'], ['comm.comm_id'], ),
+    sa.ForeignKeyConstraint(['created_by'], ['mc_user_all.account'], ),
+    sa.ForeignKeyConstraint(['updated_by'], ['mc_user_all.account'], ),
+    sa.PrimaryKeyConstraint('comm_broker_id')
+    )
+    op.create_table('comm_line',
+    sa.Column('comm_line_id', sa.Integer(), autoincrement=True, nullable=False),
+    sa.Column('comm_id', sa.Integer(), nullable=False),
+    sa.Column('sale_line_id', sa.Integer(), nullable=False),
+    sa.Column('ticket', sa.String(length=20), nullable=False),
+    sa.Column('sale_num', sa.String(length=20), nullable=False),
+    sa.Column('sale_line_num', sa.String(length=5), nullable=False),
+    sa.Column('item_no', sa.String(length=50), nullable=False),
+    sa.Column('qty', sa.Integer(), nullable=False),
+    sa.Column('amt', sa.Integer(), nullable=False),
+    sa.Column('created_at', sa.DateTime(), nullable=False),
+    sa.Column('created_by', sa.String(length=10), nullable=False),
+    sa.Column('updated_at', sa.DateTime(), nullable=False),
+    sa.Column('updated_by', sa.String(length=10), nullable=False),
+    sa.ForeignKeyConstraint(['comm_id'], ['comm.comm_id'], ),
+    sa.ForeignKeyConstraint(['created_by'], ['mc_user_all.account'], ),
+    sa.ForeignKeyConstraint(['updated_by'], ['mc_user_all.account'], ),
+    sa.PrimaryKeyConstraint('comm_line_id')
+    )
     op.create_table('mc_income_all',
     sa.Column('form_id', sa.String(length=7), nullable=False),
     sa.Column('uniform_num', sa.String(length=8), nullable=False),
@@ -158,10 +226,14 @@ def upgrade():
 def downgrade():
     # ### commands auto generated by Alembic - please adjust! ###
     op.drop_table('mc_income_all')
+    op.drop_table('comm_line')
+    op.drop_table('comm_broker')
     op.drop_table('mcs_comm_line')
     op.drop_table('mc_value_set_all')
     op.drop_table('mc_register_all')
     op.drop_table('mc_id_set_all')
+    op.drop_table('comm')
+    op.drop_table('broker')
     op.drop_table('order_sale')
     op.drop_table('mcs_comm')
     op.drop_table('mc_user_all')
