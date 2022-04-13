@@ -1,0 +1,175 @@
+{% extends "mc/mc_base.html" %}
+{% from "common/_macros.html" import static %}
+
+{% block title %}
+    所得人基本資料
+{% endblock %}
+
+{% block head %}
+    <script src="https://cdn.staticfile.org/Plupload/2.1.1/moxie.js"></script>
+    <script src="https://cdn.staticfile.org/Plupload/2.1.1/plupload.dev.js"></script>
+    <script src="https://cdn.staticfile.org/qiniu-js-sdk/1.0.14-beta/qiniu.js"></script>
+    <script src="{{ static('mc/js/earnerinform.js') }}"></script>
+    <style>
+        .top-box button {
+            float: left;
+        }
+    </style>
+{% endblock %}
+
+{% block page_title %}
+    {{ self.title() }}
+{% endblock %}
+
+{% block main_content %}
+    <div class="top-box">
+        <button class="btn btn-warning" data-toggle="modal" data-target="#earner-dialog">新增</button>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>所得人代號</th>
+            <th>所得人統一編(證)號</th>
+            <th>所得人姓名</th>
+            <th>手機號碼</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for earnerinform in earnerinforms %}
+            <tr data-id_no="{{ earnerinform.id_no }}"
+                data-id_num="{{ earnerinform.id_num }}"
+                data-id_name="{{ earnerinform.id_name }}"
+                data-phone_num="{{ earnerinform.phone_num }}"
+                data-id_type="{{ earnerinform.id_type }}"
+                data-id_value_code="{{ earnerinform.id_value_code }}"
+                data-id_value_name="{{ earnerinform.id_value_name }}"
+                data-address="{{ earnerinform.address }}"
+                data-tel="{{ earnerinform.tel }}"
+                data-id_mark="{{ earnerinform.id_mark }}"
+                data-remark="{{ earnerinform.remark }}"
+                data-status="{{ 1 if earnerinform.status else 0 }}">
+                <td>{{ earnerinform.id_no }}</td>
+                <td>{{ earnerinform.id_num }}</td>
+                <td>{{ earnerinform.id_name }}</td>
+                <td>{{ earnerinform.phone_num }}</td>
+                <td>
+                    <button class="btn btn-default btn-xs edit-earner-btn ">編輯</button>
+                    {% if earnerinform.status %}
+                            <button class="btn btn-success btn-xs change-earner-btn">生效</button>
+                        {% else %}
+                            <button class="btn btn-danger btn-xs change-earner-btn">失效</button>
+                        {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+    <div style="text-align: center">
+         {{ pagination.links }}
+    </div>
+
+    <div class="modal fade" id="earner-dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="location.reload()"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">所得人基本資料</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">所得人代號：</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" name="id_no" placeholder="所得人代號">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">所得人統一編(證)號：</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" name="id_num" placeholder="所得人統一編(證)號">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">所得人姓名：</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" name="id_name" placeholder="所得人姓名">
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label class="col-sm-4 control-label">手機號碼：</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" name="phone_num" placeholder="手機號碼">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">證號別：</label>
+                            <div class="col-sm-7">
+                                <label><input type="radio" name="id_type" value="A" >境內居住者</label>
+                                <label><input type="radio" name="id_type" value="B" >非境內居住者</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">證號別選單：</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" name="id_value_code" placeholder="證號別選單">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">證號別選單值：</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" name="id_value_name" placeholder="證號別選單值" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">所得人地址：</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" name="address" placeholder="所得人地址">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">所得人電話：</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" name="tel" placeholder="所得人電話">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">所得人註記：</label>
+                            <div class="col-sm-7">
+                                <input list="id_marks" class="form-control" name="id_mark" placeholder="所得人註記">
+                                <datalist id="id_marks">
+                                    <option value="旅行社">旅行社</option>
+                                    <option value="導遊">導遊</option>
+                                    <option value="員工">員工</option>
+                                    <option value="房東">房東</option>
+                                    <option value="其他">其他</option>s
+                                    <option value="司機">司機</option>
+                                </datalist>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">所得人備註：</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" name="remark" placeholder="所得人備註">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">生效/失效：</label>
+                            <div class="col-sm-7">
+                                <input  class="form-control" name="status" value="生效" placeholder="生效" readonly>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="location.reload()">關閉
+                    </button>
+                    <button type="button" class="btn btn-primary" id="save-earner-btn">存檔</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,104 @@
+{% extends "mc/mc_base.html" %}
+{% from "common/_macros.html" import static %}
+
+{% block title %}
+    使用者設定
+{% endblock %}
+
+{% block head %}
+    <script src="https://cdn.staticfile.org/Plupload/2.1.1/moxie.js"></script>
+    <script src="https://cdn.staticfile.org/Plupload/2.1.1/plupload.dev.js"></script>
+    <script src="https://cdn.staticfile.org/qiniu-js-sdk/1.0.14-beta/qiniu.js"></script>
+    <script src="{{ static('mc/js/userset.js') }}"></script>
+    <style>
+        .top-box button {
+            float: left;
+        }
+    </style>
+{% endblock %}
+
+{% block page_title %}
+    {{ self.title() }}
+{% endblock %}
+
+{% block main_content %}
+    <div class="top-box">
+        <button class="btn btn-warning" data-toggle="modal" data-target="#userset-dialog">新增</button>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>帳號</th>
+            <th>姓名</th>
+            <th>權限等級</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in usersets %}
+            <tr data-account="{{ user.account }}" data-password="{{ user.password }}" data-name="{{ user.name }}" data-permission="{{ user.permission }}"
+                data-id="{{ user.user_id }}">
+                <td>{{ user.account }}</td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.permission }}</td>
+                <td>
+                    <button class="btn btn-default btn-xs edit-userset-btn ">編輯</button>
+                    <button class="btn btn-danger btn-xs delete-userset-btn">刪除</button>
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+    <div style="text-align: center">
+         {{ pagination.links }}
+    </div>
+
+     <div class="modal fade" id="userset-dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="location.reload()"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">使用者設定</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">帳號：</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" name="account" placeholder="帳號">
+                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">密碼：</label>
+                                <div class="col-sm-8">
+                                    <input type="password" class="form-control" name="password" placeholder="密碼">
+                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">姓名：</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="username" placeholder="姓名">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">權限管理：</label>
+                            <div class="col-sm-8">
+{#                                <input type="text" class="form-control" name="permission" placeholder="權限管理">#}
+                                <label><input type="radio" id="user" name="permission" value="user">一般管理者</label>
+                                <label><input type="radio" id="admin" name="permission" value="admin">管理者</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="location.reload()">關閉</button>
+                    <button type="button" class="btn btn-primary" id="save-userset-btn">存檔</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

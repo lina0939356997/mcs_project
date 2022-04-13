@@ -1,0 +1,48 @@
+{% extends "mc/mc_base.html" %}
+{% from "common/_macros.html" import static %}
+
+{% block title %}
+    佣金計算
+{% endblock %}
+
+{% block head %}
+    <script src="https://cdn.staticfile.org/Plupload/2.1.1/moxie.js"></script>
+    <script src="https://cdn.staticfile.org/Plupload/2.1.1/plupload.dev.js"></script>
+    <script src="https://cdn.staticfile.org/qiniu-js-sdk/1.0.14-beta/qiniu.js"></script>
+    <script src="{{ static('broker/js/broker.js') }}"></script>
+{% endblock %}
+
+{% block page_title %}
+    {{ self.title() }}
+{% endblock %}
+
+{% block main_content %}
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>選擇</th>
+            <th>車次</th>
+        </tr>
+        </thead>
+        <tbody>
+{#        action="{{ url_for('xxx') }}"#}
+        <form action="" method="post" name="broker_id_list">
+            {% for broker in brokers %}
+                <tr data-broker_id="{{ broker.broker_id }}">
+                    <td>
+                        <label class="checkbox">
+                            <input type="checkbox" name="broker_id" value="{{ broker.broker_id }}"/>
+                        </label>
+                    </td>
+                </tr>
+            {% endfor %}
+            <button class="button is-danger count-car-btn">依車次彙總</button>
+            <button class="button is-danger count-group-btn">依團體彙總</button>
+        </form>
+        </tbody>
+    </table>
+{#    <div style="text-align: center">#}
+{#        {{ pagination.links }}#}
+{#    </div>#}
+
+{% endblock %}

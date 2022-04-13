@@ -1,0 +1,105 @@
+{% from "common/_macros.html" import static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{% block title %}{% endblock %}</title>
+    <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{{ static('mc/css/base.css') }}">
+    <script src="{{ static('mc/js/base.js') }}"></script>
+    <script src="{{ static('common/zlajax.js') }}"></script>
+    <link rel="stylesheet" href="{{ static('common/sweetalert/sweetalert.css') }}">
+    <script src="{{ static('common/sweetalert/sweetalert.min.js') }}"></script>
+    <script src="{{ static('common/sweetalert/zlalert.js') }}"></script>
+
+    {% block head %}{% endblock %}
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">佣金系统</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                {#            <li><a href="{{ url_for('cms.profile') }}">{{ g.cms_user.username }}</a></li>#}
+                {#            <li><a href="{{ url_for('cms.logout') }}">登出</a></li>#}
+                <li>使用者名稱</li>
+                <li>登出</li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav-sidebar">
+                <li>前台首頁</li>
+                <li class="p1">
+                    <a href="#">權限管理<span></span></a>
+                    <ul class="subnav">
+                        <li>使用者維護</li>
+                        <li>角色</li>
+                    </ul>
+                </li>
+                <li class="p2">
+                    <a href="#">基本資料設定<span></span></a>
+                    <ul class="subnav">
+                        <li>申報公司</li>
+                        <li>清單值</li>
+                        <li>所得人資料</li>
+                    </ul>
+                </li>
+                <li class="p3">
+                    <a href="#">佣金作業<span></span></a>
+                    <ul class="subnav">
+                        <li>佣金計算作業</li>
+                        <li>佣金維護作業</li>
+                        <li>佣金報表</li>
+                    </ul>
+                </li>
+                <li class="p4">
+                    <a href="#">看板<span></span></a>
+                    <ul class="subnav">
+                        <li><a href="{{ url_for('kanban.kanban') }}" target="_blank">即時交易看板</a></li>
+                        <li><a href="{{ url_for('kanban.kanbancontrol') }}" >看板排成控制</a></li>
+                    </ul>
+                </li>
+                <li class="p5">
+                    <a href="#">獎金計算<span></span></a>
+                    <ul class="subnav">
+                        <li>獎金計算</li>
+                        <li>獎金維護</li>
+                        <li>獎金報表</li>
+                    </ul>
+                </li>
+                <li class="nav-group userset-manage"><a href="{{ url_for('mc.usersets') }}">使用者設定</a></li>
+                <li class="nav-group sysparameter-manage"><a href="{{ url_for('mc.sysparameters') }}">系統參數設定</a></li>
+                <li class="nav-group listvalue-manage"><a href="{{ url_for('mc.listvalues') }}">清單值設定</a></li>
+                <li class="nav-group reportinform-manage"><a href="{{ url_for('mc.reportinforms') }}">申報基本資料</a></li>
+                <li class="nav-group earnerinform-manage"><a href="{{ url_for('mc.earnerinforms') }}">所得人基本資料</a></li>
+                <li class="nav-group incomedata-manage"><a href="{{ url_for('mc.incomedatas') }}">所得資料維護</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1>{% block page_title %}{% endblock %}</h1>
+            <div class="main_content">
+                {% block main_content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+

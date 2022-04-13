@@ -1,0 +1,47 @@
+{% extends "mc/mc_base.html" %}
+{% from "common/_macros.html" import static %}
+
+{% block title %}
+    看板排成控制
+{% endblock %}
+
+{% block head %}
+    <script src="https://cdn.staticfile.org/qiniu-js-sdk/1.0.14-beta/qiniu.js"></script>
+    <script src="{{ static('kanban/js/kanban.js') }}"></script>
+{% endblock %}
+
+{% block page_title %}
+    {{ self.title() }}
+{% endblock %}
+
+{% block main_content %}
+    <div class="top-box">
+        <button class="btn btn-warning btn-xs start-kanban-btn">開始</button>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>排程名稱</th>
+            <th>控制</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>新增資料排程</td>
+            <td>
+                <button class="btn btn-success btn-xs resume-mock_pos-btn">繼續</button>
+                <button class="btn btn-danger btn-xs pause-mock_pos-btn">暫停</button>
+            </td>
+        </tr>
+        <tr>
+            <td>抓取資料排程</td>
+            <td>
+                <button class="btn btn-success btn-xs resume-insert_comm-btn">繼續</button>
+                <button class="btn btn-danger btn-xs pause-insert_comm-btn">暫停</button>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+
+{% endblock %}

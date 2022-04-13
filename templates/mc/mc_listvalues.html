@@ -1,0 +1,118 @@
+{% extends "mc/mc_base.html" %}
+{% from "common/_macros.html" import static %}
+
+{% block title %}
+    清單值設定
+{% endblock %}
+
+{% block head %}
+    <script src="https://cdn.staticfile.org/Plupload/2.1.1/moxie.js"></script>
+    <script src="https://cdn.staticfile.org/Plupload/2.1.1/plupload.dev.js"></script>
+    <script src="https://cdn.staticfile.org/qiniu-js-sdk/1.0.14-beta/qiniu.js"></script>
+    <script src="{{ static('mc/js/listvalue.js') }}"></script>
+    <style>
+        .top-box button {
+            float: left;
+        }
+    </style>
+{% endblock %}
+
+{% block page_title %}
+    {{ self.title() }}
+{% endblock %}
+
+{% block main_content %}
+    <div class="top-box">
+        <button class="btn btn-warning" data-toggle="modal" data-target="#listvalue-dialog">新增</button>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>清單類別</th>
+            <th>清單值代碼</th>
+            <th>清單值</th>
+            <th>ParentValue</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for listv in listvalues %}
+            <tr data-set_type="{{ listv.set_type }}"
+                data-value_code="{{ listv.value_code }}"
+                data-value_name="{{ listv.value_name }}"
+                data-value_desc="{{ listv.value_desc }}"
+                data-parent_value="{{ listv.parent_value }}"
+                data-id="{{ listv.set_value_id }}">
+                <td>{{ listv.set_type }}</td>
+                <td>{{ listv.value_code }}</td>
+                <td>{{ listv.value_name }}</td>
+                <td>{{ listv.parent_value }}</td>
+                <td>
+                    <button class="btn btn-default btn-xs edit-listvalue-btn">編輯</button>
+                    <button class="btn btn-danger btn-xs delete-listvalue-btn">刪除</button>
+                </td>
+            </tr>
+        {% endfor %}
+
+
+        </tbody>
+    </table>
+
+    <div class="modal fade" id="listvalue-dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="location.reload()"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">清單值設定</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">清單類別：</label>
+                            <div class="col-sm-8">
+{#                                <input type="text" class="form-control" name="listcategory" placeholder="清單類別">#}
+                                <input list="set_types" class="form-control" name="set_type" placeholder="清單類別">
+                                <datalist id="set_types">
+                                    <option value="所得代碼"></option>
+                                    <option value="所得註記"></option>
+                                </datalist>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">清單代碼：</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="value_code" placeholder="清單代碼">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">清單值：</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="value_name" placeholder="清單值">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">清單值描述：</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="value_desc" placeholder="清單值描述">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">ParentValue：</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="parent_value" placeholder="ParentValue">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="location.reload()">關閉</button>
+                    <button type="button" class="btn btn-primary" id="save-listvalue-btn">存檔</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="text-align:center;">
+        {{ pagination.links }}
+    </div>
+{% endblock %}

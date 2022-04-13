@@ -1,0 +1,123 @@
+{% extends 'mc/mc_base.html' %}
+{% from "common/_macros.html" import static %}
+
+{% block title %}系統參數設定{% endblock %}
+
+{% block head %}
+    <script src="https://cdn.staticfile.org/Plupload/2.1.1/moxie.js"></script>
+    <script src="https://cdn.staticfile.org/Plupload/2.1.1/plupload.dev.js"></script>
+    <script src="https://cdn.staticfile.org/qiniu-js-sdk/1.0.14-beta/qiniu.js"></script>
+    <script src="{{ static("mc/js/sysparameters.js") }}"></script>
+    <link rel="stylesheet" href="{{ static("mc/css/mc_sysparameters.css") }}">
+{% endblock %}
+
+{% block page_title %}
+    {{ self.title() }}
+{% endblock %}
+
+{% block main_content %}
+    {#    <form action="" method="post" class="navbar-form navbar-right">#}
+    {#        <div class="form-group">#}
+    {#            <input type="text" name="search" class="form-control" placeholder="{{ search }}">#}
+    {#            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">#}
+    {#        </div>#}
+    {#        <button type="submit" class="btn btn-default">搜尋</button>#}
+    {#    </form>#}
+
+
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">網站名稱：</label>
+            <div class="col-sm-8">
+                <p class="form-control">{{ WebName }}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">網站標題：</label>
+            <div class="col-sm-8">
+                <p class="form-control">{{ WebTitle }}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">基本工資金額：</label>
+            <div class="col-sm-8">
+                <p class="form-control">{{ BaseAmount }}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">二代健保費率：</label>
+            <div class="col-sm-8">
+                <p class="form-control">{{ HealthyRate }}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">預設所得代碼：</label>
+            <div class="col-sm-8">
+                <p class="form-control">{{ DefIncomeCode }}</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">預設申報單位統一編號：</label>
+            <div class="col-sm-8">
+                <p class="form-control">{{ DefUniformNum }}</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    {#<div class="modal fade" id="sysparameter-dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">#}
+    {#  <div class="modal-dialog" role="document">#}
+    {#    <div class="modal-content">#}
+    {#      <div class="modal-header">#}
+    {#        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>#}
+    {#        <h4 class="modal-title" id="myModalLabel">參數設定</h4>#}
+    {#      </div>#}
+    {#      <div class="modal-body">#}
+    {#          <form action="" class="form-horizontal">#}
+    {#              <div class="form-group">#}
+    {#                  <label class="col-sm-3 control-label">網站名稱：</label>#}
+    {#                  <div class="col-sm-8">#}
+    {#                      <input type="text" class="form-control" name="webname" placeholder="網站名稱">#}
+    {#                  </div>#}
+    {#              </div>#}
+    {#              <div class="form-group">#}
+    {#                  <label class="col-sm-3 control-label">網站標題：</label>#}
+    {#                  <div class="col-sm-8">#}
+    {#                      <input type="text" class="form-control" name="webtitle" placeholder="網站標題">#}
+    {#                  </div>#}
+    {#              </div>#}
+    {#              <div class="form-group">#}
+    {#                  <label class="col-sm-3 control-label">基本工資金額：</label>#}
+    {#                  <div class="col-sm-6">#}
+    {#                      <input type="number" class="form-control" name="basic_wage" placeholder="基本工資金額" style="text-align: right">#}
+    {#                  </div>#}
+    {#              </div>#}
+    {#              <div class="form-group">#}
+    {#                  <label class="col-sm-3 control-label">二代健保費率：</label>#}
+    {#                  <div class="col-sm-6">#}
+    {#                      <input type="number" class="form-control" name="second_HI_rate" placeholder="二代健保費率" style="text-align: right">#}
+    {#                  </div>#}
+    {#              </div>#}
+    {#               <div class="form-group">#}
+    {#                  <label class="col-sm-3 control-label">預設所得代碼：</label>#}
+    {#                  <div class="col-sm-6">#}
+    {#                      <input type="number" class="form-control" name="defresultcode" placeholder="預設所得代碼" >#}
+    {#                  </div>#}
+    {#              </div>#}
+    {#              <div class="form-group">#}
+    {#                  <label class="col-sm-3 control-label">預設申報單位統一編號：</label>#}
+    {#                  <div class="col-sm-6">#}
+    {#                      <input type="number" class="form-control" name="defuniformnum" placeholder="預設申報單位統一編號" >#}
+    {#                  </div>#}
+    {#              </div>#}
+    {#          </form>#}
+    {#      </div>#}
+    {#      <div class="modal-footer">#}
+    {#        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>#}
+    {#        <button type="button" class="btn btn-primary" id="save-sysparameter-btn">確定</button>#}
+    {#      </div>#}
+    {#    </div>#}
+    {#  </div>#}
+    {#</div>#}
+{% endblock %}

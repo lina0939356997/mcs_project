@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+{#    以上三個meta標籤*必須*放在最前面，任何其他內容都*必須*跟隨其後!!!#}
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>登入MCS管理系統</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static',filename='mc/css/signin.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <form class="form-signin" method="post">
+        <h2 class="form-signin-heading">請登入</h2>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <label for="inputAccount" class="sr-only">帳號</label>
+        <input type="text" id="inputAccount" name="account" class="form-control" placeholder="帳號" required autofocus>
+        <label for="inputPassword" class="sr-only">密碼</label>
+        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="密碼" required>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">登入</button>
+      </form>
+        {% if message %}
+            <p style="text-align: center" class="text-warning">{{ message }}</p>
+        {% endif %}
+    </div>
+
+</body>
+</html>
