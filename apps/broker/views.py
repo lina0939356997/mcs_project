@@ -132,5 +132,3 @@ def distribute():
                 return str(e)
         print("寫入comm、comm_line、comm_broker，成功!")
         return "寫入comm、comm_line、comm_broker，成功!"
-
-
