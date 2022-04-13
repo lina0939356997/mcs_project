@@ -5,7 +5,8 @@ from flask import Blueprint, render_template
 from flask_paginate import Pagination, get_page_parameter
 from .models import CommModel, CommLineModel
 from apps.decorators import login_required
-from exts import scheduler
+from sqlalchemy import func
+from exts import db
 from utils import restful
 
 bp = Blueprint("broker", __name__, url_prefix='/broker')
@@ -29,7 +30,6 @@ def show_comm():
 
     context = {
         'rewords': result,
-        'brokers': brokers
     }
 
     return render_template('broker/broker.html', **context)
