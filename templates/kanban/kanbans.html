@@ -23,15 +23,18 @@
 <table class="table table-bordered">
     <thead>
     <tr>
-        <th>車資</th>
+        <th>車次</th>
+        <th>團體</th>
         <th>總額</th>
     </tr>
     </thead>
     <tbody>
     {% for kanban in kanbans %}
-        <tr data-broker_id="{{ kanban.comm_id }}"
-            data-subtotal="{{ kanban.sale_amt }}">
-            <td>{{ kanban.comm_id}}</td>
+        <tr data-car="{{ kanban.car }}"
+            data-group_name="{{ kanban.group_name }}"
+            data-sale_amt="{{ kanban.sale_amt }}">
+            <td>{{ kanban.car}}</td>
+            <td>{{ kanban.group_name}}</td>
             <td>{{ kanban.sale_amt }}</td>
         </tr>
     {% endfor %}

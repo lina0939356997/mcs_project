@@ -21,7 +21,7 @@ def add_job():
     job = scheduler.add_job(
         func=mock_pos,
         trigger="interval",
-        seconds=10,
+        seconds=30,
         id="mock_pos",
         name="mock_pos",
         replace_existing=True,

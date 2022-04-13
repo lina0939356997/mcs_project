@@ -59,7 +59,7 @@ def calculate_comm():
 
 def post_comm():
     query_obj = None
-    query_obj = MCSCommModel.query.order_by(MCSCommModel.comm_id.asc())
+    query_obj = MCSCommModel.query.order_by(MCSCommModel.order_date.desc())
     kanbans = query_obj
     context = {
         'kanbans': kanbans
