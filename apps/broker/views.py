@@ -4,6 +4,7 @@ from ..models import PosViewModel
 from flask import Blueprint, render_template
 from flask_paginate import Pagination, get_page_parameter
 from .models import CommModel, CommLineModel
+from apps.decorators import login_required
 from exts import scheduler
 from utils import restful
 

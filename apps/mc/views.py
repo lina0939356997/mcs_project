@@ -4,7 +4,7 @@ from flask import Blueprint, render_template, views, request, redirect, session,
 
 import config
 from exts import db, mail
-from .decorators import login_required
+from apps.decorators import login_required
 from .forms import (
     LoginForm,
     AddUsersetForm,
