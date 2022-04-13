@@ -39,7 +39,7 @@ def show_comms():
     brokers = BrokerModel.query.order_by(BrokerModel.broker_id)
 
     context = {
-        'rewords': result,
+        'commissions': result,
         'brokers': brokers
     }
 
