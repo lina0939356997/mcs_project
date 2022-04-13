@@ -20,19 +20,20 @@ bp = Blueprint("broker", __name__, url_prefix='/broker')
 @bp.route('/')
 @login_required
 def show_comms():
-    pending = db.session.query(PosViewModel).filter(PosViewModel.sale_line_id.notin_(CommLineModel.sale_line_id))
+    # pending = db.session.query(PosViewModel).filter(PosViewModel.sale_line_id.notin_(CommLineModel.sale_line_id))
+    pending = db.session.query(PosViewModel).filter(PosViewModel.sale_line_id.isnot(None))
 
     result = db.session.query(
-        pending.order_num,
-        pending.group_name,
-        pending.car,
-        pending.order_date,
-        func.sum(pending.amt).label('subtotal')
-    ).filter(pending.sale_line_id.isnot(None)) \
-        .group_by(pending.order_num,
-                  pending.group_name,
-                  pending.car,
-                  pending.order_date) \
+        PosViewModel.order_num,
+        PosViewModel.group_name,
+        PosViewModel.car,
+        PosViewModel.order_date,
+        func.sum(PosViewModel.amt).label('subtotal')
+    ).filter(PosViewModel.sale_line_id.isnot(None)) \
+        .group_by(PosViewModel.order_num,
+                  PosViewModel.group_name,
+                  PosViewModel.car,
+                  PosViewModel.order_date) \
         .all()
 
     brokers = BrokerModel.query.order_by(BrokerModel.broker_id)
