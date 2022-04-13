@@ -43,7 +43,7 @@ def show_comms():
         'brokers': brokers
     }
 
-    return render_template('broker/broker.html', **context)
+    return render_template('broker/brokers.html', **context)
 
 
 @bp.route('/distribute/', methods=['POST'])
