@@ -37,7 +37,8 @@
                     data-subtotal="{{ commission.subtotal }}">
                     <td>{{ commission.order_num }}</td>
                     <td>
-                        <input type="checkbox" name="commission" value="{{ commission.order_date }}"/>
+                        <input type="checkbox" name="commission" value="{{ commission.order_num }},{{ commission.group_name }},
+                                                                        {{ commission.car }}{{ commission.order_date }}"/>
                     </td>
                     <td>{{ commission.group_name }}</td>
                     <td>{{ commission.car }}</td>

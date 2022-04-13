@@ -33,13 +33,13 @@ def show_comms():
 
     return render_template('broker/brokers.html', **context)
 
-
-@bp.route('/count/', methods=['POST'])
-def count():
-    form_commissions = request.form.getlist("commission")
-    for form_commission in form_commissions:
-        print(form_commission)
-    return "success"
-
+#
+# @bp.route('/count/', methods=['POST'])
+# def count():
+#     form_commissions = request.form.getlist("commission")
+#     for form_commission in form_commissions:
+#         print(form_commission)
+#     return "success"
+#
 
 
