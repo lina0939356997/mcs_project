@@ -32,7 +32,7 @@ def show_comm():
         'commission': result,
     }
 
-    return render_template('broker/broker.html', **context)
+    return render_template('broker/brokers.html', **context)
 
 
 
