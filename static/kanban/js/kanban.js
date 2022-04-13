@@ -1,6 +1,6 @@
 $(function () {
     $(".start-kanban-btn").click(function () {
-        var url = "/startkanban/";
+        var url = "startkanban/";
         zlajax.post({
             'url': url,
             'success': function (data) {
@@ -16,7 +16,7 @@ $(function () {
 
 $(function () {
     $(".resume-mock_pos-btn").click(function () {
-        var url = "/resumemock_pos/";
+        var url = "resumemock_pos/";
         zlajax.post({
             'url': url,
             'success': function (data) {
@@ -32,7 +32,7 @@ $(function () {
 
 $(function () {
     $(".pause-mock_pos-btn").click(function () {
-        var url = "/pausemock_pos/";
+        var url = "pausemock_pos/";
         zlajax.post({
             'url': url,
             'success': function (data) {
@@ -48,7 +48,7 @@ $(function () {
 
 $(function () {
     $(".resume-insert_comm-btn").click(function () {
-        var url = "/resumeinsert_comm/";
+        var url = "resumeinsert_comm/";
         zlajax.post({
             'url': url,
             'success': function (data) {
@@ -64,7 +64,7 @@ $(function () {
 
 $(function () {
     $(".pause-insert_comm-btn").click(function () {
-        var url = "/pauseinsert_comm/";
+        var url = "pauseinsert_comm/";
         zlajax.post({
             'url': url,
             'success': function (data) {
