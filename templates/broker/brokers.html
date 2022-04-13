@@ -42,11 +42,7 @@
             </thead>
             <tbody>
             {% for commission in commissions %}
-                <tr data-order_num="{{ commission.order_num }}"
-                    data-group_name="{{ commission.group_name }}"
-                    data-car="{{ commission.car }}"
-                    data-order_date="{{ commission.order_date }}"
-                    data-subtotal="{{ commission.subtotal }}">
+                <tr>
                     <td>{{ commission.order_num }}</td>
                     <td>
                         <input type="checkbox" name="order_num" value="{{ commission.order_num }}"/>
@@ -64,5 +60,6 @@
             </tbody>
         </table>
         <button class="btn btn-warning" style="float: right">計算</button>
+{#        type="button"#}
     </form>
 {% endblock %}
