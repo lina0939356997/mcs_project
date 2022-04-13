@@ -1,38 +1,41 @@
+import config
+import datetime
+from ..models import PosViewModel
 from flask import Blueprint, render_template
+from flask_paginate import Pagination, get_page_parameter
+from .models import CommModel, CommLineModel
 from exts import scheduler
+from utils import restful
 
 bp = Blueprint("broker", __name__, url_prefix='/broker')
 
 
-# @bp.route("/")
-# def add_job():
-#     job1 = scheduler.add_job(
-#         func=calculate_comm(),
-#         trigger="interval",
-#         seconds=30,
-#         id="insert_comm",
-#         name="insert_comm",
-#         replace_existing=True,
-#     ),
-#
-#     job2 = scheduler.add_job(
-#         func=post_comm(),
-#         trigger="interval",
-#         seconds=30,
-#         id="show_kanban",
-#         name="show_kanban",
-#         replace_existing=True,
-#     )
-#     context = post_comm()
-#     return render_template("kanban/kanbans.html", **context)
-#
-# @bp.route("/pause/")
-# def pause_job():
-#     job = scheduler.pause_job(id="comm_instant")
-#     return "%s pause!" % job
-#
-#
-# @bp.route("/resume/")
-# def resume_job():
-#     job = scheduler.resume_job(id="comm_instant")
-#     return "%s resume!" % job
+@bp.route('/')
+@login_required
+def show_comm():
+    result = db.session.query(
+        PosViewModel.order_num,
+        PosViewModel.group_name,
+        PosViewModel.car,
+        PosViewModel.order_date,
+        func.sum(PosViewModel.amt).label('subtotal')
+    ).filter(PosViewModel.sale_line_id.notin_(CommLineModel.sale_line_id)) \
+        .group_by(PosViewModel.order_num,
+                  PosViewModel.group_name,
+                  PosViewModel.car,
+                  PosViewModel.order_date) \
+        .all()
+
+    context = {
+        'rewords': result,
+        'brokers': brokers
+    }
+
+    return render_template('broker/broker.html', **context)
+
+
+
+
+
+
+
