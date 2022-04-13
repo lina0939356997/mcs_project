@@ -29,7 +29,7 @@ def show_comm():
         .all()
 
     context = {
-        'rewords': result,
+        'commission': result,
     }
 
     return render_template('broker/broker.html', **context)
