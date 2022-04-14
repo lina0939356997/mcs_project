@@ -44,7 +44,7 @@ class IncomeModel(db.Model):
     __tablename__ = "income"
     form_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     form_no = db.Column(db.String(7), nullable=False, unique=True)
-    uniform_num = db.Column(db.String(8), db.ForeignKey("declare.uniform_num"), nullable=False)
+    uniform_num = db.Column(db.String(8), db.ForeignKey("register.uniform_num"), nullable=False)
     id_no = db.Column(db.String(12), db.ForeignKey("id_set.id_no"), nullable=False)
     id_num = db.Column(db.String(10), db.ForeignKey("id_set.id_num"), nullable=False)
     id_name = db.Column(db.String(50), nullable=False)
