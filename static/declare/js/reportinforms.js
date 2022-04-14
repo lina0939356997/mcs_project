@@ -20,9 +20,9 @@ $(function () {
 
         var url = '';
         if(submitType === 'update'){
-            url = '/ureportinform/';
+            url = '/declare/uregister/';
         }else{
-            url = '/areportinform/';
+            url = '/declare/aregister/';
         }
 
 
