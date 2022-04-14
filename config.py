@@ -3,8 +3,8 @@ DEBUG = True
 
 
 # session 加密從random
-SECRET_KEY = os.urandom(24)
-# SECRET_KEY = '開發時固定'
+# SECRET_KEY = os.urandom(24)
+SECRET_KEY = '開發時固定'
 
 # 連接資料庫
 DIALECT = 'postgresql'

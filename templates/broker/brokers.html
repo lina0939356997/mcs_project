@@ -17,7 +17,8 @@
 {% endblock %}
 
 {% block main_content %}
-    <form method="post" name="commission_list" action="{{ url_for('broker.distribute') }}">
+    <form method="post" name="commission_list" action="{{ url_for('broker.distribute') }}" role="form">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>.
         <label>人員</label>
         <div>
             <input list="broker_ids" name="broker_id" placeholder="人員">

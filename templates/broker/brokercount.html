@@ -1,0 +1,86 @@
+{% extends "mc/mc_base.html" %}
+{% from "common/_macros.html" import static %}
+
+{% block title %}
+    佣金計算
+{% endblock %}
+
+{% block head %}
+    <script src="https://cdn.staticfile.org/Plupload/2.1.1/moxie.js"></script>
+    <script src="https://cdn.staticfile.org/Plupload/2.1.1/plupload.dev.js"></script>
+    <script src="https://cdn.staticfile.org/qiniu-js-sdk/1.0.14-beta/qiniu.js"></script>
+    <script src="{{ static('broker/js/brokercount.js') }}"></script>
+    <style>
+        .top-box button {
+            float: left;
+        }
+    </style>
+{% endblock %}
+
+{% block page_title %}
+    {{ self.title() }}
+{% endblock %}
+
+{% block main_content %}
+    <form method="post" name="commission_list" action="" role="form">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <div class="top-box">
+            <button class="btn btn-warning" data-toggle="modal" data-target="#userset-dialog">新增</button>
+        </div>
+        {#        <label>人員</label>#}
+        {#        <div>#}
+        {#            <input list="broker_ids" name="broker_id" placeholder="人員" value="{{ csrf_token() }}">#}
+        {#            <datalist id="broker_ids">#}
+        {#                <option value="員工1">員工1</option>#}
+        {#                <option value="員工2">員工2</option>#}
+        {#                <option value="員工3">員工3</option>#}
+        {#                <option value="員工4">員工4</option>#}
+        {#                <option value="員工5">員工5</option>#}
+        {#                <option value="其他">其他</option>#}
+        {#            </datalist>#}
+        {#        </div>#}
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>計</th>
+                <th>/</th>
+                <th>日期</th>
+                <th>團體</th>
+                <th>車次</th>
+                <th>總額</th>
+                <th>佣金</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {#            {% for commission in commissions %}#}
+            <tr>
+                <td>
+                    <input type="checkbox" name="order_num" value="計"/>
+                    {#                        <input type="hidden" name="group_name" value="{{ commission.group_name }}"/>#}
+                    {#                        <input type="hidden" name="car" value="{{ commission.car }}"/>#}
+                    {#                        <input type="hidden" name="order_date" value="{{ commission.order_date }}"/>#}
+                </td>
+                <td>/</td>
+                <td>日期</td>
+                <td>團體</td>
+                <td>車次</td>
+                <td><a href="#brokercount-dialog">總額</a></td>
+                <th>佣金</th>
+                <td>
+                    <button class="btn btn-default btn-xs edit-broker-btn " type="button">編輯</button>
+                    <button class="btn btn-danger btn-xs delete-broker-btn" type="button">刪除</button>
+                </td>
+            </tr>
+            {#            {% endfor %}#}
+
+
+            </tbody>
+        </table>
+        <button class="btn btn-warning" style="float: right">結算</button>
+        {#        type="button"#}
+    </form>
+    <div style="text-align: center">
+         {{ pagination.links }}
+    </div>
+{% endblock %}
