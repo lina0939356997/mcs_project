@@ -22,7 +22,6 @@ def add_job():
     return render_template("kanban/kanbans.html")
 
 
-
 @bp.route("/pause_job/")
 def pause_job():
     job = scheduler.pause_job(id="pos_sync")
