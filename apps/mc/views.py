@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 from flask import Blueprint, render_template, views, request, redirect, session, url_for
 import config
 from exts import db
