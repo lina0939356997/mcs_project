@@ -1,5 +1,5 @@
 import config
-import datetime
+from datetime import datetime
 import apps.config
 from flask import Blueprint, render_template, request, session
 from .forms import (
