@@ -13,7 +13,7 @@ from .forms import (
     UpdateIncomeForm,
 )
 from apps.mc.models import UserModel
-from .models import RegisterModel, EarnerModel, IncomeModel
+from .models import RegisterModel, IdSetModel, IncomeModel
 from flask_paginate import Pagination, get_page_parameter
 from utils import restful
 
@@ -101,12 +101,12 @@ def earners():
     end = start + config.PER_PAGE
     total = 0
     query_obj = None
-    query_obj = EarnerModel.query.order_by(EarnerModel.id_no)
+    query_obj = IdSetModel.query.order_by(IdSetModel.id_no)
     if request.method == 'POST':
         search = request.values['search']
         if search:
             search_text = "%{}%".format(search)
-            query_obj = query_obj.filter(EarnerModel.id_name.like(search_text))
+            query_obj = query_obj.filter(IdSetModel.id_name.like(search_text))
     else:
         search = '請輸入所得人姓名'
     earner = query_obj.slice(start, end)
@@ -143,7 +143,7 @@ def aearner():
         id_mark = form.id_mark.data
         remark = form.remark.data
         status = form.status.data
-        earner = EarnerModel(
+        earner = IdSetModel(
             id_no=id_no, id_num=id_num, id_name=id_name, phone_num=phone_num, id_type=id_type, id_value_code
             =id_value_code, id_value_name=id_value_name, address=address, tel=tel, id_mark=id_mark, remark
             =remark, status=status, created_at=created_at, created_by=created_by, updated_at
@@ -175,7 +175,7 @@ def uearner():
         id_mark = form.id_mark.data
         remark = form.remark.data
         status = form.status.data
-        earner = EarnerModel.query.get(id_no)
+        earner = IdSetModel.query.get(id_no)
         if earner:
             earner.id_id = id_id
             earner.id_no = id_no
@@ -209,7 +209,7 @@ def searner():
     if form.validate():
         id_no = form.id_no.data
         status = form.status.data
-        earner = EarnerModel.query.get(id_no)
+        earner = IdSetModel.query.get(id_no)
         if earner:
             earner.updated_at = datetime.now()
             earner.updated_by = user.account
@@ -267,7 +267,7 @@ def aincome():
         form_no = form.form_no.data
         uniform_num = form.uniform_num.data
         id_no = form.id_no.data
-        earner = EarnerModel.query.filter_by(id_no=id_no).first()
+        earner = IdSetModel.query.filter_by(id_no=id_no).first()
         id_num = earner.id_num
         id_name = earner.id_name
         yyy = form.yyy.data
@@ -309,7 +309,7 @@ def uincome():
         form_no = form.form_no.data
         uniform_num = form.uniform_num.data
         id_no = form.id_no.data
-        earner = EarnerModel.query.filter_by(id_no=id_no).first()
+        earner = IdSetModel.query.filter_by(id_no=id_no).first()
         id_num = earner.id_num
         id_name = earner.id_name
         yyy = form.yyy.data

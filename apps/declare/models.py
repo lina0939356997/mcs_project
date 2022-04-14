@@ -16,7 +16,7 @@ class RegisterModel(db.Model):
     updater = db.relationship("UserModel", foreign_keys=[updated_by], backref='uregisters')
 
 
-class EarnerModel(db.Model):
+class IdSetModel(db.Model):
     __tablename__ = 'id_set'
     id_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     id_no = db.Column(db.String(12), nullable=False, unique=True)
@@ -69,7 +69,7 @@ class IncomeModel(db.Model):
     updated_by = db.Column(db.String(10), db.ForeignKey("user.account"), nullable=False)
 
     register_uniform = db.relationship("RegisterModel", foreign_keys=[uniform_num], backref='uniform_nums')
-    earner_no = db.relationship("EarnerModel", foreign_keys=[id_no], backref='earner_nos')
-    earner_num = db.relationship("EarnerModel", foreign_keys=[id_num], backref='earner_nums')
+    earner_no = db.relationship("IdSetModel", foreign_keys=[id_no], backref='earner_nos')
+    earner_num = db.relationship("IdSetModel", foreign_keys=[id_num], backref='earner_nums')
     creator = db.relationship("UserModel", foreign_keys=[created_by], backref='cincomes')
     updater = db.relationship("UserModel", foreign_keys=[updated_by], backref='uincomes')

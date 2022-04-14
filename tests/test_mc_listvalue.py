@@ -1,8 +1,6 @@
-import config
 from apps.mc.models import ListvalueModel
 from sqlalchemy import text
 from tests import engine
-import datetime
 
 # 刪除測試資料，以避免過去測試過程中產生的垃圾資料影響測試
 def test_mc_listvalues_clean():
