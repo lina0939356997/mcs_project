@@ -57,13 +57,13 @@ def pause_job():
 
 @bp.route("/resumemock_pos/", methods=['POST'])
 def resume_job1():
-    job1 = scheduler.resume_job(id="mock_pos")
+    job = scheduler.resume_job(id="mock_pos")
     print("繼續新增資料")
     return restful.success()
 
 
 @bp.route("/pausemock_pos/", methods=['POST'])
 def pause_job1():
-    job1 = scheduler.pause_job(id="mock_pos")
+    job = scheduler.pause_job(id="mock_pos")
     print("停止新增資料")
     return restful.success()
