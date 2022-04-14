@@ -1,19 +1,19 @@
 import config
-from apps.models import ListvalueModel
+from apps.mc.models import ListvalueModel
 from sqlalchemy import text
 from tests import engine
 import datetime
 
 # 刪除測試資料，以避免過去測試過程中產生的垃圾資料影響測試
-def test_mcs_listvalues_clean():
+def test_mc_listvalues_clean():
     with engine.connect() as conn:
-        conn.execute(text("delete from mc_value_set_all where value_name like :s"),
+        conn.execute(text("delete from value_set where value_name like :s"),
                      {"s": "%test%"}
                      )
 
 
 # get listvalues的畫面
-def test_mcs_listvalues(auth_client):
+def test_mc_listvalues(auth_client):
     url = "/listvalues/"
     response = auth_client.get(url)
     assert response.status_code == 200

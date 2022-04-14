@@ -23,11 +23,11 @@ def create_app():
     mail.init_app(app)
     CSRFProtect(app)
     scheduler.init_app(app)
-    scheduler.start()
     migrate = Migrate(app, db)
     return app
 
 
 if __name__ == '__main__':
     app = create_app()
+    scheduler.start()
     app.run(debug=True, port=5000)

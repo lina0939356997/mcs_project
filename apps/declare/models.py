@@ -3,7 +3,7 @@ from datetime import datetime
 
 
 class RegisterModel(db.Model):
-    __tablename__ = 'declare'
+    __tablename__ = 'register'
     register_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     uniform_num = db.Column(db.String(8), nullable=False, unique=True)
     site_name = db.Column(db.String(30), nullable=False)

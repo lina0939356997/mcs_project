@@ -5,15 +5,15 @@ from tests import engine
 
 
 # 刪除測試資料，以避免過去測試過程中產生的垃圾資料影響測試
-def test_mcs_usersets_clean():
-    with engine.connect() as conn:
-        conn.execute(text("delete from mc_user_all where account like :s"),
-                     {"s": "%test%"}
-                     )
+# def test_mc_usersets_clean():
+#     with engine.connect() as conn:
+#         conn.execute(text("delete from user where account like :s"),
+#                      {"s": "%test%"}
+#                      )
 
 
 # get usersets的畫面
-def test_mcs_usersets(auth_client):
+def test_mc_usersets(auth_client):
     url = "/usersets/"
     response = auth_client.get(url)
     assert response.status_code == 200
