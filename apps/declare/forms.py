@@ -56,11 +56,11 @@ class AddIncomeForm(BaseForm):
     id_no = StringField(validators=[Length(1, 12, message='所得人代號不可超過12個字元'),
                                     InputRequired(message='請輸入所得人代號!')])
     yyy = StringField(validators=[Length(1, 3, message='所得給付年度不可超過3個字元'),
-                                         InputRequired(message='請輸入所得給付年度!')])
+                                  InputRequired(message='請輸入所得給付年度!')])
     mm = StringField(validators=[Length(1, 2, message='所得給付月份不可超過2個字元'),
-                                        InputRequired(message='請輸入所得給付月份')])
+                                 InputRequired(message='請輸入所得給付月份')])
     format = StringField(validators=[Length(1, 10, message='所得格式不可超過10個字元'),
-                                            InputRequired(message='請輸入所得格式!')])
+                                     InputRequired(message='請輸入所得格式!')])
     mark = StringField(validators=[Length(0, 10, message='所得註記不可超過10個字元')])
     amt = IntegerField(validators=[InputRequired(message='請輸入給付總額')])
     tax_amt = IntegerField(validators=[InputRequired(message='請輸入扣繳稅額')])
