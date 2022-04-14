@@ -175,7 +175,7 @@ def uearner():
         id_mark = form.id_mark.data
         remark = form.remark.data
         status = form.status.data
-        earner = IdSetModel.query.get(id_no)
+        earner = IdSetModel.query.get(id_id)
         if earner:
             earner.id_id = id_id
             earner.id_no = id_no
@@ -207,17 +207,15 @@ def searner():
     user = UserModel.query.filter_by(user_id=user_id).first()
     form = SwitchEarnerForm(request.form)
     if form.validate():
-        id_no = form.id_no.data
-        status = form.status.data
-        earner = IdSetModel.query.get(id_no)
+        id_id = form.id_id.data
+        earner = IdSetModel.query.get(id_id)
         if earner:
             earner.updated_at = datetime.now()
             earner.updated_by = user.account
-            earner.status = status
-            if earner.status:
-                earner.status = False
+            if earner.status == "Y":
+                earner.status = "N"
             else:
-                earner.status = True
+                earner.status = "Y"
             db.session.commit()
             return restful.success()
         else:

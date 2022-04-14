@@ -7,9 +7,9 @@ class RegisterModel(db.Model):
     register_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     uniform_num = db.Column(db.String(8), nullable=False, unique=True)
     site_name = db.Column(db.String(30), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.now, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.now(), nullable=False)
     created_by = db.Column(db.String(10), db.ForeignKey("user.account"), nullable=False)
-    updated_at = db.Column(db.DateTime, default=datetime.now, nullable=False)
+    updated_at = db.Column(db.DateTime, default=datetime.now(), nullable=False)
     updated_by = db.Column(db.String(10), db.ForeignKey("user.account"), nullable=False)
 
     creator = db.relationship("UserModel", foreign_keys=[created_by], backref='cregisters')
@@ -31,9 +31,9 @@ class IdSetModel(db.Model):
     id_mark = db.Column(db.String(10), nullable=False)
     remark = db.Column(db.String(200), nullable=True)
     status = db.Column(db.String(1), nullable=False)  # Y/N
-    created_at = db.Column(db.DateTime, default=datetime.now, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.now(), nullable=False)
     created_by = db.Column(db.String(10), db.ForeignKey("user.account"), nullable=False)
-    updated_at = db.Column(db.DateTime, default=datetime.now, nullable=False)
+    updated_at = db.Column(db.DateTime, default=datetime.now(), nullable=False)
     updated_by = db.Column(db.String(10), db.ForeignKey("user.account"), nullable=False)
 
     creator = db.relationship("UserModel", foreign_keys=[created_by], backref='cearners')

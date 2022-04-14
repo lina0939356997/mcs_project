@@ -44,8 +44,6 @@ class UpdateEarnerForm(AddEarnerForm):
 
 class SwitchEarnerForm(BaseForm):
     id_id = IntegerField(validators=[InputRequired(message='id缺失!')])
-    status = SelectField('狀態', choices=[('Y', 'Y'), ('N', 'N')]
-                             , validators=[DataRequired(message='請輸入狀態！')], coerce=str)
 
 
 class AddIncomeForm(BaseForm):
