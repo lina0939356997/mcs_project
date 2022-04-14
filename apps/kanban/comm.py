@@ -1,14 +1,13 @@
-from flask import render_template
 from sqlalchemy import func
 from exts import db
-from ..models import PosViewModel, MCSCommModel, MCSCommLineModel
+from ..models import PosViewModel
+from .models import KanbanCommModel, KanbanCommLineModel
 
 
 def calculate_comm():
-    db.session.query(MCSCommLineModel).delete()
-    db.session.query(MCSCommModel).delete()
+    db.session.query(KanbanCommLineModel).delete()
+    db.session.query(KanbanCommModel).delete()
 
-    # MCSCommLineModel.delete()
     result = db.session.query(
         PosViewModel.order_num,
         PosViewModel.group_name,
@@ -24,19 +23,20 @@ def calculate_comm():
 
     for row in result:
         comm_id = None
-        comm = MCSCommModel(order_num=row.order_num,
-                            group_name=row.group_name,
-                            car=row.car,
-                            order_date=row.order_date,
-                            sale_amt=row.subtotal
-                            )
+        comm = KanbanCommModel(order_num=row.order_num,
+                               group_name=row.group_name,
+                               car=row.car,
+                               order_date=row.order_date,
+                               sale_amt=row.subtotal
+                               )
         db.session.add(comm)
         db.session.flush()
         comm_id = comm.comm_id
         try:
-            result_line = db.session.query(PosViewModel).filter_by(car=row.car).all()
+            result_line = db.session.query(PosViewModel).filter_by(
+                order_num=row.order_num, group_name=row.group_name, car=row.car, order_date=row.order_date).all()
             for row_line in result_line:
-                comm_line = MCSCommLineModel(
+                comm_line = KanbanCommLineModel(
                     comm_id=comm_id,
                     sale_line_id=row_line.sale_line_id,
                     ticket=row_line.ticket,
@@ -59,7 +59,7 @@ def calculate_comm():
 
 def post_comm():
     query_obj = None
-    query_obj = MCSCommModel.query.order_by(MCSCommModel.order_date.desc())
+    query_obj = KanbanCommModel.query.order_by(KanbanCommModel.order_date.desc())
     kanbans = query_obj
     context = {
         'kanbans': kanbans

@@ -60,7 +60,7 @@ class IncomeModel(db.Model):
     roya_exp = db.Column(db.String(10), nullable=True)
     house_tax = db.Column(db.String(20), nullable=True)
     house_add = db.Column(db.String(200), nullable=True)
-    decl_status = db.Column(db.BOOLEAN, nullable=False)
+    decl_status = db.Column(db.String(1), nullable=False)  # Y/N
     pay_id = db.Column(db.Integer, db.ForeignKey("pay.pay_id"), nullable=True)
     remark = db.Column(db.String(200), nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.now, nullable=False)
