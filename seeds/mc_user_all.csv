@@ -1,8 +1,0 @@
-admin,00000000,admin,admin
-user1,12345678,user1,user
-user2,12345678,user2,user
-manager1,manager1,manager1,admin
-manager2,12345678,manager2,admin
-manager3,12345678,manager3,admin
-user3,12345678,user3,user
-manager4,12345678,manager4,admin

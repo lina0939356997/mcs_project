@@ -20,7 +20,7 @@ bp = Blueprint("mc", __name__, url_prefix='')
 @bp.route('/')
 @login_required
 def index():
-    return render_template('mc/mc_index.html')
+    return render_template('mc/index.html')
 
 
 @bp.route('/usersets/')
@@ -40,7 +40,7 @@ def usersets():
         'usersets': usersets,
         'pagination': pagination,
     }
-    return render_template('mc/mc_usersets.html', **context)
+    return render_template('mc/usersets.html', **context)
 
 
 @bp.route('/auserset/', methods=['POST'])
@@ -122,7 +122,7 @@ def sysparameters():
         "DefIncomeCode": "50",
         "DefUniformNum": "89826011"
     }
-    return render_template('mc/mc_sysparameters.html', **context)
+    return render_template('mc/sysparameters.html', **context)
 
 
 @bp.route('/listvalues/', methods=['GET', 'POST'])
@@ -142,7 +142,7 @@ def listvalues():
         'listvalues': listvalues,
         'pagination': pagination,
     }
-    return render_template('mc/mc_listvalues.html', **context)
+    return render_template('mc/listvalues.html', **context)
 
 
 @bp.route('/alistvalue/', methods=['POST'])
@@ -220,7 +220,7 @@ def dlistvalue():
 
 class LoginView(views.MethodView):
     def get(self, message=None):
-        return render_template('mc/mc_login.html', message=message)
+        return render_template('mc/login.html', message=message)
 
     def post(self):
         form = LoginForm(request.form)
