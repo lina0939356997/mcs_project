@@ -47,25 +47,26 @@
             <ul class="nav-sidebar">
                 <li>前台首頁</li>
                 <li class="p1">
-                    <a href="#">權限管理<span></span></a>
+                    <a href="#">設定<span></span></a>
                     <ul class="subnav">
-                        <li>使用者維護</li>
-                        <li>角色</li>
+                        <li class="nav-group userset-manage"><a href="{{ url_for('mc.usersets') }}">使用者設定</a></li>
+                        <li class="nav-group sysparameter-manage"><a href="{{ url_for('mc.sysparameters') }}">系統參數設定</a></li>
+                        <li class="nav-group listvalue-manage"><a href="{{ url_for('mc.listvalues') }}">清單值設定</a></li>
                     </ul>
                 </li>
                 <li class="p2">
-                    <a href="#">基本資料設定<span></span></a>
+                    <a href="#">所得申報<span></span></a>
                     <ul class="subnav">
-                        <li>申報公司</li>
-                        <li>清單值</li>
-                        <li>所得人資料</li>
+                        <li class="nav-group reportinform-manage"><a href="{{ url_for('mc.reportinforms') }}">申報基本資料</a></li>
+                        <li class="nav-group earnerinform-manage"><a href="{{ url_for('mc.earnerinforms') }}">所得人基本資料</a></li>
+                        <li class="nav-group incomedata-manage"><a href="{{ url_for('mc.incomedatas') }}">所得資料維護</a></li>
                     </ul>
                 </li>
                 <li class="p3">
                     <a href="#">佣金作業<span></span></a>
                     <ul class="subnav">
-                        <li>佣金計算作業</li>
-                        <li>佣金維護作業</li>
+                        <li class="nav-group broker-manage"><a href="{{ url_for('broker.show_comms') }}">佣金計算作業</a></li>
+                        <li class="nav-group brokercount-manage"><a href="{{ url_for('broker.show_count') }}">佣金維護作業</a></li>
                         <li>佣金報表</li>
                     </ul>
                 </li>
@@ -73,7 +74,7 @@
                     <a href="#">看板<span></span></a>
                     <ul class="subnav">
                         <li><a href="{{ url_for('kanban.kanban') }}" target="_blank">即時交易看板</a></li>
-                        <li><a href="{{ url_for('kanban.kanbancontrol') }}" >看板排成控制</a></li>
+                        <li><a href="{{ url_for('kanban.kanbancontrol') }}">看板排成控制</a></li>
                     </ul>
                 </li>
                 <li class="p5">
@@ -84,14 +85,6 @@
                         <li>獎金報表</li>
                     </ul>
                 </li>
-                <li class="nav-group userset-manage"><a href="{{ url_for('mc.usersets') }}">使用者設定</a></li>
-                <li class="nav-group sysparameter-manage"><a href="{{ url_for('mc.sysparameters') }}">系統參數設定</a></li>
-                <li class="nav-group listvalue-manage"><a href="{{ url_for('mc.listvalues') }}">清單值設定</a></li>
-                <li class="nav-group reportinform-manage"><a href="{{ url_for('mc.reportinforms') }}">申報基本資料</a></li>
-                <li class="nav-group earnerinform-manage"><a href="{{ url_for('mc.earnerinforms') }}">所得人基本資料</a></li>
-                <li class="nav-group incomedata-manage"><a href="{{ url_for('mc.incomedatas') }}">所得資料維護</a></li>
-                <li class="nav-group broker-manage"><a href="{{ url_for('broker.show_comms') }}">佣金計算</a></li>
-                <li class="nav-group brokercount-manage"><a href="{{ url_for('broker.show_count') }}">佣金結算</a></li>
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
