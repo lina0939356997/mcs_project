@@ -1,4 +1,4 @@
-{% extends "mc/mc_base.html" %}
+{% extends "mc/base.html" %}
 {% from "common/_macros.html" import static %}
 
 {% block title %}
@@ -65,8 +65,10 @@
                 <td>日期</td>
                 <td>團體</td>
                 <td>車次</td>
-                <td><a href="#brokercount-dialog">總額</a></td>
-                <th>佣金</th>
+                <td>總額
+                    <button class="btn btn-default btn-xs edit-broker-btn " type="button">明細</button>
+                </td>
+                <td>佣金</td>
                 <td>
                     <button class="btn btn-default btn-xs edit-broker-btn " type="button">編輯</button>
                     <button class="btn btn-danger btn-xs delete-broker-btn" type="button">刪除</button>
@@ -80,7 +82,7 @@
         <button class="btn btn-warning" style="float: right">結算</button>
         {#        type="button"#}
     </form>
-    <div style="text-align: center">
-         {{ pagination.links }}
-    </div>
+{#    <div style="text-align: center">#}
+{#         {{ pagination.links }}#}
+{#    </div>#}
 {% endblock %}
