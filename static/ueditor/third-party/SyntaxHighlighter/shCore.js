@@ -2324,7 +2324,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
         {
             this.id = guid();
 
-            // register this instance in the highlighters list
+            // declare this instance in the highlighters list
             storeHighlighter(this);
 
             // local params take precedence over defaults
@@ -2649,7 +2649,7 @@ typeof(exports) != 'undefined' ? exports.SyntaxHighlighter = SyntaxHighlighter :
 						'default delete deprecated dllexport dllimport do dynamic_cast ' +
 						'else enum explicit extern if for friend goto inline ' +
 						'mutable naked namespace new noinline noreturn nothrow ' +
-						'register reinterpret_cast return selectany ' +
+						'declare reinterpret_cast return selectany ' +
 						'sizeof static static_cast struct switch template this ' +
 						'thread throw true false try typedef typeid typename union ' +
 						'using uuid virtual void volatile whcar_t while';
@@ -3274,7 +3274,7 @@ typeof(exports) != 'undefined' ? exports.SyntaxHighlighter = SyntaxHighlighter :
 						
 		var verbs =		'write where wait use update unregister undo trace test tee take suspend ' +
 						'stop start split sort skip show set send select scroll resume restore ' +
-						'restart resolve resize reset rename remove register receive read push ' +
+						'restart resolve resize reset rename remove declare receive read push ' +
 						'pop ping out new move measure limit join invoke import group get format ' +
 						'foreach export expand exit enter enable disconnect disable debug cxnew ' +
 						'copy convertto convertfrom convert connect complete compare clear ' +

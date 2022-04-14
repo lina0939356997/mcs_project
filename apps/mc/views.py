@@ -29,7 +29,7 @@ bp = Blueprint("mc", __name__, url_prefix='')
 @bp.route('/')
 @login_required
 def index():
-    return render_template('mc/index.html')
+    return render_template('mc/mc_index.html')
 
 
 @bp.route('/usersets/')
@@ -49,7 +49,7 @@ def usersets():
         'usersets': usersets,
         'pagination': pagination,
     }
-    return render_template('mc/usersets.html', **context)
+    return render_template('mc/mc_usersets.html', **context)
 
 
 @bp.route('/auserset/', methods=['POST'])
@@ -120,7 +120,7 @@ def sysparameters():
         "DefIncomeCode": "50",
         "DefUniformNum": "89826011"
     }
-    return render_template('mc/sysparameters.html', **context)
+    return render_template('mc/mc_sysparameters.html', **context)
 
 
 @bp.route('/listvalues/', methods=['GET', 'POST'])
@@ -140,7 +140,7 @@ def listvalues():
         'listvalues': listvalues,
         'pagination': pagination,
     }
-    return render_template('mc/listvalues.html', **context)
+    return render_template('mc/mc_listvalues.html', **context)
 
 
 @bp.route('/alistvalue/', methods=['POST'])
@@ -242,7 +242,7 @@ def reportinforms():
         'pagination': pagination,
         'search': search
     }
-    return render_template('mc/reportinforms.html', **context)
+    return render_template('mc/mc_reportinforms.html', **context)
 
 
 @bp.route('/areportinform/', methods=['POST'])
@@ -316,7 +316,7 @@ def earnerinforms():
         'pagination': pagination,
         'search': search
     }
-    return render_template('mc/earnerinforms.html', **context)
+    return render_template('mc/mc_earnerinforms.html', **context)
 
 
 @bp.route('/aearnerinform/', methods=['POST'])
@@ -447,7 +447,7 @@ def incomedatas():
         'pagination': pagination,
         'search': search
     }
-    return render_template('mc/incomedatas.html', **context)
+    return render_template('mc/mc_incomedatas.html', **context)
 
 
 @bp.route('/aincomedata/', methods=['POST'])
@@ -578,7 +578,7 @@ def dincomedata():
 
 class LoginView(views.MethodView):
     def get(self, message=None):
-        return render_template('mc/login.html', message=message)
+        return render_template('mc/mc_login.html', message=message)
 
     def post(self):
         form = LoginForm(request.form)

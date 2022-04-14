@@ -4,7 +4,7 @@ from apps.mc import models as mc_models
 from apps.broker import models as broker_models
 from apps import models
 
-MCUser = mc_models.MCUser
+MCUser = mc_models.UserModel
 ReportBasicInform = models.ReportBasicInformModel
 Earner = models.EarnerBasicInformModel
 Common = models.BrokerCommmonModel

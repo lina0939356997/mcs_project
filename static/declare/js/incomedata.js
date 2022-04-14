@@ -9,8 +9,8 @@ $(function () {
         var id_noInput = $("input[name='id_no']");
         var id_numInput = $("input[name='id_num']");
         var id_nameInput = $("input[name='id_name']");
-        var income_yyyInput = $("input[name='income_yyy']");
-        var income_mmInput = $("input[name='income_mm']");
+        var income_yyyInput = $("input[name='yyy']");
+        var income_mmInput = $("input[name='mm']");
         var income_formatInput = $("input[name='income_format']");
         var income_markInput = $("input[name='income_mark']");
         var income_amtInput = $("input[name='income_amt']");
@@ -111,8 +111,8 @@ $(function () {
         var id_no = tr.attr("data-id_no");
         var id_num = tr.attr("data-id_num");
         var id_name = tr.attr("data-id_name");
-        var income_yyy = tr.attr("data-income_yyy");
-        var income_mm = tr.attr("data-income_mm");
+        var income_yyy = tr.attr("data-yyy");
+        var income_mm = tr.attr("data-mm");
         var income_format = tr.attr("data-income_format");
         var income_mark = tr.attr("data-income_mark");
         var income_amt = tr.attr("data-income_amt");
@@ -132,8 +132,8 @@ $(function () {
         var id_noInput = dialog.find("input[name='id_no']");
         var id_numInput = dialog.find("input[name='id_num']");
         var id_nameInput = dialog.find("input[name='id_name']");
-        var income_yyyInput = dialog.find("input[name='income_yyy']");
-        var income_mmInput = dialog.find("input[name='income_mm']");
+        var income_yyyInput = dialog.find("input[name='yyy']");
+        var income_mmInput = dialog.find("input[name='mm']");
         var income_formatInput = dialog.find("input[name='income_format']");
         var income_markInput = dialog.find("input[name='income_mark']");
         var income_amtInput = dialog.find("input[name='income_amt']");
