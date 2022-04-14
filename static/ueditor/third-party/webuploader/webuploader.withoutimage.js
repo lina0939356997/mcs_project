@@ -1318,7 +1318,7 @@
          * @param  {object} widgetProto 组件原型，构造函数通过constructor属性定义
          * @param  {object} responseMap API名称与函数实现的映射
          * @example
-         *     Uploader.register( {
+         *     Uploader.declare( {
          *         init: function( options ) {},
          *         makeThumb: function() {}
          *     }, {

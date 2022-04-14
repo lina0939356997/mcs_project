@@ -5,7 +5,7 @@ from flask import Blueprint, render_template, request, session
 from .forms import (
     TakeComm,
 )
-from apps.mc.models import MCUser
+from apps.mc.models import UserModel
 from ..models import PosViewModel
 from flask_paginate import Pagination, get_page_parameter
 from .models import CommModel, CommLineModel, BrokerModel, CommBrokerModel
@@ -21,8 +21,10 @@ bp = Blueprint("broker", __name__, url_prefix='/broker')
 @login_required
 def show_comms():
     # pending = db.session.query(PosViewModel).filter(PosViewModel.sale_line_id.notin_(CommLineModel.sale_line_id))
-    pending = db.session.query(PosViewModel).filter(PosViewModel.sale_line_id.isnot(None))
-
+    # pending = db.session.query(PosViewModel).filter(PosViewModel.sale_line_id.isnot(None))
+    # result = db.session.query(PosViewModel).select_from(
+    #     PosViewModel, PosViewModel.sale_line_id == CommLineModel.sale_line_id).order_by(PosViewModel.sale_line_id).all()
+    # print(result)
     result = db.session.query(
         PosViewModel.order_num,
         PosViewModel.group_name,
@@ -46,10 +48,14 @@ def show_comms():
     return render_template('broker/brokers.html', **context)
 
 
-@bp.route('/distribute/', methods=['POST'])
+@bp.route('/distribute/', methods=['GET', 'POST'])
 @login_required
 def distribute():
-    pending = db.session.query(PosViewModel).filter(PosViewModel.sale_line_id.notin_(CommLineModel.sale_line_id))
+    # pending = db.session.query(PosViewModel).filter(PosViewModel.sale_line_id.notin_(CommLineModel.sale_line_id))
+    order_num_list = request.args.getlist('order_num')
+    group_name_list = request.args.getlist('group_name')
+    car_list = request.args.getlist('car')
+    order_date_list = request.args.getlist('')
     form = TakeComm(request.form)
     if form.validate():
         order_num = form.order_num.data
@@ -59,23 +65,23 @@ def distribute():
         broker_id = form.broker_id.date
 
         result = db.session.query(
-            pending.order_num,
-            pending.group_name,
-            pending.car,
-            pending.order_date,
-            func.sum(pending.amt).label('subtotal')
+            PosViewModel.order_num,
+            PosViewModel.group_name,
+            PosViewModel.car,
+            PosViewModel.order_date,
+            func.sum(PosViewModel.amt).label('subtotal')
         ).filter(
-            order_num == pending.order_num,
-            group_name == pending.group_name,
-            car == pending.car,
-            order_date == pending.order_date
+            order_num == PosViewModel.order_num,
+            group_name == PosViewModel.group_name,
+            car == PosViewModel.car,
+            order_date == PosViewModel.order_date
         ).group_by(
-            pending.order_num,
-            pending.group_name,
-            pending.car,
-            pending.order_date).all()
+            PosViewModel.order_num,
+            PosViewModel.group_name,
+            PosViewModel.car,
+            PosViewModel.order_date).all()
         user_id = session.get(config.MC_USER_ID)
-        user = MCUser.query.filter_by(user_id=user_id).first()
+        user = UserModel.query.filter_by(user_id=user_id).first()
         for row in result:
             comm = CommModel(order_num=row.order_num,
                              group_name=row.group_name,

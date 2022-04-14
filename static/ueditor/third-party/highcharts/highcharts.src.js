@@ -6777,7 +6777,7 @@ Axis.prototype = {
 		axis.removePlotLine = axis.removePlotBandOrLine;
 
 
-		// register event listeners
+		// declare event listeners
 		for (eventType in events) {
 			addEvent(axis, eventType, events[eventType]);
 		}
@@ -8895,7 +8895,7 @@ Tooltip.prototype = {
 		}
 		text = formatter.call(textConfig, tooltip);
 
-		// register the current series
+		// declare the current series
 		currentSeries = point.series;
 
 		// update the inner HTML
@@ -12749,7 +12749,7 @@ Series.prototype = {
 			options.animation = false;
 		}
 
-		// register event listeners
+		// declare event listeners
 		events = options.events;
 		for (eventType in events) {
 			addEvent(series, eventType, events[eventType]);
@@ -12789,7 +12789,7 @@ Series.prototype = {
 	},
 	
 	/**
-	 * Set the xAxis and yAxis properties of cartesian series, and register the series
+	 * Set the xAxis and yAxis properties of cartesian series, and declare the series
 	 * in the axis.series array
 	 */
 	bindAxes: function () {
@@ -12812,7 +12812,7 @@ Series.prototype = {
 							(seriesOptions[AXIS] !== UNDEFINED && seriesOptions[AXIS] === axisOptions.id) ||
 							(seriesOptions[AXIS] === UNDEFINED && axisOptions.index === 0)) {
 						
-						// register this series in the axis.series lookup
+						// declare this series in the axis.series lookup
 						axis.series.push(series);
 						
 						// set this series.xAxis or series.yAxis reference
@@ -12890,7 +12890,7 @@ Series.prototype = {
 			}
 		}
 		
-		// register it
+		// declare it
 		series.segments = segments;
 	},
 	

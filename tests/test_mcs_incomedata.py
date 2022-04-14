@@ -28,8 +28,8 @@ def test_mc_aincomedata(auth_client):
         "id_no": "E11111",
         # "id_num": "A1234",
         # "id_name": "測試者1",
-        "income_yyy": "111",
-        "income_mm": "04",
+        "yyy": "111",
+        "mm": "04",
         "income_format": "所得格式1",
         "income_mark": "所得註記1",
         "income_amt": 1000,
@@ -61,8 +61,8 @@ def test_mc_uincomedata(auth_client):
         "id_no": "F22222",
         # "id_num": "B4321",
         # "id_name": "測試者2",
-        "income_yyy": "110",
-        "income_mm": "03",
+        "yyy": "110",
+        "mm": "03",
         "income_format": "所得格式2",
         "income_mark": "0",
         "income_amt": 2000,
@@ -90,7 +90,7 @@ def test_mc_uincomedata(auth_client):
     mock_request_data = {
         "form_id": incomedata.form_id,
     }
-    url = "/dincomedata/"
+    url = "/dincome/"
     with auth_client:
         response = auth_client.post(url, data=mock_request_data)
         assert response.status_code == 200

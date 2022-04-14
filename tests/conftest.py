@@ -2,7 +2,7 @@ import pytest
 
 import config
 from app import create_app
-from apps.mc.models import MCUser
+from apps.mc.models import UserModel
 
 
 @pytest.fixture()
@@ -28,7 +28,7 @@ def client(app):
 @pytest.fixture
 def auth_client(client):
     with client.session_transaction() as session:
-        role = MCUser.query.filter_by(permission='admin').first()
+        role = UserModel.query.filter_by(permission='admin').first()
         session[config.MC_USER_ID] = role.user_id
     yield client
 

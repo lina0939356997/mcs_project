@@ -20,8 +20,8 @@ class CommModel(db.Model):
     updated_at = db.Column(db.DateTime, nullable=False)
     updated_by = db.Column(db.String(10), db.ForeignKey("mc_user_all.account"), nullable=False)
 
-    creator = db.relationship("MCUser", foreign_keys=[created_by], backref='ccomms')
-    updater = db.relationship("MCUser", foreign_keys=[updated_by], backref='ucomms')
+    creator = db.relationship("UserModel", foreign_keys=[created_by], backref='ccomms')
+    updater = db.relationship("UserModel", foreign_keys=[updated_by], backref='ucomms')
 
 
 class CommLineModel(db.Model):
@@ -40,8 +40,8 @@ class CommLineModel(db.Model):
     updated_at = db.Column(db.DateTime, nullable=False)
     updated_by = db.Column(db.String(10), db.ForeignKey("mc_user_all.account"), nullable=False)
 
-    creator = db.relationship("MCUser", foreign_keys=[created_by], backref='ccommlines')
-    updater = db.relationship("MCUser", foreign_keys=[updated_by], backref='ucommlines')
+    creator = db.relationship("UserModel", foreign_keys=[created_by], backref='ccommlines')
+    updater = db.relationship("UserModel", foreign_keys=[updated_by], backref='ucommlines')
 
 
 class BrokerModel(db.Model):
@@ -57,8 +57,8 @@ class BrokerModel(db.Model):
     updated_at = db.Column(db.DateTime, nullable=False)
     updated_by = db.Column(db.String(10), db.ForeignKey("mc_user_all.account"), nullable=False)
 
-    creator = db.relationship("MCUser", foreign_keys=[created_by], backref='cbrokers')
-    updater = db.relationship("MCUser", foreign_keys=[updated_by], backref='ubrokers')
+    creator = db.relationship("UserModel", foreign_keys=[created_by], backref='cbrokers')
+    updater = db.relationship("UserModel", foreign_keys=[updated_by], backref='ubrokers')
 
 
 class CommBrokerModel(db.Model):
@@ -73,5 +73,5 @@ class CommBrokerModel(db.Model):
 
     broker = db.relationship("BrokerModel", foreign_keys=[broker_id], backref='claimants')
     comm = db.relationship("CommModel", foreign_keys=[comm_id], backref='comms')
-    creator = db.relationship("MCUser", foreign_keys=[created_by], backref='ccommbrokers')
-    updater = db.relationship("MCUser", foreign_keys=[updated_by], backref='ucommbrokers')
+    creator = db.relationship("UserModel", foreign_keys=[created_by], backref='ccommbrokers')
+    updater = db.relationship("UserModel", foreign_keys=[updated_by], backref='ucommbrokers')

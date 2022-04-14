@@ -1,5 +1,5 @@
 import config
-from apps.mc.models import MCUser
+from apps.mc.models import UserModel
 from sqlalchemy import text
 from tests import engine
 
@@ -32,13 +32,13 @@ def test_mc_auserset(auth_client):
     with auth_client:
         response = auth_client.post(url, data=mock_request_data)
         assert response.status_code == 200
-        userset = MCUser.query.filter_by(account="test").first()
+        userset = UserModel.query.filter_by(account="test").first()
         assert userset.user_id is not None
 
 
 # 修改
 def test_mc_uuserset(auth_client):
-    userset = MCUser.query.filter_by(account="test").first()
+    userset = UserModel.query.filter_by(account="test").first()
     mock_request_data = {
         "user_id": userset.user_id,
         "account": "test2",
@@ -50,11 +50,11 @@ def test_mc_uuserset(auth_client):
     with auth_client:
         response = auth_client.post(url, data=mock_request_data)
         assert response.status_code == 200
-        userset = MCUser.query.filter_by(account="test2").first()
+        userset = UserModel.query.filter_by(account="test2").first()
         assert userset.user_id is not None
 
     # 刪除
-    userset = MCUser.query.filter_by(account="test2").first()
+    userset = UserModel.query.filter_by(account="test2").first()
     mock_request_data = {
         "user_id": userset.user_id,
     }
