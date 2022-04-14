@@ -54,35 +54,35 @@
             </thead>
             <tbody>
             {#            {% for commission in commissions %}#}
-            <tr>
-                <td>
-                    <input type="checkbox" name="order_num" value="計"/>
-                    {#                        <input type="hidden" name="group_name" value="{{ commission.group_name }}"/>#}
-                    {#                        <input type="hidden" name="car" value="{{ commission.car }}"/>#}
-                    {#                        <input type="hidden" name="order_date" value="{{ commission.order_date }}"/>#}
-                </td>
-                <td>/</td>
-                <td>日期</td>
-                <td>團體</td>
-                <td>車次</td>
-                <td>總額
-                    <button class="btn btn-default btn-xs edit-broker-btn " type="button">明細</button>
-                </td>
-                <td>佣金</td>
-                <td>
-                    <button class="btn btn-default btn-xs edit-broker-btn " type="button">編輯</button>
-                    <button class="btn btn-danger btn-xs delete-broker-btn" type="button">刪除</button>
-                </td>
-            </tr>
-            {#            {% endfor %}#}
-
-
+            {% for int in range(1,5) %}
+                <tr>
+                    <td>
+                        <input type="checkbox" name="order_num" value="計"/>
+                        {#                        <input type="hidden" name="group_name" value="{{ commission.group_name }}"/>#}
+                        {#                        <input type="hidden" name="car" value="{{ commission.car }}"/>#}
+                        {#                        <input type="hidden" name="order_date" value="{{ commission.order_date }}"/>#}
+                    </td>
+                    <td>{{ int }}</td>
+                    <td>日期</td>
+                    <td>團體</td>
+                    <td>車次</td>
+                    <td>總額
+                        <button class="btn btn-default btn-xs edit-broker-btn" type="button">明細</button>
+                    </td>
+                    <td>佣金</td>
+                    <td>
+                        <button class="btn btn-default btn-xs edit-broker-btn " type="button">編輯</button>
+                        <button class="btn btn-danger btn-xs delete-broker-btn" type="button">刪除</button>
+                    </td>
+                </tr>
+                {#            {% endfor %}#}
+            {% endfor %}
             </tbody>
         </table>
         <button class="btn btn-warning" style="float: right">結算</button>
         {#        type="button"#}
     </form>
-{#    <div style="text-align: center">#}
-{#         {{ pagination.links }}#}
-{#    </div>#}
+    {#    <div style="text-align: center">#}
+    {#         {{ pagination.links }}#}
+    {#    </div>#}
 {% endblock %}
