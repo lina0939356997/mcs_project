@@ -53,6 +53,11 @@ def show_comms():
 
     commissions = [commission1, commission2]
 
+    broker = {
+        'broker_id': '1',
+        'broker_name': '導遊Ａ'
+    }
+
     context = {
         'commissions': commissions,
         'broker': broker
