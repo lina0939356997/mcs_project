@@ -146,7 +146,7 @@ def payment():
     context = {
         payments,
     }
-    return restful_template("/broker/payment.html", **context)
+    return restful_template("/broker/payments.html", **context)
 
 
 

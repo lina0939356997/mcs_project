@@ -1,0 +1,61 @@
+{% extends "mc/base.html" %}
+{% from "common/_macros.html" import static %}
+
+{% block title %}
+    佣金計算
+{% endblock %}
+
+{% block head %}
+    <script src="https://cdn.staticfile.org/Plupload/2.1.1/moxie.js"></script>
+    <script src="https://cdn.staticfile.org/Plupload/2.1.1/plupload.dev.js"></script>
+    <script src="https://cdn.staticfile.org/qiniu-js-sdk/1.0.14-beta/qiniu.js"></script>
+    {#    <script src="{{ static('broker/js/broker.js') }}"></script>#}
+{% endblock %}
+
+{% block page_title %}
+    {{ self.title() }}
+{% endblock %}
+
+{% block main_content %}
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    <div style="float: right">
+        <input list="broker_ids" name="broker_id" placeholder="{{ broker.broker_id }}" value="{{ broker.broker_id }}">
+        <datalist id="broker_ids">
+            <option value="員工1">員工1</option>
+            <option value="員工2">員工2</option>
+            <option value="員工3">員工3</option>
+            <option value="員工4">員工4</option>
+            <option value="員工5">員工5</option>
+            <option value="其他">其他</option>
+        </datalist>
+        <button type="button" class="btn btn-default btn-xs search-broker-btn">搜尋</button>
+    </div>
+    <div class="top-box">
+        <button class="btn btn-warning" data-toggle="modal" data-target="#userset-dialog">新增</button>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>項目</th>
+            <th>日期</th>
+            <th>付款狀態</th>
+            <th>總金額</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for payment in payments %}
+            <tr>
+                <td>{{ payment }}</td>
+                <td>{{ payment.pay_date }}</td>
+                <td>{{ payment.pay_status }}</td>
+                <td>{{ payment.total_amt }}</td>
+                <td>
+                    <button class="btn btn-default btn-xs edit-broker-btn " type="button">編輯</button>
+                    <button class="btn btn-danger btn-xs delete-broker-btn" type="button">刪除</button>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
