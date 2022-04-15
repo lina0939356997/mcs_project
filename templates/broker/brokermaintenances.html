@@ -22,7 +22,7 @@
 {% endblock %}
 
 {% block main_content %}
-    <form method="post" name="commission_list" action="" role="form">
+    <form method="post" name="commission_list" action="{{ broker.check_payment }}" role="form">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
         <div style="float: right">
             <input list="broker_ids" name="broker_id" placeholder="{{ broker.broker_id }}"
@@ -55,7 +55,7 @@
             </thead>
             <tbody>
             {#            {% for commission in commissions %}#}
-            {% for int in range(1,5) %}
+            {% for comm in comms %}
                 <tr>
                     <td>
                         <input type="checkbox" name="order_num" value="計"/>
@@ -63,14 +63,14 @@
                         {#                        <input type="hidden" name="car" value="{{ commission.car }}"/>#}
                         {#                        <input type="hidden" name="order_date" value="{{ commission.order_date }}"/>#}
                     </td>
-                    <td>{{ int }}</td>
-                    <td>日期</td>
-                    <td>團體</td>
-                    <td>車次</td>
-                    <td>總額
+                    <td>{{ comm.order_num }}</td>
+                    <td>{{ comm.order_date }}</td>
+                    <td>{{ comm.group_name }}</td>
+                    <td>{{ comm.car }}</td>
+                    <td>{{ comm.sale_amt }}</td>
+                    <td>{{ comm.comm_amt }}
                         <button class="btn btn-default btn-xs edit-broker-btn" type="button">明細</button>
                     </td>
-                    <td>佣金</td>
                     <td>
                         <button class="btn btn-default btn-xs edit-broker-btn " type="button">結算</button>
                         <button class="btn btn-danger btn-xs delete-broker-btn" type="button">刪除</button>
