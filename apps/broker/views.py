@@ -109,26 +109,7 @@ def show_count():
     }
     return render_template('broker/brokermaintenances.html', **context)
 
-
-@bp.route('/ashow_count', methods=['POST'])
-@login_required
-def ashow_count():
-    return restful.success()
-
-
-@bp.route('/ushow_count', methods=['POST'])
-@login_required
-def ushow_count():
-    return restful.success()
-
-
-@bp.route('/dshow_count', methods=['POST'])
-@login_required
-def dshow_count():
-    return restful.success()
-
-
-@bp.route('/check_payment/', methods=['POST'])
+@bp.route('/check_payment/' , methods=['GET', 'POST'])
 @login_required
 def check_payment():
     # 接收list存入pay, pay_line兩張表中
@@ -146,7 +127,7 @@ def check_payment():
     return redirect(url_for('broker.payment', **context))
 
 
-@bp.route('/payment/', methods=['GET', 'POST'])
+@bp.route('/payment/')
 @login_required
 def payment():
     payment1 = {
@@ -174,20 +155,5 @@ def payment():
     return render_template("/broker/payments.html", **context)
 
 
-@bp.route('/apayment', methods=['POST'])
-@login_required
-def apayment():
-    return restful.success()
 
-
-@bp.route('/upayment', methods=['POST'])
-@login_required
-def upayment():
-    return restful.success()
-
-
-@bp.route('/dpayment', methods=['POST'])
-@login_required
-def dpayment():
-    return restful.success()
 
