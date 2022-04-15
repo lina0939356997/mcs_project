@@ -17,7 +17,7 @@ from utils import restful
 bp = Blueprint("broker", __name__, url_prefix='/broker')
 
 
-@bp.route('/show_count/', methods=['GET', 'POST'])
+@bp.route('/show_comms/', methods=['GET', 'POST'])
 @login_required
 def show_comms():
     if request.method == 'POST':
