@@ -41,12 +41,12 @@
         </tr>
         </thead>
         <tbody>
-        {% for reportinform in reportinforms %}
-            <tr data-uniform_num="{{ reportinform.uniform_num }}"
-                data-site_name="{{ reportinform.site_name }}"
-                data-id="{{ reportinform.register_id }}">
-                <td>{{ reportinform.uniform_num}}</td>
-                <td>{{ reportinform.site_name }}</td>
+        {% for register in registers %}
+            <tr data-uniform_num="{{ register.uniform_num }}"
+                data-site_name="{{ register.site_name }}"
+                data-id="{{ register.register_id }}">
+                <td>{{ register.uniform_num}}</td>
+                <td>{{ register.site_name }}</td>
                 <td>
                     <button class="btn btn-default btn-xs edit-reportinform-btn ">編輯</button>
 {#                    <button class="btn btn-danger btn-xs delete-basic-btn">刪除</button>#}
