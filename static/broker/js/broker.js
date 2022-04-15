@@ -1,6 +1,5 @@
 $(function () {
-    $("#search-broker-btn").click(function (event) {
-        event.preventDefault();
+    $(".search-broker-btn").click(function (event) {
         var self = $(this);
 
         var broker_idInput = $("input[name='broker_id']");
@@ -8,19 +7,19 @@ $(function () {
         var broker_id = broker_idInput.val();
 
 
-        if(!broker_id){
+        if (!broker_id) {
             zlalert.alertInfoToast('請輸入ID！');
             return;
         }
 
-        var url = '/broker/show_comms/';
+        var url = "/borker/show_comms/";
 
 
         zlajax.post({
             "url": url,
-            'data':{
-                'broker_id':broker_id,
-            }
+            'data': {
+                'broker_id': broker_id,
+            },
         });
     });
 });

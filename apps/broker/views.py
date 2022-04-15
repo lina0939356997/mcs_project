@@ -40,7 +40,7 @@ def show_comms():
         'group_name': '佐登尼斯旅行團',
         'car': 'A車',
         'order_date': '2022, 4, 15',
-        'subtotal': 20000
+        'subtotal': 20000,
     }
 
     commission2 = {
