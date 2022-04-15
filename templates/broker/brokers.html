@@ -39,7 +39,6 @@
                 <th>團體</th>
                 <th>車次</th>
                 <th>總額</th>
-                <th>操作</th>
             </tr>
             </thead>
             <tbody>
@@ -55,10 +54,6 @@
                     <td>{{ commission.group_name }}</td>
                     <td>{{ commission.car }}</td>
                     <td>{{ commission.subtotal }}</td>
-                    <td>
-                        <button class="btn btn-default btn-xs edit-broker-btn " type="button">編輯</button>
-                        <button class="btn btn-danger btn-xs delete-broker-btn" type="button">刪除</button>
-                    </td>
                 </tr>
             {% endfor %}
 

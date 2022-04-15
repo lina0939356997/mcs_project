@@ -23,3 +23,56 @@ $(function () {
         });
     });
 });
+
+$(function () {
+    $(".update-userset-btn").click(function (event) {
+        var self = $(this);
+        var tr = self.parent().parent();
+        var user_id = tr.attr('data-id');
+        zlalert.alertConfirm({
+            "msg": "確認編輯？",
+            'confirmCallback': function () {
+                zlajax.post({
+                    'url': '/duserset/',
+                    'data': {
+                        'user_id': user_id
+                    },
+                    'success': function (data) {
+                        if (data['code'] === 200) {
+                            window.location.reload();
+                        } else {
+                            zlalert.alertInfo(data['message']);
+                        }
+                    }
+                })
+            }
+        });
+    });
+});
+
+
+$(function () {
+    $(".delete-userset-btn").click(function (event) {
+        var self = $(this);
+        var tr = self.parent().parent();
+        var user_id = tr.attr('data-id');
+        zlalert.alertConfirm({
+            "msg": "確認刪除？",
+            'confirmCallback': function () {
+                zlajax.post({
+                    'url': '/duserset/',
+                    'data': {
+                        'user_id': user_id
+                    },
+                    'success': function (data) {
+                        if (data['code'] === 200) {
+                            window.location.reload();
+                        } else {
+                            zlalert.alertInfo(data['message']);
+                        }
+                    }
+                })
+            }
+        });
+    });
+});
