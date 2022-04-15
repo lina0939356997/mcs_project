@@ -128,7 +128,7 @@ def dshow_count():
     return restful.success()
 
 
-@bp.route('/check_payment/', methods=['GET', 'POST'])
+@bp.route('/check_payment/', methods=['POST'])
 @login_required
 def check_payment():
     # 接收list存入pay, pay_line兩張表中
