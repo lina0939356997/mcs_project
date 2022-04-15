@@ -19,7 +19,7 @@ bp = Blueprint("broker", __name__, url_prefix='/broker')
 
 @bp.route('/show_count/', methods=['GET', 'POST'])
 @login_required
-def show_count():
+def show_comms():
     if request.method == 'POST':
         broker_id = 1
     else:
