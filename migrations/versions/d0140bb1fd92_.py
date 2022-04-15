@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 212dba7b7595
+Revision ID: d0140bb1fd92
 Revises: 
-Create Date: 2022-04-14 17:59:58.771931
+Create Date: 2022-04-15 09:07:05.750721
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '212dba7b7595'
+revision = 'd0140bb1fd92'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -89,19 +89,6 @@ def upgrade():
     sa.ForeignKeyConstraint(['updated_by'], ['user.account'], ),
     sa.PrimaryKeyConstraint('comm_id')
     )
-    op.create_table('declare',
-    sa.Column('register_id', sa.Integer(), autoincrement=True, nullable=False),
-    sa.Column('uniform_num', sa.String(length=8), nullable=False),
-    sa.Column('site_name', sa.String(length=30), nullable=False),
-    sa.Column('created_at', sa.DateTime(), nullable=False),
-    sa.Column('created_by', sa.String(length=10), nullable=False),
-    sa.Column('updated_at', sa.DateTime(), nullable=False),
-    sa.Column('updated_by', sa.String(length=10), nullable=False),
-    sa.ForeignKeyConstraint(['created_by'], ['user.account'], ),
-    sa.ForeignKeyConstraint(['updated_by'], ['user.account'], ),
-    sa.PrimaryKeyConstraint('register_id'),
-    sa.UniqueConstraint('uniform_num')
-    )
     op.create_table('id_set',
     sa.Column('id_id', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('id_no', sa.String(length=12), nullable=False),
@@ -138,6 +125,19 @@ def upgrade():
     sa.Column('amt', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['comm_id'], ['kanban_comm.comm_id'], ),
     sa.PrimaryKeyConstraint('comm_line_id')
+    )
+    op.create_table('register',
+    sa.Column('register_id', sa.Integer(), autoincrement=True, nullable=False),
+    sa.Column('uniform_num', sa.String(length=8), nullable=False),
+    sa.Column('site_name', sa.String(length=30), nullable=False),
+    sa.Column('created_at', sa.DateTime(), nullable=False),
+    sa.Column('created_by', sa.String(length=10), nullable=False),
+    sa.Column('updated_at', sa.DateTime(), nullable=False),
+    sa.Column('updated_by', sa.String(length=10), nullable=False),
+    sa.ForeignKeyConstraint(['created_by'], ['user.account'], ),
+    sa.ForeignKeyConstraint(['updated_by'], ['user.account'], ),
+    sa.PrimaryKeyConstraint('register_id'),
+    sa.UniqueConstraint('uniform_num')
     )
     op.create_table('value_set',
     sa.Column('set_value_id', sa.Integer(), autoincrement=True, nullable=False),
@@ -238,7 +238,7 @@ def upgrade():
     sa.ForeignKeyConstraint(['id_no'], ['id_set.id_no'], ),
     sa.ForeignKeyConstraint(['id_num'], ['id_set.id_num'], ),
     sa.ForeignKeyConstraint(['pay_id'], ['pay.pay_id'], ),
-    sa.ForeignKeyConstraint(['uniform_num'], ['declare.uniform_num'], ),
+    sa.ForeignKeyConstraint(['uniform_num'], ['register.uniform_num'], ),
     sa.ForeignKeyConstraint(['updated_by'], ['user.account'], ),
     sa.PrimaryKeyConstraint('form_id'),
     sa.UniqueConstraint('form_no')
@@ -270,9 +270,9 @@ def downgrade():
     op.drop_table('comm_line')
     op.drop_table('comm_broker')
     op.drop_table('value_set')
+    op.drop_table('register')
     op.drop_table('kanban_comm_line')
     op.drop_table('id_set')
-    op.drop_table('declare')
     op.drop_table('comm')
     op.drop_table('broker')
     op.drop_table('user')
