@@ -13,7 +13,7 @@ $(function () {
             return;
         }
 
-        var url = '/broker/show_count/';
+        var url = '/broker/show_comms/';
 
 
         zlajax.post({
