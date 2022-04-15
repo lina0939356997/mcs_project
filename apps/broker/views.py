@@ -30,6 +30,7 @@ def show_count():
         'group_name': "佐登妮斯旅行團",
         'car': "A車",
         'order_date': "2020/04/15",
+        'subtotal': 20000
     }
     broker = {
         'broker_id': broker_id
@@ -41,15 +42,14 @@ def show_count():
     return render_template('broker/brokercount.html', **context)
 
 
-@bp.route('/', methods=['GET', 'POST'])
-@login_required
-def show_comms():
-
-    return render_template("broker/brokers.html")
-
-
 @bp.route('/distribute/', methods=['GET', 'POST'])
 @login_required
 def distribute():
+    group_name = request.args.getList('group_name')
+    car = request.args.getList('car')
+    subtotal = request.args.getList('subtotal')
+    print(group_name)
+    print(car)
+    print(subtotal)
     return render_template("broker/brokermaintains.html")
 
