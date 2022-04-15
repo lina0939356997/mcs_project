@@ -39,7 +39,7 @@ def show_comms():
         'commissions': commissions,
         'broker': broker
     }
-    return render_template('broker/brokercount.html', **context)
+    return render_template('broker/brokers.html', **context)
 
 
 @bp.route('/distribute/', methods=['GET', 'POST'])
