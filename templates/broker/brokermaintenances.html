@@ -24,21 +24,18 @@
 {% block main_content %}
     <form method="post" name="commission_list" action="" role="form">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-{#        <div class="top-box">#}
-{#            <button class="btn btn-warning" data-toggle="modal" data-target="#userset-dialog">新增</button>#}
-{#        </div>#}
-        {#        <label>人員</label>#}
-        {#        <div>#}
-        {#            <input list="broker_ids" name="broker_id" placeholder="人員" value="{{ csrf_token() }}">#}
-        {#            <datalist id="broker_ids">#}
-        {#                <option value="員工1">員工1</option>#}
-        {#                <option value="員工2">員工2</option>#}
-        {#                <option value="員工3">員工3</option>#}
-        {#                <option value="員工4">員工4</option>#}
-        {#                <option value="員工5">員工5</option>#}
-        {#                <option value="其他">其他</option>#}
-        {#            </datalist>#}
-        {#        </div>#}
+    <div>
+            <input list="broker_ids" name="broker_id" placeholder="{{ broker.broker_id }}" value="{{ broker.broker_id }}">
+            <datalist id="broker_ids">
+                <option value="員工1">員工1</option>
+                <option value="員工2">員工2</option>
+                <option value="員工3">員工3</option>
+                <option value="員工4">員工4</option>
+                <option value="員工5">員工5</option>
+                <option value="其他">其他</option>
+            </datalist>
+            <button type="button" class="btn btn-default btn-xs search-broker-btn">搜尋</button>
+        </div>
         <table class="table table-bordered">
             <thead>
             <tr>
