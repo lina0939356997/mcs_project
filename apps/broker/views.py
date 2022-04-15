@@ -54,14 +54,8 @@ def show_comms():
 @login_required
 def distribute():
     # 接收list處理完後存入comm, comm_line, comm_broker三張表中
-    order_num = request.form.getlist('order_num')
-    group_name = request.form.getlist('group_name')
-    car = request.form.getlist('car')
-    order_date = request.form.getlist('order_date')
-    print(order_num)
-    print(group_name)
-    print(car)
-    print(order_date)
+    comm = request.form.getlist('order_num')
+    print(comm)
 
     # 傳遞broker_id去佣金維護畫面
     broker = {
