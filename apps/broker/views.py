@@ -20,21 +20,6 @@ bp = Blueprint("broker", __name__, url_prefix='/broker')
 @bp.route('/show_comms/', methods=['GET', 'POST'])
 @login_required
 def show_comms():
-    # result = db.session.query(
-    #     PosViewModel.order_num,
-    #     PosViewModel.group_name,
-    #     PosViewModel.car,
-    #     PosViewModel.order_date,
-    #     func.sum(PosViewModel.amt).label('subtotal')
-    # ).filter(PosViewModel.sale_line_id.isnot(None)) \
-    #     .group_by(PosViewModel.order_num,
-    #               PosViewModel.group_name,
-    #               PosViewModel.car,
-    #               PosViewModel.order_date) \
-    #     .all()
-
-    # broker = BrokerModel.query.order_by(BrokerModel.broker_id)
-
     commission1 = {
         'order_num': '1',
         'group_name': '佐登尼斯旅行團',
@@ -107,6 +92,40 @@ def distribute():
         'broker': broker
     }
     return render_template("broker/brokermaintenances.html", **context)
+
+
+@bp.route('/show_count/', methods=['GET', 'POST'])
+@login_required
+def show_count():
+    comm1 = {
+        'order_num': '1',
+        'group_name': '佐登尼斯旅行團',
+        'car': 'A車',
+        'order_date': '2022, 4, 15',
+        'sale_amt': 20000,
+        'comm_amt': 2000
+    }
+
+    comm2 = {
+        'order_num': '1',
+        'group_name': '佐登尼斯旅行團',
+        'car': 'B車',
+        'order_date': '2022, 4, 15',
+        'sale_amt': 15000,
+        'comm_amt': 1500
+    }
+    comms = [comm1, comm2]
+
+    broker = {
+        'broker_id': '1',
+        'broker_name': '導遊Ａ'
+    }
+
+    context = {
+        'comms': comms,
+        'broker': broker
+    }
+    return render_template('broker/brokermaintenances.html', **context)
 
 
 @bp.route('/payment/', methods=['PSST'])
