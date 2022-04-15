@@ -109,7 +109,7 @@ def show_count():
     }
     return render_template('broker/brokermaintenances.html', **context)
 
-@bp.route('/check_payment/')
+@bp.route('/check_payment/' , methods=['GET', 'POST'])
 @login_required
 def check_payment():
     # 接收list存入pay, pay_line兩張表中

@@ -22,7 +22,7 @@
 {% endblock %}
 
 {% block main_content %}
-    <form method="post" name="commission_list" action="{{ broker.check_payment }}" role="form">
+    <form method="post" name="commission_list" action="{{ url_for('broker.check_payment') }}" role="form">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
         <div style="float: right">
             <input list="broker_ids" name="broker_id" placeholder="{{ broker.broker_id }}"
