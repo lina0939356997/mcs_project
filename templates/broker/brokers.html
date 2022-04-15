@@ -46,10 +46,10 @@
                 <tr>
                     <td>{{ commission.order_num }}</td>
                     <td>
-                        <input type="checkbox" name="order_num" value="{{ commission.order_num }}"/>
-                        <input type="hidden" name="group_name" value="{{ commission.group_name }}"/>
-                        <input type="hidden" name="car" value="{{ commission.car }}"/>
-                        <input type="hidden" name="order_date" value="{{ commission.order_date }}"/>
+                        <input type="checkbox" name="order_num" value="{{ commission.order_num }};{{ commission.group_name }};{{ commission.car }};{{ commission.order_date }}"/>
+{#                        <input type="hidden" name="group_name" value="{{ commission.group_name }}"/>#}
+{#                        <input type="hidden" name="car" value="{{ commission.car }}"/>#}
+{#                        <input type="hidden" name="order_date" value="{{ commission.order_date }}"/>#}
                     </td>
                     <td>{{ commission.group_name }}</td>
                     <td>{{ commission.car }}</td>
