@@ -19,7 +19,7 @@ bp = Blueprint("broker", __name__, url_prefix='/broker')
 @bp.route('/show_count/')
 @login_required
 def show_count():
-    return render_template('broker/brokercount.html')
+    return render_template('broker/brokermaintenances.html')
 
 @bp.route('/')
 @login_required
