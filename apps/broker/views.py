@@ -17,12 +17,6 @@ from utils import restful
 bp = Blueprint("broker", __name__, url_prefix='/broker')
 
 
-@bp.route('/show_count/', methods=['GET', 'POST'])
-@login_required
-def show_count():
-    return render_template('broker/brokermaintenances.html')
-
-
 @bp.route('/show_comms/', methods=['GET', 'POST'])
 @login_required
 def show_comms():
@@ -75,12 +69,14 @@ def show_comms():
 @login_required
 def distribute():
     # 接收list存入comm, comm_line, comm_broker三張表中
-    # group_name = request.args.getList('group_name')
-    # car = request.args.getList('car')
-    # subtotal = request.args.getList('subtotal')
-    # print(group_name)
-    # print(car)
-    # print(subtotal)
+    order_num = request.form.getlist('order_num')
+    group_name = request.form.getlist('group_name')
+    car = request.form.getlist('car')
+    order_date = request.form.getlist('order_date')
+    print(order_num)
+    print(group_name)
+    print(car)
+    print(order_date)
     # 從comm_broker關聯到comm表中取出屬於該broker的comm資料
     comm1 = {
         'order_num': '1',
@@ -116,4 +112,11 @@ def distribute():
 @bp.route('/payment/', methods=['PSST'])
 @login_required
 def payment():
+    payment1 = {
+        'pay'
+    }
     return restful_template("/broker/payment.html")
+
+
+
+
