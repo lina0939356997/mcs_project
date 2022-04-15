@@ -110,19 +110,19 @@ def show_count():
     return render_template('broker/brokermaintenances.html', **context)
 
 
-@bp.route('/ashow_count', methods=['POST'])
+@bp.route('/ashow_count/', methods=['POST'])
 @login_required
 def ashow_count():
     return restful.success()
 
 
-@bp.route('/ushow_count', methods=['POST'])
+@bp.route('/ushow_count/', methods=['POST'])
 @login_required
 def ushow_count():
     return restful.success()
 
 
-@bp.route('/dshow_count', methods=['POST'])
+@bp.route('/dshow_count/', methods=['POST'])
 @login_required
 def dshow_count():
     return restful.success()
