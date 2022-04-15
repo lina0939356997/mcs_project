@@ -33,7 +33,9 @@ def show_comms():
     #               PosViewModel.order_date) \
     #     .all()
 
-    commission = {
+    # broker = BrokerModel.query.order_by(BrokerModel.broker_id)
+
+    commission1 = {
         'order_num': '1',
         'group_name': '佐登尼斯旅行團',
         'car': 'A車',
@@ -41,28 +43,63 @@ def show_comms():
         'subtotal': 20000
     }
 
-    result = [commission]
+    commission2 = {
+        'order_num': '1',
+        'group_name': '佐登尼斯旅行團',
+        'car': 'B車',
+        'order_date': '2022, 4, 15',
+        'subtotal': 15000
+    }
 
-    broker = BrokerModel.query.order_by(BrokerModel.broker_id)
+    commissions = [commission1, commission2]
 
     context = {
-        'commissions': result,
+        'commissions': commissions,
         'broker': broker
     }
-    print(result)
     return render_template('broker/brokers.html', **context)
 
 
 @bp.route('/distribute/', methods=['POST'])
 @login_required
 def distribute():
-    group_name = request.args.getList('group_name')
-    car = request.args.getList('car')
-    subtotal = request.args.getList('subtotal')
-    print(group_name)
-    print(car)
-    print(subtotal)
-    return render_template("broker/brokermaintains.html")
+    # 接收list存入comm, comm_line, comm_broker三張表中
+    # group_name = request.args.getList('group_name')
+    # car = request.args.getList('car')
+    # subtotal = request.args.getList('subtotal')
+    # print(group_name)
+    # print(car)
+    # print(subtotal)
+    # 從comm_broker關聯到comm表中取出屬於該broker的comm資料
+    comm1 = {
+        'order_num': '1',
+        'group_name': '佐登尼斯旅行團',
+        'car': 'A車',
+        'order_date': '2022, 4, 15',
+        'sale_amt': 20000,
+        'comm_amt': 2000
+    }
+
+    comm2 = {
+        'order_num': '1',
+        'group_name': '佐登尼斯旅行團',
+        'car': 'B車',
+        'order_date': '2022, 4, 15',
+        'sale_amt': 15000,
+        'comm_amt': 1500
+    }
+    comms = [comm1, comm2]
+
+    broker = [{
+        broker_id: '1',
+        broker_name: '導遊Ａ'
+    }]
+
+    context = {
+        'comms': comms,
+        'broker': broker
+    }
+    return render_template("broker/brokermaintains.html", **context)
 
 
 @bp.route('/payment/', methods=['PSST'])
