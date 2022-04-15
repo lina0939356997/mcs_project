@@ -19,16 +19,8 @@
 {% block main_content %}
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
     <div style="float: right">
-        <input list="broker_ids" name="broker_id" placeholder="{{ broker.broker_id }}" value="{{ broker.broker_id }}">
-        <datalist id="broker_ids">
-            <option value="員工1">員工1</option>
-            <option value="員工2">員工2</option>
-            <option value="員工3">員工3</option>
-            <option value="員工4">員工4</option>
-            <option value="員工5">員工5</option>
-            <option value="其他">其他</option>
-        </datalist>
-        <button type="button" class="btn btn-default btn-xs search-broker-btn">搜尋</button>
+        <input name="broker_id" placeholder="{{ broker.broker_id }}" value="{{ broker.broker_id }}" readonly>
+        <button type="button" class="btn btn-default btn-xs search-broker-btn">選擇broker</button>
     </div>
     <div class="top-box">
 {#        <button class="btn btn-warning" data-toggle="modal" data-target="#userset-dialog">新增</button>#}
