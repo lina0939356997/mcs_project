@@ -95,21 +95,22 @@ def distribute():
     }
     comms = [comm1, comm2]
 
-    broker = [{
-        broker_id: '1',
-        broker_name: '導遊Ａ'
-    }]
+    broker = {
+        'broker_id': '1',
+        'broker_name': '導遊Ａ'
+    }
 
     context = {
         'comms': comms,
         'broker': broker
     }
-    return render_template("broker/brokermaintains.html", **context)
+    return render_template("broker/brokermaintenances.html", **context)
 
 
 @bp.route('/payment/', methods=['PSST'])
 @login_required
 def payment():
+
     return restful_template("/broker/payment.html")
 
 
