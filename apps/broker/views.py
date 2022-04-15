@@ -113,7 +113,23 @@ def distribute():
 @login_required
 def payment():
     payment1 = {
-        'pay'
+        'pay_date': '2020, 04, 15',
+        'decl_type': '個人申報',
+        'broker_id': '1',
+        'pay_status': 'NEW',
+        'decl_status': 'N',
+        'total_amt': 2000,
+        'tax_amt': 1000
+    }
+
+    payment2 = {
+        'pay_date': '2020, 04, 8',
+        'decl_type': '個人申報',
+        'broker_id': '1',
+        'pay_status': 'CLOSED',
+        'decl_status': 'N',
+        'total_amt': 6000,
+        'tax_amt': 2000
     }
     return restful_template("/broker/payment.html")
 
