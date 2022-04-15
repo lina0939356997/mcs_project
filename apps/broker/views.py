@@ -129,7 +129,7 @@ def show_count():
     return render_template('broker/brokermaintenances.html', **context)
 
 
-@bp.route('/payment/', methods=['PSST'])
+@bp.route('/payment/', methods=['POST'])
 @login_required
 def payment():
     payment1 = {
@@ -147,7 +147,7 @@ def payment():
     context = {
         payments,
     }
-    return render_template("/broker/payment.html", **context)
+    return render_template("/broker/payments.html", **context)
 
 
 
