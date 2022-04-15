@@ -30,12 +30,16 @@ def show_count():
         'group_name': "佐登妮斯旅行團",
         'car': "A車",
         'order_date': "2020/04/15",
+    }
+    broker = {
         'broker_id': broker_id
     }
     context = {
-        'commissions': commissions
+        'commissions': commissions,
+        'broker': broker
     }
     return render_template('broker/brokercount.html', **context)
+
 
 @bp.route('/', methods=['GET', 'POST'])
 @login_required
