@@ -53,7 +53,7 @@ def show_comms():
 @bp.route('/distribute/', methods=['POST'])
 @login_required
 def distribute():
-    # 接收list存入comm, comm_line, comm_broker三張表中
+    # 接收list處理完後存入comm, comm_line, comm_broker三張表中
     order_num = request.form.getlist('order_num')
     group_name = request.form.getlist('group_name')
     car = request.form.getlist('car')
@@ -62,33 +62,14 @@ def distribute():
     print(group_name)
     print(car)
     print(order_date)
-    # 從comm_broker關聯到comm表中取出屬於該broker的comm資料
-    comm1 = {
-        'order_num': '1',
-        'group_name': '佐登尼斯旅行團',
-        'car': 'A車',
-        'order_date': '2022, 4, 15',
-        'sale_amt': 20000,
-        'comm_amt': 2000
-    }
 
-    comm2 = {
-        'order_num': '1',
-        'group_name': '佐登尼斯旅行團',
-        'car': 'B車',
-        'order_date': '2022, 4, 15',
-        'sale_amt': 15000,
-        'comm_amt': 1500
-    }
-    comms = [comm1, comm2]
-
+    # 傳遞broker_id去佣金維護畫面
     broker = {
         'broker_id': '1',
         'broker_name': '導遊Ａ'
     }
 
     context = {
-        'comms': comms,
         'broker': broker
     }
     return redirect(url_for('broker.show_count', **context))
@@ -97,7 +78,7 @@ def distribute():
 @bp.route('/show_count/', methods=['GET', 'POST'])
 @login_required
 def show_count():
-    # 如何redirect所傳過來的broker_id
+    # 如何接收redirect所傳過來的broker_id？
     comm1 = {
         'order_num': '1',
         'group_name': '佐登尼斯旅行團',
@@ -127,6 +108,23 @@ def show_count():
         'broker': broker
     }
     return render_template('broker/brokermaintenances.html', **context)
+
+@bp.route('/check_payment/')
+@login_required
+def check_payment():
+    # 接收list存入pay, pay_line兩張表中
+    order_num = request.form.getlist('order_num')
+    print(order_num)
+    # 傳遞broker_id至款管理畫面
+    broker = {
+        'broker_id': '1',
+        'broker_name': '導遊Ａ'
+    }
+
+    context = {
+        'broker': broker
+    }
+    return redirect(url_for('broker.payment', **context))
 
 
 @bp.route('/payment/')
