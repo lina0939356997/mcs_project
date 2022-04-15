@@ -1,7 +1,7 @@
 import config
 from datetime import datetime
 import apps.config
-from flask import Blueprint, render_template, request, session
+from flask import Blueprint, render_template, request, session, url_for, redirect
 from .forms import (
     TakeComm,
 )
@@ -91,12 +91,13 @@ def distribute():
         'comms': comms,
         'broker': broker
     }
-    return render_template("broker/brokermaintenances.html", **context)
+    return redirect(url_for('broker.show_count', **context))
 
 
 @bp.route('/show_count/', methods=['GET', 'POST'])
 @login_required
 def show_count():
+    # 如何redirect所傳過來的broker_id
     comm1 = {
         'order_num': '1',
         'group_name': '佐登尼斯旅行團',
@@ -146,7 +147,7 @@ def payment():
     context = {
         payments,
     }
-    return restful_template("/broker/payment.html", **context)
+    return render_template("/broker/payment.html", **context)
 
 
 
