@@ -20,18 +20,28 @@ bp = Blueprint("broker", __name__, url_prefix='/broker')
 @bp.route('/show_comms/', methods=['GET', 'POST'])
 @login_required
 def show_comms():
-    result = db.session.query(
-        PosViewModel.order_num,
-        PosViewModel.group_name,
-        PosViewModel.car,
-        PosViewModel.order_date,
-        func.sum(PosViewModel.amt).label('subtotal')
-    ).filter(PosViewModel.sale_line_id.isnot(None)) \
-        .group_by(PosViewModel.order_num,
-                  PosViewModel.group_name,
-                  PosViewModel.car,
-                  PosViewModel.order_date) \
-        .all()
+    # result = db.session.query(
+    #     PosViewModel.order_num,
+    #     PosViewModel.group_name,
+    #     PosViewModel.car,
+    #     PosViewModel.order_date,
+    #     func.sum(PosViewModel.amt).label('subtotal')
+    # ).filter(PosViewModel.sale_line_id.isnot(None)) \
+    #     .group_by(PosViewModel.order_num,
+    #               PosViewModel.group_name,
+    #               PosViewModel.car,
+    #               PosViewModel.order_date) \
+    #     .all()
+
+    commission = {
+        'order_num': '1',
+        'group_name': '佐登尼斯旅行團',
+        'car': 'A車',
+        'order_date': '2022, 4, 15',
+        'subtotal': 20000
+    }
+
+    result = [commission]
 
     broker = BrokerModel.query.order_by(BrokerModel.broker_id)
 
@@ -43,7 +53,7 @@ def show_comms():
     return render_template('broker/brokers.html', **context)
 
 
-@bp.route('/distribute/', methods=['GET', 'POST'])
+@bp.route('/distribute/', methods=['POST'])
 @login_required
 def distribute():
     group_name = request.args.getList('group_name')
@@ -55,10 +65,10 @@ def distribute():
     return render_template("broker/brokermaintains.html")
 
 
-@bp.route('/payment/')
+@bp.route('/payment/', methods=['PSST'])
 @login_required
 def payment():
-    return restful_template()
+    return restful_template("/broker/payment.html")
 
 
 
