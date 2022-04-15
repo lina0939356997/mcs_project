@@ -174,19 +174,19 @@ def payment():
     return render_template("/broker/payments.html", **context)
 
 
-@bp.route('/apayment', methods=['POST'])
+@bp.route('/apayment/', methods=['POST'])
 @login_required
 def apayment():
     return restful.success()
 
 
-@bp.route('/upayment', methods=['POST'])
+@bp.route('/upayment/', methods=['POST'])
 @login_required
 def upayment():
     return restful.success()
 
 
-@bp.route('/dpayment', methods=['POST'])
+@bp.route('/dpayment/', methods=['POST'])
 @login_required
 def dpayment():
     return restful.success()
