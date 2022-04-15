@@ -129,7 +129,7 @@ def show_count():
     return render_template('broker/brokermaintenances.html', **context)
 
 
-@bp.route('/payment/', methods=['POST'])
+@bp.route('/payment/')
 @login_required
 def payment():
     payment1 = {
@@ -144,8 +144,15 @@ def payment():
         'total_amt': 6000
     }
     payments = [payment1, payment2]
+
+    broker = {
+        'broker_id': '1',
+        'broker_name': '導遊Ａ'
+    }
+
     context = {
-        payments,
+        'payments': payments,
+        'broker': broker
     }
     return render_template("/broker/payments.html", **context)
 
