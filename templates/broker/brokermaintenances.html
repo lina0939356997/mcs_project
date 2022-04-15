@@ -24,9 +24,9 @@
 {% block main_content %}
     <form method="post" name="commission_list" action="" role="form">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-        <div class="top-box">
-            <button class="btn btn-warning" data-toggle="modal" data-target="#userset-dialog">新增</button>
-        </div>
+{#        <div class="top-box">#}
+{#            <button class="btn btn-warning" data-toggle="modal" data-target="#userset-dialog">新增</button>#}
+{#        </div>#}
         {#        <label>人員</label>#}
         {#        <div>#}
         {#            <input list="broker_ids" name="broker_id" placeholder="人員" value="{{ csrf_token() }}">#}
@@ -71,7 +71,7 @@
                     </td>
                     <td>佣金</td>
                     <td>
-                        <button class="btn btn-default btn-xs edit-broker-btn " type="button">編輯</button>
+                        <button class="btn btn-default btn-xs edit-broker-btn " type="button">結算</button>
                         <button class="btn btn-danger btn-xs delete-broker-btn" type="button">刪除</button>
                     </td>
                 </tr>
@@ -79,7 +79,7 @@
             {% endfor %}
             </tbody>
         </table>
-        <button class="btn btn-warning" style="float: right">結算</button>
+        <button class="btn btn-warning" style="float: right">付款</button>
         {#        type="button"#}
     </form>
     {#    <div style="text-align: center">#}
