@@ -1,11 +1,11 @@
 $(function () {
     $(".add-broker-btn").click(function () {
-        var url = "ashow_count/";
+        var url = "/broker/ashow_count/";
         zlajax.post({
             'url': url,
             'success': function (data) {
                 if (data['code'] == 200) {
-                    zlalert.alertSuccessToast('結算完成！');
+                    zlalert.alertSuccessToast('新增完成！');
                 } else {
                     zlalert.alertInfo(data['message']);
                 }
@@ -17,7 +17,7 @@ $(function () {
 
 $(function () {
     $(".edit-broker-btn").click(function () {
-        var url = "ushow_count/";
+        var url = "/broker/ushow_count/";
         zlajax.post({
             'url': url,
             'success': function (data) {
@@ -33,7 +33,7 @@ $(function () {
 
 $(function () {
     $(".delete-broker-btn").click(function () {
-        var url = "dshow_count/";
+        var url = "/broker/dshow_count/";
         zlajax.post({
             'url': url,
             'success': function (data) {
