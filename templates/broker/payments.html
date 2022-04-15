@@ -9,7 +9,7 @@
     <script src="https://cdn.staticfile.org/Plupload/2.1.1/moxie.js"></script>
     <script src="https://cdn.staticfile.org/Plupload/2.1.1/plupload.dev.js"></script>
     <script src="https://cdn.staticfile.org/qiniu-js-sdk/1.0.14-beta/qiniu.js"></script>
-    {#    <script src="{{ static('broker/js/broker.js') }}"></script>#}
+    <script src="{{ static('broker/js/payment.js') }}"></script>
 {% endblock %}
 
 {% block page_title %}
@@ -31,7 +31,8 @@
         <button type="button" class="btn btn-default btn-xs search-broker-btn">搜尋</button>
     </div>
     <div class="top-box">
-        <button class="btn btn-warning" data-toggle="modal" data-target="#userset-dialog">新增</button>
+{#        <button class="btn btn-warning" data-toggle="modal" data-target="#userset-dialog">新增</button>#}
+        <button class="btn btn-warning add-payment-btn">新增</button>
     </div>
     <table class="table table-bordered">
         <thead>
@@ -40,6 +41,7 @@
             <th>日期</th>
             <th>付款狀態</th>
             <th>總金額</th>
+            <th>操作</th>
         </tr>
         </thead>
         <tbody>
@@ -50,8 +52,8 @@
                 <td>{{ payment.pay_status }}</td>
                 <td>{{ payment.total_amt }}</td>
                 <td>
-                    <button class="btn btn-default btn-xs edit-broker-btn " type="button">編輯</button>
-                    <button class="btn btn-danger btn-xs delete-broker-btn" type="button">刪除</button>
+                    <button class="btn btn-default btn-xs edit-payment-btn" type="button">編輯</button>
+                    <button class="btn btn-danger btn-xs delete-payment-btn" type="button">刪除</button>
                 </td>
             </tr>
         {% endfor %}
