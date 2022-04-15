@@ -132,25 +132,21 @@ def show_count():
 @login_required
 def payment():
     payment1 = {
-        'pay_date': '2020, 04, 15',
-        'decl_type': '個人申報',
-        'broker_id': '1',
-        'pay_status': 'NEW',
-        'decl_status': 'N',
+        'pay_date': '2020, 04, 12',
+        'pay_status': '已付款',
         'total_amt': 2000,
-        'tax_amt': 1000
     }
 
     payment2 = {
-        'pay_date': '2020, 04, 8',
-        'decl_type': '個人申報',
-        'broker_id': '1',
-        'pay_status': 'CLOSED',
-        'decl_status': 'N',
-        'total_amt': 6000,
-        'tax_amt': 2000
+        'pay_date': '2020, 04, 11',
+        'pay_status': '已付款',
+        'total_amt': 6000
     }
-    return restful_template("/broker/payment.html")
+    payments = [payment1, payment2]
+    context = {
+        payments,
+    }
+    return restful_template("/broker/payment.html", **context)
 
 
 
