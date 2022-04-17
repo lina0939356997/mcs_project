@@ -22,7 +22,7 @@
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
         <div>
             <input type="hidden" name="broker_id" value="{{ broker.broker_name }}">
-            <button type="button" class="btn btn-warning search-broker-btn">選擇Broker</button>
+            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#broker-dialog">選擇Broker</button>
         </div>
         <table class="table table-bordered">
             <thead>
@@ -41,9 +41,6 @@
                     <td>
                         <input type="checkbox" name="order_num"
                                value="{{ commission.order_num }},{{ commission.group_name }},{{ commission.car }},{{ commission.order_date }}"/>
-                        {#                        <input type="hidden" name="group_name" value="{{ commission.group_name }}"/>#}
-                        {#                        <input type="hidden" name="car" value="{{ commission.car }}"/>#}
-                        {#                        <input type="hidden" name="order_date" value="{{ commission.order_date }}"/>#}
                     </td>
                     <td>{{ commission.group_name }}</td>
                     <td>{{ commission.car }}</td>
@@ -57,4 +54,65 @@
         <button class="btn btn-warning" style="float: right">計算</button>
         {#        type="button"#}
     </form>
+
+    <div class="modal fade" id="broker-dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                            onclick="location.reload()"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">選擇Broker</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">姓名或電話：</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="namecall" placeholder="姓名或電話">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="location.reload()">關閉
+                    </button>
+                    <button type="button" class="btn btn-primary" id="save-broker-btn">送出</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="brokerchose-dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                            onclick="location.reload()"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">搜尋結果</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">確認Broker：</label>
+                            <div class="col-sm-8">
+                                <input list="Brokerlists" class="form-control" name="brokerchose" placeholder="確認Broker">
+                                <datalist id="Brokerlists">
+                                    {% for i in range(1,5) %}
+                                    <option name="brokerchose" value="{{ i }}">{{ i }}</option>
+                                    {% endfor %}
+                                </datalist>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="location.reload()">關閉
+                    </button>
+                    <button type="button" class="btn btn-primary" id="save-brokerchose-btn">確認</button>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

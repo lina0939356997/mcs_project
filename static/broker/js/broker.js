@@ -26,54 +26,81 @@ $(function () {
 });
 
 $(function () {
-    $(".update-userset-btn").click(function (event) {
+    $("#save-broker-btn").click(function (event) {
+        event.preventDefault();
         var self = $(this);
-        var tr = self.parent().parent();
-        var user_id = tr.attr('data-id');
-        zlalert.alertConfirm({
-            "msg": "確認編輯？",
-            'confirmCallback': function () {
-                zlajax.post({
-                    'url': '/duserset/',
-                    'data': {
-                        'user_id': user_id
-                    },
-                    'success': function (data) {
-                        if (data['code'] === 200) {
-                            window.location.reload();
-                        } else {
-                            zlalert.alertInfo(data['message']);
-                        }
-                    }
-                })
+        var dialog = $("#broker-dialog");
+        var dialog2 = $("#brokerchose-dialog");
+        var namecallInput = $("input[name='namecall']");
+
+        var namecall = namecallInput.val();
+
+
+
+        if(!namecall){
+            zlalert.alertInfoToast('請輸入完整資訊！');
+            return;
+        }
+
+        var url = 'broker/search/';
+
+        zlajax.post({
+            "url": url,
+            'data':{
+                'namecall':namecall,
+            },
+            'success': function (data) {
+                dialog.modal("hide");
+                if(data['code'] === 200){
+                    // 重新加载这个页面
+                    dialog2.modal("show")
+                }else{
+                    zlalert.alertInfo(data['message']);
+                }
+            },
+            'fail': function () {
+                zlalert.alertNetworkError();
             }
         });
     });
 });
-
 
 $(function () {
-    $(".delete-userset-btn").click(function (event) {
+    $("#save-brokerchose-btn").click(function (event) {
+        event.preventDefault();
         var self = $(this);
-        var tr = self.parent().parent();
-        var user_id = tr.attr('data-id');
-        zlalert.alertConfirm({
-            "msg": "確認刪除？",
-            'confirmCallback': function () {
-                zlajax.post({
-                    'url': '/duserset/',
-                    'data': {
-                        'user_id': user_id
-                    },
-                    'success': function (data) {
-                        if (data['code'] === 200) {
-                            window.location.reload();
-                        } else {
-                            zlalert.alertInfo(data['message']);
-                        }
-                    }
-                })
+        var dialog = $("#brokerchose-dialog");
+        var brokerchoseInput = $("input[name='brokerchose']");
+
+        var brokerchose = brokerchoseInput.val();
+
+
+
+        if(!brokerchose){
+            zlalert.alertInfoToast('請輸入完整資訊！');
+            return;
+        }
+
+        var url = 'broker/brokerchose/';
+
+        zlajax.post({
+            "url": url,
+            'data':{
+                'brokerchose':brokerchose,
+            },
+            'success': function (data) {
+                dialog.modal("hide");
+                if(data['code'] === 200){
+                    // 重新加载这个页面
+                    window.location.reload();
+                }else{
+                    zlalert.alertInfo(data['message']);
+                }
+            },
+            'fail': function () {
+                zlalert.alertNetworkError();
             }
         });
     });
 });
+
