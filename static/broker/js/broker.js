@@ -1,5 +1,6 @@
 $(function () {
     $(".search-broker-btn").click(function (event) {
+        event.preventDefault();
         var self = $(this);
 
         var broker_idInput = $("input[name='broker_id']");
