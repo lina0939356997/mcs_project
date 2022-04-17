@@ -12,7 +12,7 @@ $(function () {
             return;
         }
 
-        var url = "/borker/show_comms/";
+        var url = "/broker/show_comms/";
 
 
         zlajax.post({

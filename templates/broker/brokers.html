@@ -20,7 +20,7 @@
     <form method="post" name="commission_list" action="{{ url_for('broker.distribute') }}" role="form">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
         <div>
-            <input type="text" name="broker_id" value="{{ broker.broker_name }}" readonly>
+            <input type="text" name="broker_id" value="{{ broker.broker_name }}">
             <button type="button" class="btn btn-default btn-xs search-broker-btn">選擇Broker</button>
         </div>
         <table class="table table-bordered">
