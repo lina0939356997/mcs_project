@@ -124,16 +124,18 @@ def dbrokerinfor():
 @bp.route('/show_comms/', methods=['GET', 'POST'])
 @login_required
 def show_comms():
-    brokers = []
+    query_obj = []
     if request.method == 'POST':
         search = request.values['search']
-        if search:
-            broker = {
-                'broker_id': 1,
-                'brober_name': '導遊B',
-                'phone': '091234567',
-            }
-            brokers = [broker]
+        a = ord(search[0])
+        if a < 58:
+            search_text = "%{}%".format(search)
+            query_obj = query_obj.filter(BrokerModel.phone.like(search_text))
+        else:
+            search_text = "%{}%".format(search)
+            query_obj = query_obj.filter(BrokerModel.broker_name.like(search_text))
+
+    brokers = query_obj.slice(0, 10)
 
     result = db.session.query(
         PosViewModel.order_num,
@@ -202,6 +204,8 @@ def distribute():
     # 接收list處理完後存入comm, comm_line, comm_broker三張表中
     comm = request.form.getlist('order_num')
     print(comm)
+    broker_id = request.form.get('brokerchose')
+    print(broker_id)
 
     # 傳遞broker_id去佣金維護畫面
     broker = {
