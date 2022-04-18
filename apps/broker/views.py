@@ -49,7 +49,7 @@ def brokerinfors():
     return render_template('broker/brokerinfors.html', **context)
 
 
-@bp.route('/abroker/', methods=['POST'])
+@bp.route('/abrokerinfor/', methods=['POST'])
 @login_required
 def abrokerinfor():
     user_id = session.get(config.MC_USER_ID)
@@ -75,7 +75,7 @@ def abrokerinfor():
         return restful.params_error(message=form.get_error())
 
 
-@bp.route('/ubroker/', methods=['POST'])
+@bp.route('/ubrokerinfor/', methods=['POST'])
 @login_required
 def ubrokerinfor():
     user_id = session.get(config.MC_USER_ID)
@@ -105,7 +105,7 @@ def ubrokerinfor():
         return restful.params_error(message=form.get_error())
 
 
-@bp.route('/dbroker/', methods=['POST'])
+@bp.route('/dbrokerinfor/', methods=['POST'])
 @login_required
 def dbrokerinfor():
     broker_id = request.form.get('broker_id')
