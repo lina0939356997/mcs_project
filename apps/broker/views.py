@@ -21,7 +21,7 @@ bp = Blueprint("broker", __name__, url_prefix='/broker')
 
 @bp.route('/', methods=['GET', 'POST'])
 @login_required
-def brokers():
+def brokerinfors():
     page = request.args.get(get_page_parameter(), type=int, default=1)
     start = (page - 1) * config.PER_PAGE
     end = start + config.PER_PAGE
@@ -51,7 +51,7 @@ def brokers():
 
 @bp.route('/abroker/', methods=['POST'])
 @login_required
-def abroker():
+def abrokerinfor():
     user_id = session.get(config.MC_USER_ID)
     user = UserModel.query.filter_by(user_id=user_id).first()
     created_at = datetime.now()
@@ -77,7 +77,7 @@ def abroker():
 
 @bp.route('/ubroker/', methods=['POST'])
 @login_required
-def ubroker():
+def ubrokerinfor():
     user_id = session.get(config.MC_USER_ID)
     user = UserModel.query.filter_by(user_id=user_id).first()
     form = UpdateBrokerForm(request.form)
@@ -107,7 +107,7 @@ def ubroker():
 
 @bp.route('/dbroker/', methods=['POST'])
 @login_required
-def dbroker():
+def dbrokerinfor():
     broker_id = request.form.get('broker_id')
     if not broker_id:
         return restful.params_error(message='id缺失！')
