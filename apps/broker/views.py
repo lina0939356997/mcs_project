@@ -45,7 +45,9 @@ def show_brokers():
         search = request.values['search']
         if search:
             broker = {
-                'broker_id': 1
+                'broker_id': 1,
+                'brober_name': '導遊B',
+                'phone': '091234567',
             }
             brokers = [broker]
             # search_text = "%{}%".format(search)
