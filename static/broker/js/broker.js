@@ -52,7 +52,6 @@ $(function () {
             'success': function (data) {
                 dialog.modal("hide");
                 if(data['code'] === 200){
-                    // 重新加载这个页面
                     dialog2.modal("show");
                 }else{
                     zlalert.alertInfo(data['message']);

@@ -17,12 +17,26 @@
 {% endblock %}
 
 {% block main_content %}
+    <form action="">
+        <input type="text" name="get_broker_id">
+        <button class="btn btn-warning">搜尋</button>
+    </form>
+
     <form method="post" name="commission_list" action="{{ url_for('broker.distribute') }}" role="form">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
         <div>
-            <input type="hidden" name="broker_id" value="{{ broker.broker_name }}">
-            <h2>{{ broker.broker_name }}
-            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#broker-dialog">選擇Broker</button></h2>
+            <input list="Brokerlists" class="form-control" name="brokerchose" placeholder="確認Broker">
+            <datalist id="Brokerlists">
+                {% for broker in brokers %}
+                    <option name="brokerchose" value="{{ broker.brober_name }}{{ broker.phone }}">
+                        {{ broker.brober_name }}{{ broker.phone }}</option>
+                {% endfor %}
+            </datalist>
+            {#            <h2>{{ broker.broker_name }}#}
+            {#                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#broker-dialog">#}
+            {#                    選擇Broker#}
+            {#                </button>#}
+            {#            </h2>#}
         </div>
         <table class="table table-bordered">
             <thead>
@@ -55,7 +69,8 @@
         {#        type="button"#}
     </form>
 
-    <div class="modal fade" id="broker-dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+    <div class="modal fade" id="broker-dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -83,7 +98,8 @@
         </div>
     </div>
 
-    <div class="modal fade" id="brokerchose-dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
+    <div class="modal fade" id="brokerchose-dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -97,10 +113,12 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">確認Broker：</label>
                             <div class="col-sm-8">
-                                <input list="Brokerlists" class="form-control" name="brokerchose" placeholder="確認Broker">
+                                <input list="Brokerlists" class="form-control" name="brokerchose"
+                                       placeholder="確認Broker">
                                 <datalist id="Brokerlists">
                                     {% for broker in brokers %}
-                                    <option name="brokerchose" value="{{ broker.brober_name }}{{ broker.phone }}">{{ broker.brober_name }}{{ broker.phone }}</option>
+                                        <option name="brokerchose" value="{{ broker.brober_name }}{{ broker.phone }}">
+                                            {{ broker.brober_name }}{{ broker.phone }}</option>
                                     {% endfor %}
                                 </datalist>
                             </div>
