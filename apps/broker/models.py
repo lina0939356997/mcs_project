@@ -5,6 +5,7 @@ from datetime import datetime
 class CommModel(db.Model):
     __tablename__ = 'comm'
     comm_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    broker_id = db.Column(db.Integer, db.ForeignKey("broker.broker_id"), nullable=True)
     order_num = db.Column(db.String(30), nullable=False)
     group_name = db.Column(db.String(50), nullable=False)
     car = db.Column(db.String(30), nullable=True)
@@ -61,20 +62,20 @@ class BrokerModel(db.Model):
     updater = db.relationship("UserModel", foreign_keys=[updated_by], backref='ubrokers')
 
 
-class CommBrokerModel(db.Model):
-    __tablename__ = 'comm_broker'
-    comm_broker_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    broker_id = db.Column(db.Integer, db.ForeignKey("broker.broker_id"), nullable=False)
-    comm_id = db.Column(db.Integer, db.ForeignKey("comm.comm_id"), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.now, nullable=False)
-    created_by = db.Column(db.String(10), db.ForeignKey("user.account"), nullable=False)
-    updated_at = db.Column(db.DateTime, default=datetime.now, nullable=False)
-    updated_by = db.Column(db.String(10), db.ForeignKey("user.account"), nullable=False)
-
-    broker = db.relationship("BrokerModel", foreign_keys=[broker_id], backref='comms')
-    comm = db.relationship("CommModel", foreign_keys=[comm_id], backref='brokers')
-    creator = db.relationship("UserModel", foreign_keys=[created_by], backref='ccommbrokers')
-    updater = db.relationship("UserModel", foreign_keys=[updated_by], backref='ucommbrokers')
+# class CommBrokerModel(db.Model):
+#     __tablename__ = 'comm_broker'
+#     comm_broker_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+#     broker_id = db.Column(db.Integer, db.ForeignKey("broker.broker_id"), nullable=False)
+#     comm_id = db.Column(db.Integer, db.ForeignKey("comm.comm_id"), nullable=False)
+#     created_at = db.Column(db.DateTime, default=datetime.now, nullable=False)
+#     created_by = db.Column(db.String(10), db.ForeignKey("user.account"), nullable=False)
+#     updated_at = db.Column(db.DateTime, default=datetime.now, nullable=False)
+#     updated_by = db.Column(db.String(10), db.ForeignKey("user.account"), nullable=False)
+#
+#     broker = db.relationship("BrokerModel", foreign_keys=[broker_id], backref='comms')
+#     comm = db.relationship("CommModel", foreign_keys=[comm_id], backref='brokers')
+#     creator = db.relationship("UserModel", foreign_keys=[created_by], backref='ccommbrokers')
+#     updater = db.relationship("UserModel", foreign_keys=[updated_by], backref='ucommbrokers')
 
 
 class PayModel(db.Model):
@@ -104,7 +105,7 @@ class PayLineModel(db.Model):
     __tablename__ = 'pay_line'
     pay_line_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     pay_id = db.Column(db.Integer, db.ForeignKey("pay.pay_id"), nullable=False)
-    comm_broker_id = db.Column(db.Integer, db.ForeignKey("comm_broker.comm_broker_id"), nullable=True)
+    # comm_broker_id = db.Column(db.Integer, db.ForeignKey("comm.comm_broker_id"), nullable=True)
     pay_type = db.Column(db.String(20), nullable=False)
     pay_amt = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.now, nullable=False)
@@ -113,6 +114,6 @@ class PayLineModel(db.Model):
     updated_by = db.Column(db.String(10), db.ForeignKey("user.account"), nullable=False)
 
     pay = db.relationship("PayModel", foreign_keys=[pay_id], backref='comm_brokers')
-    comm_broker = db.relationship("CommBrokerModel", foreign_keys=[comm_broker_id], backref='pays')
+    # comm_broker = db.relationship("CommBrokerModel", foreign_keys=[comm_broker_id], backref='pays')
     creator = db.relationship("UserModel", foreign_keys=[created_by], backref='cpaylines')
     updater = db.relationship("UserModel", foreign_keys=[updated_by], backref='upaylines')

@@ -10,11 +10,12 @@ from .forms import (
 from apps.mc.models import UserModel
 from ..models import PosViewModel
 from flask_paginate import Pagination, get_page_parameter
-from .models import CommModel, CommLineModel, BrokerModel, CommBrokerModel
+from .models import CommModel, CommLineModel, BrokerModel
 from apps.decorators import login_required
 from sqlalchemy import func
 from exts import db
 from utils import restful
+from .library import calculate_comm, select_broker_comm
 
 bp = Blueprint("broker", __name__, url_prefix='/broker')
 
@@ -162,34 +163,47 @@ def show_comms():
         return render_template('broker/brokers.html', **context)
 
 
-@bp.route('/distribute/', methods=['POST'])
-@login_required
-def distribute():
-    # 接收list處理完後存入comm, comm_line, comm_broker三張表中
-    comm = request.form.getlist('order_num')
-    print(comm)
-    broker_id = request.form.get('brokerchose')
-    print(broker_id)
-
-    # 傳遞broker_id去佣金維護畫面
-    broker = {
-        'broker_id': broker_id,
-        'broker_name': '導遊B',
-        'phone': '091234567'
-    }
-
-    context = {
-        'broker': broker
-    }
-    return redirect(url_for('broker.show_count', **context))
+# @bp.route('/distribute/', methods=['POST'])
+# @login_required
+# def distribute():
+#     # 接收list處理完後存入comm, comm_line, comm_broker三張表中
+#     comm = request.form.getlist('order_num')
+#     print(comm)
+#     broker_id = request.form.get('brokerchose')
+#     print(broker_id)
+#
+#     # 傳遞broker_id去佣金維護畫面
+#     broker = {
+#         'broker_id': broker_id,
+#         'broker_name': '導遊B',
+#         'phone': '091234567'
+#     }
+#
+#     context = {
+#         'broker': broker
+#     }
+#     return redirect(url_for('broker.show_count', broker_id=request.form.get('brokerchose')))
 
 
 @bp.route('/show_count/', methods=['GET', 'POST'])
 @login_required
 def show_count():
-    # 如何接收redirect所傳過來的broker_id？
+    comm_key = request.form.getlist('comm_key')
+    print(comm_key)
     broker_id = request.form.get('brokerchose')
     print(broker_id)
+    # 有傳入需要計算的資料及broker_id，去pos系統抓取資料存入資料庫後再顯示該broker所擁有未結算的comm
+    if comm_key and broker_id:
+        calculate_comm(comm_key, broker_id)
+        result = select_broker_comm(broker_id)
+        print(result)
+    # 只有傳入broker_id，去comm表抓取屬於該broker的所有未結算的資料
+    elif broker_id:
+        print("沒有要分配的佣金")
+        result = select_broker_comm(broker_id)
+        print(result)
+    else:
+        print("啥都沒有")
     comm1 = {
         'order_num': '1',
         'group_name': '佐登尼斯旅行團',
@@ -220,6 +234,44 @@ def show_count():
         'broker': broker
     }
     return render_template('broker/brokermaintenances.html', **context)
+
+
+# @bp.route('/show_count/', methods=['GET', 'POST'])
+# @login_required
+# def show_count(broker_id):
+#     # 如何接收redirect所傳過來的broker_id？
+#     broker_id = broker_id
+#     print(broker_id)
+#     comm1 = {
+#         'order_num': '1',
+#         'group_name': '佐登尼斯旅行團',
+#         'car': 'A車',
+#         'order_date': '2022, 4, 15',
+#         'sale_amt': 20000,
+#         'comm_amt': 2000
+#     }
+#
+#     comm2 = {
+#         'order_num': '1',
+#         'group_name': '佐登尼斯旅行團',
+#         'car': 'B車',
+#         'order_date': '2022, 4, 15',
+#         'sale_amt': 15000,
+#         'comm_amt': 1500
+#     }
+#     comms = [comm1, comm2]
+#
+#     broker = {
+#         'broker_id': broker_id,
+#         'broker_name': '導遊B',
+#         'phone': '091234567'
+#     }
+#
+#     context = {
+#         'comms': comms,
+#         'broker': broker
+#     }
+#     return render_template('broker/brokermaintenances.html', **context)
 
 
 @bp.route('/ashow_count/', methods=['POST'])
