@@ -121,9 +121,10 @@ def dbrokerinfor():
     return restful.success()
 
 
-@bp.route('/show_brokers/', methods=['GET', 'POST'])
+@bp.route('/show_comms/', methods=['GET', 'POST'])
 @login_required
-def show_brokers():
+def show_comms():
+    brokers = []
     if request.method == 'POST':
         search = request.values['search']
         if search:
@@ -133,10 +134,44 @@ def show_brokers():
                 'phone': '091234567',
             }
             brokers = [broker]
+
+    result = db.session.query(
+        PosViewModel.order_num,
+        PosViewModel.group_name,
+        PosViewModel.car,
+        PosViewModel.order_date,
+        func.sum(PosViewModel.amt).label('subtotal')
+    ).filter(PosViewModel.sale_line_id.isnot(None)) \
+        .group_by(PosViewModel.order_num,
+                  PosViewModel.group_name,
+                  PosViewModel.car,
+                  PosViewModel.order_date) \
+        .all()
+
     context = {
+        'commissions': result,
         'brokers': brokers
     }
-    return restful.success(message="success", data=context)
+
+    return render_template('broker/brokers.html', **context)
+
+
+# @bp.route('/show_brokers/', methods=['GET', 'POST'])
+# @login_required
+# def show_brokers():
+#     if request.method == 'POST':
+#         search = request.values['search']
+#         if search:
+#             broker = {
+#                 'broker_id': 1,
+#                 'brober_name': '導遊B',
+#                 'phone': '091234567',
+#             }
+#             brokers = [broker]
+#     context = {
+#         'brokers': brokers
+#     }
+#     return restful.success(message="success", data=context)
 
 
 # @bp.route('/show_brokers/', methods=['GET', 'POST'])
@@ -159,39 +194,6 @@ def show_brokers():
 #         'brokers': brokers
 #     }
 #     return restful.success(message="broker傳遞", data=context)
-
-
-@bp.route('/show_comms/', methods=['GET', 'POST'])
-@login_required
-def show_comms():
-    commission1 = {
-        'order_num': '1',
-        'group_name': '佐登尼斯旅行團',
-        'car': 'A車',
-        'order_date': '2022, 4, 15',
-        'subtotal': 20000,
-    }
-
-    commission2 = {
-        'order_num': '1',
-        'group_name': '佐登尼斯旅行團',
-        'car': 'B車',
-        'order_date': '2022, 4, 15',
-        'subtotal': 15000
-    }
-
-    commissions = [commission1, commission2]
-
-    broker = {
-        'broker_id': '1',
-        'broker_name': '導遊Ａ'
-    }
-
-    context = {
-        'commissions': commissions,
-        'broker': broker
-    }
-    return render_template('broker/brokers.html', **context)
 
 
 @bp.route('/distribute/', methods=['POST'])
