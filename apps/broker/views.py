@@ -124,7 +124,6 @@ def dbrokerinfor():
 @bp.route('/show_comms/', methods=['GET', 'POST'])
 @login_required
 def show_comms():
-    # query_obj = BrokerModel.query.order_by(BrokerModel.broker_id.desc())
     result = db.session.query(
         PosViewModel.order_num,
         PosViewModel.group_name,
@@ -138,6 +137,7 @@ def show_comms():
                   PosViewModel.order_date) \
         .all()
 
+    # 不可以直接按搜尋
     if request.method == 'POST':
         search = request.values['search']
         a = ord(search[0])
@@ -160,28 +160,6 @@ def show_comms():
             'commissions': result,
         }
         return render_template('broker/brokers.html', **context)
-
-
-# @bp.route('/show_brokers/', methods=['GET', 'POST'])
-# @login_required
-# def show_brokers():
-#     query_obj = BrokerModel.query.order_by(BrokerModel.broker_id.desc())
-#     if request.method == 'POST':
-#         search = request.values['search']
-#         a = ord(search[0])
-#         if a < 58:
-#             search_text = "%{}%".format(search)
-#             query_obj = query_obj.filter(BrokerModel.phone.like(search_text))
-#         else:
-#             search_text = "%{}%".format(search)
-#             query_obj = query_obj.filter(BrokerModel.broker_name.like(search_text))
-#
-#     brokers = query_obj.slice(0, 10)
-#
-#     context = {
-#         'brokers': brokers
-#     }
-#     return restful.success(message="broker傳遞", data=context)
 
 
 @bp.route('/distribute/', methods=['POST'])
