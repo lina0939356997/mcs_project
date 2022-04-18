@@ -124,17 +124,7 @@ def dbrokerinfor():
 @bp.route('/show_comms/', methods=['GET', 'POST'])
 @login_required
 def show_comms():
-    brokers = []
-    if request.method == 'POST':
-        search = request.values['search']
-        if search:
-            broker = {
-                'broker_id': 1,
-                'brober_name': '導遊B',
-                'phone': '091234567',
-            }
-            brokers = [broker]
-
+    # query_obj = BrokerModel.query.order_by(BrokerModel.broker_id.desc())
     result = db.session.query(
         PosViewModel.order_num,
         PosViewModel.group_name,
@@ -148,30 +138,28 @@ def show_comms():
                   PosViewModel.order_date) \
         .all()
 
-    context = {
-        'commissions': result,
-        'brokers': brokers
-    }
+    if request.method == 'POST':
+        search = request.values['search']
+        a = ord(search[0])
+        if a < 58:
+            search_text = "%{}%".format(search)
+            query_obj = BrokerModel.query.filter(BrokerModel.phone.like(search_text))
+        else:
+            search_text = "%{}%".format(search)
+            query_obj = BrokerModel.query.filter(BrokerModel.broker_name.like(search_text))
 
-    return render_template('broker/brokers.html', **context)
+        brokers = query_obj.slice(0, 10)
 
-
-# @bp.route('/show_brokers/', methods=['GET', 'POST'])
-# @login_required
-# def show_brokers():
-#     if request.method == 'POST':
-#         search = request.values['search']
-#         if search:
-#             broker = {
-#                 'broker_id': 1,
-#                 'brober_name': '導遊B',
-#                 'phone': '091234567',
-#             }
-#             brokers = [broker]
-#     context = {
-#         'brokers': brokers
-#     }
-#     return restful.success(message="success", data=context)
+        context = {
+            'commissions': result,
+            'brokers': brokers
+        }
+        return render_template('broker/brokers.html', **context)
+    else:
+        context = {
+            'commissions': result,
+        }
+        return render_template('broker/brokers.html', **context)
 
 
 # @bp.route('/show_brokers/', methods=['GET', 'POST'])
@@ -207,8 +195,9 @@ def distribute():
 
     # 傳遞broker_id去佣金維護畫面
     broker = {
-        'broker_id': '1',
-        'broker_name': '導遊Ａ'
+        'broker_id': broker_id,
+        'broker_name': '導遊B',
+        'phone': '091234567'
     }
 
     context = {
@@ -221,6 +210,8 @@ def distribute():
 @login_required
 def show_count():
     # 如何接收redirect所傳過來的broker_id？
+    broker_id = request.form.get('brokerchose')
+    print(broker_id)
     comm1 = {
         'order_num': '1',
         'group_name': '佐登尼斯旅行團',
@@ -241,8 +232,9 @@ def show_count():
     comms = [comm1, comm2]
 
     broker = {
-        'broker_id': '1',
-        'broker_name': '導遊Ａ'
+        'broker_id': broker_id,
+        'broker_name': '導遊B',
+        'phone': '091234567'
     }
 
     context = {
@@ -273,13 +265,16 @@ def dshow_count():
 @bp.route('/check_payment/', methods=['POST'])
 @login_required
 def check_payment():
+    broker_id = request.form.get('brokerchose')
+    print(broker_id)
     # 接收list存入pay, pay_line兩張表中
     order_num = request.form.getlist('order_num')
     print(order_num)
     # 傳遞broker_id至款管理畫面
     broker = {
-        'broker_id': '1',
-        'broker_name': '導遊Ａ'
+        'broker_id': broker_id,
+        'broker_name': '導遊B',
+        'phone': '091234567'
     }
 
     context = {
@@ -291,6 +286,8 @@ def check_payment():
 @bp.route('/payment/', methods=['GET', 'POST'])
 @login_required
 def payment():
+    broker_id = request.form.get('brokerchose')
+    print(broker_id)
     payment1 = {
         'pay_date': '2020, 04, 12',
         'pay_status': '已付款',
@@ -305,8 +302,9 @@ def payment():
     payments = [payment1, payment2]
 
     broker = {
-        'broker_id': '1',
-        'broker_name': '導遊Ａ'
+        'broker_id': broker_id,
+        'broker_name': '導遊B',
+        'phone': '091234567'
     }
 
     context = {
