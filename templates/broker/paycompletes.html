@@ -1,0 +1,62 @@
+{% extends "mc/base.html" %}
+{% from "common/_macros.html" import static %}
+
+{% block title %}
+    付款清單
+{% endblock %}
+
+{% block head %}
+    <script src="https://cdn.staticfile.org/Plupload/2.1.1/moxie.js"></script>
+    <script src="https://cdn.staticfile.org/Plupload/2.1.1/plupload.dev.js"></script>
+    <script src="https://cdn.staticfile.org/qiniu-js-sdk/1.0.14-beta/qiniu.js"></script>
+    <script src="{{ static('broker/js/paycomplete.js') }}"></script>
+{% endblock %}
+
+{% block page_title %}
+    {{ self.title() }}
+{% endblock %}
+
+{% block main_content %}
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    <form method="post" name="broker_list" action="{{ url_for('broker.payment') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <input type="text" name="search">
+        <button class="btn btn-warning">搜尋</button>
+    </form>
+        <div>
+            {% if broker.broker_id %}
+                <input list="Brokerlists" name="brokerchose" value="{{ broker.broker_id }}"
+                       placeholder="{{ broker.brober_name }}{{ broker.phone }}" autocomplete="off">
+            {% else %}
+                <input list="Brokerlists" name="brokerchose" placeholder="確認broker" autocomplete="off">
+            {% endif %}
+            <datalist id="Brokerlists">
+                {% for broker in brokers %}
+                    <option name="brokerchose" value="{{ broker.broker_id }}">
+                        {{ broker.brober_name }}{{ broker.phone }}</option>
+                {% endfor %}
+            </datalist>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>計</th>
+                <th>日期</th>
+                <th>付款狀態</th>
+                <th>總金額</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for payment in payments %}
+                <tr>
+                    <td>{{ payment.pay_date }}</td>
+                    <td>{{ payment.pay_status }}</td>
+                    <td>{{ payment.total_amt }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+
+{% endblock %}

@@ -64,6 +64,10 @@ $(function () {
         var profileLi = $('.p3');
         profileLi.addClass('unfold').siblings().removeClass('unfold');
         profileLi.children('.subnav').children().eq(3).addClass('active').siblings().removeClass('active');
+    } else if(url.indexOf('paycompletes') >= 0){
+        var profileLi = $('.p3');
+        profileLi.addClass('unfold').siblings().removeClass('unfold');
+        profileLi.children('.subnav').children().eq(4).addClass('active').siblings().removeClass('active');
     } else if(url.indexOf('kanbancontrol') >= 0){
         var profileLi = $('.p4');
         profileLi.addClass('unfold').siblings().removeClass('unfold');
