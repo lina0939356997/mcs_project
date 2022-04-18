@@ -17,6 +17,45 @@ from utils import restful
 bp = Blueprint("broker", __name__, url_prefix='/broker')
 
 
+@bp.route('/', methods=['GET', 'POST'])
+@login_required
+def brokers():
+    page = request.args.get(get_page_parameter(), type=int, default=1)
+    start = (page - 1) * config.PER_PAGE
+    end = start + config.PER_PAGE
+    total = 0
+    query_obj = None
+    query_obj = BrokerModel.query.order_by(BrokerModel.broker_id.desc())
+
+    brokers = query_obj.slice(start, end)
+    total = query_obj.count()
+    pagination = Pagination(bs_version=3, page=page, total=total, outer_window=0, inner_window=2)
+    context = {
+        'brokers': brokers,
+        'pagination': pagination,
+    }
+    return render_template('broker/brokers.html', **context)
+
+
+@bp.route('/show_brokers/', methods=['GET', 'POST'])
+@login_required
+def show_brokers():
+    # query_obj = BrokerModel.query.order_by(BrokerModel.broker_id.desc())
+    if request.method == 'POST':
+        search = request.values['search']
+        if search:
+            broker = {
+                'broker_id': 1
+            }
+            brokers = [broker]
+            # search_text = "%{}%".format(search)
+            # query_obj = query_obj.filter
+    context = {
+        'brokers': brokers
+    }
+    return render_template('broker/brokers.html', **context)
+
+
 @bp.route('/show_comms/', methods=['GET', 'POST'])
 @login_required
 def show_comms():
