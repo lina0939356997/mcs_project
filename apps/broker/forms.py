@@ -6,8 +6,8 @@ from ..forms import BaseForm
 class AddBrokerForm(BaseForm):
     broker_name = StringField(validators=[Length(1, 50, message="導遊名稱不可超過50個字元"), InputRequired(
         message="請輸入導遊名稱")])
-    broker_num = StringField(validators=[Length(1, 10, message="導遊編號不可超過10個字元"), InputRequired(
-        message="請輸入導遊編號")])
+    broker_num = StringField(validators=[Length(1, 10, message="導遊身分證號不可超過10個字元"), InputRequired(
+        message="請輸入導遊身分證號")])
     travel = StringField(validators=[Length(1, 50, message="旅行社名稱不可超過50個字元"), InputRequired(
         message="請輸入旅行社名稱")])
     phone = StringField(validators=[Length(1, 10, message="手機號碼不可超過10個字元"), InputRequired(
