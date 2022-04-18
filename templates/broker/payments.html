@@ -60,22 +60,24 @@
             <tbody>
             {% for payment in payments %}
                 <tr>
-                    {% if payment.pay_status == '已付款'%}
-                    <td>
-                        完成
-                    </td>
+                    {% if payment.pay_status == '已付款' %}
+                        <td>完成</td>
                     {% else %}
-                    <td>
-                        <input type="checkbox" name="order_num" value="{{ payment.payment }}"/>
-                    </td>
+                        <td>
+                            <input type="checkbox" name="order_num" value="{{ payment.payment }}"/>
+                        </td>
                     {% endif %}
                     <td>{{ payment.pay_date }}</td>
                     <td>{{ payment.pay_status }}</td>
                     <td>{{ payment.total_amt }}</td>
-                    <td>
-                        <button class="btn btn-default btn-xs edit-payment-btn" type="button">編輯</button>
-                        <button class="btn btn-danger btn-xs delete-payment-btn" type="button">刪除</button>
-                    </td>
+                    {% if payment.pay_status == '已付款' %}
+                        <td>已完成付款，不可操作</td>
+                    {% else %}
+                        <td>
+                            <button class="btn btn-default btn-xs edit-payment-btn" type="button">編輯</button>
+                            <button class="btn btn-danger btn-xs delete-payment-btn" type="button">刪除</button>
+                        </td>
+                    {% endif %}
                 </tr>
             {% endfor %}
             </tbody>
