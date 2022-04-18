@@ -24,41 +24,49 @@ $(function () {
 
 $(function () {
     var url = window.location.href;
-    if(url.indexOf('profile') >= 0){
-        var profileLi = $('.profile-li');
+    if(url.indexOf('usersets') >= 0){
+        var profileLi = $('.p1');
         profileLi.addClass('unfold').siblings().removeClass('unfold');
         profileLi.children('.subnav').children().eq(0).addClass('active').siblings().removeClass('active');
-    } else if(url.indexOf('resetpwd') >= 0){
-        var profileLi = $('.profile-li');
+    } else if(url.indexOf('sysparameters') >= 0){
+        var profileLi = $('.p1');
         profileLi.addClass('unfold').siblings().removeClass('unfold');
         profileLi.children('.subnav').children().eq(1).addClass('active').siblings().removeClass('active');
-    } else if(url.indexOf('resetemail') >= 0){
-        var profileLi = $('.profile-li');
+    } else if(url.indexOf('listvalues') >= 0){
+        var profileLi = $('.p1');
         profileLi.addClass('unfold').siblings().removeClass('unfold');
         profileLi.children('.subnav').children().eq(2).addClass('active').siblings().removeClass('active');
-    } else if(url.indexOf('posts') >= 0){
-        var postManageLi = $('.post-manage');
-        postManageLi.addClass('unfold').siblings().removeClass('unfold');
-    }else if(url.indexOf('boards') >= 0){
-        var boardManageLi = $('.board-manage');
-        boardManageLi.addClass('unfold').siblings().removeClass('unfold');
-    }else if(url.indexOf('permissions') >= 0){
-        var permissionManageLi = $('.permission-manage');
-        permissionManageLi.addClass('unfold').siblings().removeClass('unfold');
-    }else if(url.indexOf('fusers') >= 0){
-        var userManageLi = $('.user-manage');
-        userManageLi.addClass('unfold').siblings().removeClass('unfold');
-    }else if(url.indexOf('cusers') >= 0){
-        var cmsuserManageLi = $('.cmsuser-manage');
-        cmsuserManageLi.addClass('unfold').siblings().removeClass('unfold');
-    }else if(url.indexOf('croles') >= 0){
-        var cmsroleManageLi = $('.cmsrole-manage');
-        cmsroleManageLi.addClass('unfold').siblings().removeClass('unfold');
-    }else if(url.indexOf('comments') >= 0) {
-        var commentsManageLi = $('.comments-manage');
-        commentsManageLi.addClass('unfold').siblings().removeClass('unfold');
-    }else if(url.indexOf("banners") >= 0){
-        var bannerManageLi = $(".banner-manage");
-        bannerManageLi.addClass('unfold').siblings().removeClass('unfold');
+    } else if(url.indexOf('registers') >= 0){
+        var profileLi = $('.p2');
+        profileLi.addClass('unfold').siblings().removeClass('unfold');
+        profileLi.children('.subnav').children().eq(2).addClass('active').siblings().removeClass('active');
+    } else if(url.indexOf('earners') >= 0){
+        var profileLi = $('.p2');
+        profileLi.addClass('unfold').siblings().removeClass('unfold');
+        profileLi.children('.subnav').children().eq(2).addClass('active').siblings().removeClass('active');
+    } else if(url.indexOf('incomes') >= 0){
+        var profileLi = $('.p2');
+        profileLi.addClass('unfold').siblings().removeClass('unfold');
+        profileLi.children('.subnav').children().eq(2).addClass('active').siblings().removeClass('active');
+    } else if(url.indexOf('show_comms') >= 0){
+        var profileLi = $('.p3');
+        profileLi.addClass('unfold').siblings().removeClass('unfold');
+        profileLi.children('.subnav').children().eq(2).addClass('active').siblings().removeClass('active');
+    } else if(url.indexOf('show_count') >= 0){
+        var profileLi = $('.p3');
+        profileLi.addClass('unfold').siblings().removeClass('unfold');
+        profileLi.children('.subnav').children().eq(2).addClass('active').siblings().removeClass('active');
+    } else if(url.indexOf('payment') >= 0){
+        var profileLi = $('.p3');
+        profileLi.addClass('unfold').siblings().removeClass('unfold');
+        profileLi.children('.subnav').children().eq(2).addClass('active').siblings().removeClass('active');
+    } else if(url.indexOf('kanban') >= 0){
+        var profileLi = $('.p4');
+        profileLi.addClass('unfold').siblings().removeClass('unfold');
+        profileLi.children('.subnav').children().eq(2).addClass('active').siblings().removeClass('active');
+    } else if(url.indexOf('kanbancontrol') >= 0){
+        var profileLi = $('.p4');
+        profileLi.addClass('unfold').siblings().removeClass('unfold');
+        profileLi.children('.subnav').children().eq(2).addClass('active').siblings().removeClass('active');
     }
 });

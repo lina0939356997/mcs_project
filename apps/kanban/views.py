@@ -7,7 +7,7 @@ from utils import restful
 bp = Blueprint("kanban", __name__, url_prefix='/kans')
 
 
-@bp.route("/")
+@bp.route("/kanbancontrol/")
 def kanbancontrol():
     return render_template("kanban/kanbancontrols.html")
 
