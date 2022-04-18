@@ -48,6 +48,10 @@ $(function () {
         var profileLi = $('.p2');
         profileLi.addClass('unfold').siblings().removeClass('unfold');
         profileLi.children('.subnav').children().eq(2).addClass('active').siblings().removeClass('active');
+    } else if(url.indexOf('brokerinfors') >= 0){
+        var profileLi = $('.p3');
+        profileLi.addClass('unfold').siblings().removeClass('unfold');
+        profileLi.children('.subnav').children().eq(2).addClass('active').siblings().removeClass('active');
     } else if(url.indexOf('show_comms') >= 0){
         var profileLi = $('.p3');
         profileLi.addClass('unfold').siblings().removeClass('unfold');
