@@ -3,6 +3,8 @@ from datetime import datetime
 import apps.config
 from flask import Blueprint, render_template, request, session, url_for, redirect
 from .forms import (
+    AddBrokerForm,
+    UpdateBrokerForm,
     TakeComm,
 )
 from apps.mc.models import UserModel
@@ -26,21 +28,102 @@ def brokers():
     total = 0
     query_obj = None
     query_obj = BrokerModel.query.order_by(BrokerModel.broker_id.desc())
-
-    brokers = query_obj.slice(start, end)
+    if request.method == 'POST':
+        search = request.values['search']
+        a = ord(search[0])
+        if search and a < 58:
+            search_text = "%{}%".format(search)
+            query_obj = query_obj.filter(BrokerModel.phone.like(search_text))
+        elif search:
+            search_text = "%{}%".format(search)
+            query_obj = query_obj.filter(BrokerModel.broker_name.like(search_text))
+    else:
+        search = '請輸入導遊名稱或電話'
+    broker = query_obj.slice(start, end)
     total = query_obj.count()
     pagination = Pagination(bs_version=3, page=page, total=total, outer_window=0, inner_window=2)
     context = {
-        'brokers': brokers,
+        'brokers': broker,
         'pagination': pagination,
     }
-    return render_template('broker/brokers.html', **context)
+    return render_template('broker/brokerinfors.html', **context)
+
+
+@bp.route('/abroker/', methods=['POST'])
+@login_required
+def abroker():
+    user_id = session.get(config.MC_USER_ID)
+    user = UserModel.query.filter_by(user_id=user_id).first()
+    created_at = datetime.now()
+    created_by = user.account
+    updated_at = datetime.now()
+    updated_by = user.account
+    form = AddBrokerForm(request.form)
+    if form.validate():
+        broker_name = form.broker_name.data
+        broker_num = form.broker_num.data
+        travel = form.travel.data
+        phone = form.phone.data
+        address = form.address.data
+        broker = BrokerModel(broker_name=broker_name, broker_num=broker_num, travel=travel, phone=phone, address
+                             =address, created_at=created_at, created_by=created_by, updated_at=updated_at, updated_by
+                             =updated_by)
+        db.session.add(broker)
+        db.session.commit()
+        return restful.success()
+    else:
+        return restful.params_error(message=form.get_error())
+
+
+@bp.route('/ubroker/', methods=['POST'])
+@login_required
+def ubroker():
+    user_id = session.get(config.MC_USER_ID)
+    user = UserModel.query.filter_by(user_id=user_id).first()
+    form = UpdateBrokerForm(request.form)
+    if form.validate():
+        broker_id = form.broker_id.data
+        broker_name = form.broker_name.data
+        broker_num = form.broker_num.data
+        travel = form.travel.data
+        phone = form.phone.data
+        address = form.address.data
+        register = BrokerModel.query.get(broker_id)
+        if register:
+            register.broker_name = broker_name
+            register.broker_num = broker_num
+            register.travel = travel
+            register.phone = phone
+            register.address = address
+            register.updated_at = datetime.now()
+            register.updated_by = user.account
+            db.session.commit()
+            return restful.success()
+        else:
+            return restful.params_error(message='沒有這筆資料！')
+    else:
+        return restful.params_error(message=form.get_error())
+
+
+@bp.route('/dbroker/', methods=['POST'])
+@login_required
+def dbroker():
+    broker_id = request.form.get('broker_id')
+    if not broker_id:
+        return restful.params_error(message='id缺失！')
+
+    broker = BrokerModel.query.get(broker_id)
+    if not broker:
+        return restful.params_error(message='沒有這筆資料！')
+
+    db.session.delete(broker)
+    db.session.commit()
+    return restful.success()
 
 
 @bp.route('/show_brokers/', methods=['GET', 'POST'])
 @login_required
 def show_brokers():
-    # query_obj = BrokerModel.query.order_by(BrokerModel.broker_id.desc())
     if request.method == 'POST':
         search = request.values['search']
         if search:
@@ -50,8 +133,6 @@ def show_brokers():
                 'phone': '091234567',
             }
             brokers = [broker]
-            # search_text = "%{}%".format(search)
-            # query_obj = query_obj.filter
     context = {
         'brokers': brokers
     }
@@ -64,15 +145,20 @@ def show_brokers():
 #     query_obj = BrokerModel.query.order_by(BrokerModel.broker_id.desc())
 #     if request.method == 'POST':
 #         search = request.values['search']
-#         if search:
+#         a = ord(search[0])
+#         if a < 58:
+#             search_text = "%{}%".format(search)
+#             query_obj = query_obj.filter(BrokerModel.phone.like(search_text))
+#         else:
 #             search_text = "%{}%".format(search)
 #             query_obj = query_obj.filter(BrokerModel.broker_name.like(search_text))
+#
 #     brokers = query_obj.slice(0, 10)
 #
 #     context = {
 #         'brokers': brokers
 #     }
-#     return render_template('broker/brokers.html')
+#     return restful.success(message="broker傳遞", data=context)
 
 
 @bp.route('/show_comms/', methods=['GET', 'POST'])

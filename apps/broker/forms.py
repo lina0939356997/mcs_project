@@ -3,6 +3,22 @@ from wtforms.validators import InputRequired, Length
 from ..forms import BaseForm
 
 
+class AddBrokerForm(BaseForm):
+    broker_name = StringField(validators=[Length(1, 50, message="導遊名稱不可超過50個字元"), InputRequired(
+        message="請輸入導遊名稱")])
+    broker_num = StringField(validators=[Length(1, 10, message="導遊編號不可超過10個字元"), InputRequired(
+        message="請輸入導遊編號")])
+    travel = StringField(validators=[Length(1, 50, message="旅行社名稱不可超過50個字元"), InputRequired(
+        message="請輸入旅行社名稱")])
+    phone = StringField(validators=[Length(1, 10, message="手機號碼不可超過10個字元"), InputRequired(
+        message="請輸入手機號碼")])
+    address = StringField(validators=[Length(0, 200, message="地址不可超過200個字元")])
+
+
+class UpdateBrokerForm(AddBrokerForm):
+    broker_id = IntegerField(validators=[InputRequired(message="id缺失！")])
+
+
 class TakeComm(BaseForm):
     order_num = StringField(validators=[Length(1, 30, message='訂單編號不可超過30個字元'), InputRequired(
         message='請輸入訂單編號')])
