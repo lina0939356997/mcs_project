@@ -13,8 +13,7 @@
 {% endblock %}
 
 {% block page_title %}
-    <h1>{{ self.title() }}</h1>
-    <h2>{{ broker.broker_name }}</h2>
+    {{ self.title() }}
 {% endblock %}
 
 {% block main_content %}
@@ -22,7 +21,8 @@
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
         <div>
             <input type="hidden" name="broker_id" value="{{ broker.broker_name }}">
-            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#broker-dialog">選擇Broker</button>
+            <h2>{{ broker.broker_name }}
+            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#broker-dialog">選擇Broker</button></h2>
         </div>
         <table class="table table-bordered">
             <thead>

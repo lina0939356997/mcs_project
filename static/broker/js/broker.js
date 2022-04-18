@@ -42,7 +42,7 @@ $(function () {
             return;
         }
 
-        var url = 'broker/search/';
+        var url = '/broker/search/';
 
         zlajax.post({
             "url": url,
