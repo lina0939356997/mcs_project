@@ -18,38 +18,69 @@
 
 {% block main_content %}
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-    <div style="float: right">
-        <input name="broker_id" placeholder="{{ broker.broker_id }}" value="{{ broker.broker_id }}" readonly>
-        <button type="button" class="btn btn-default btn-xs search-broker-btn">選擇broker</button>
-    </div>
-    <div class="top-box">
-{#        <button class="btn btn-warning" data-toggle="modal" data-target="#userset-dialog">新增</button>#}
-        <button class="btn btn-warning add-payment-btn">新增</button>
-    </div>
-    <table class="table table-bordered">
-        <thead>
-        <tr>
-            <th>項目</th>
-            <th>日期</th>
-            <th>付款狀態</th>
-            <th>總金額</th>
-            <th>操作</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for payment in payments %}
+    <form method="post" name="broker_list" action="{{ url_for('broker.payment') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <input type="text" name="search">
+        <button class="btn btn-warning">搜尋</button>
+    </form>
+    <form method="post" name="commission_list" action="{{ url_for('broker.check_payment') }}" role="form">
+        <div>
+            {% if broker.broker_id %}
+                <input list="Brokerlists" name="brokerchose" value="{{ broker.broker_id }}"
+                       placeholder="{{ broker.brober_name }}{{ broker.phone }}" autocomplete="off">
+            {% else %}
+                <input list="Brokerlists" name="brokerchose" placeholder="確認broker" autocomplete="off">
+            {% endif %}
+            <datalist id="Brokerlists">
+                {% for broker in brokers %}
+                    <option name="brokerchose" value="{{ broker.broker_id }}">
+                        {{ broker.brober_name }}{{ broker.phone }}</option>
+                {% endfor %}
+            </datalist>
+            {#            <h2>{{ broker.broker_name }}#}
+            {#                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#broker-dialog">#}
+            {#                    選擇Broker#}
+            {#                </button>#}
+            {#            </h2>#}
+        </div>
+        <div class="top-box">
+            {#        <button class="btn btn-warning" data-toggle="modal" data-target="#userset-dialog">新增</button>#}
+            <button class="btn btn-warning add-payment-btn">新增</button>
+        </div>
+        <table class="table table-bordered">
+            <thead>
             <tr>
-                <td>{{ payment }}</td>
-                <td>{{ payment.pay_date }}</td>
-                <td>{{ payment.pay_status }}</td>
-                <td>{{ payment.total_amt }}</td>
-                <td>
-                    <button class="btn btn-default btn-xs edit-payment-btn" type="button">編輯</button>
-                    <button class="btn btn-danger btn-xs delete-payment-btn" type="button">刪除</button>
-                </td>
+                <th>計</th>
+                <th>日期</th>
+                <th>付款狀態</th>
+                <th>總金額</th>
+                <th>操作</th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for payment in payments %}
+                <tr>
+                    {% if payment.pay_status == '已付款'%}
+                    <td>
+                        完成
+                    </td>
+                    {% else %}
+                    <td>
+                        <input type="checkbox" name="order_num" value="{{ payment.payment }}"/>
+                    </td>
+                    {% endif %}
+                    <td>{{ payment.pay_date }}</td>
+                    <td>{{ payment.pay_status }}</td>
+                    <td>{{ payment.total_amt }}</td>
+                    <td>
+                        <button class="btn btn-default btn-xs edit-payment-btn" type="button">編輯</button>
+                        <button class="btn btn-danger btn-xs delete-payment-btn" type="button">刪除</button>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <button class="btn btn-warning" style="float: right">確認付款單</button>
+    </form>
 
 {% endblock %}
