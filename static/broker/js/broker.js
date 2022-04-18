@@ -27,7 +27,7 @@ $(function () {
 
 $(function () {
     $("#save-broker-btn").click(function (event) {
-        event.preventDefault();
+        // event.preventDefault();
         var self = $(this);
         var dialog = $("#broker-dialog");
         var dialog2 = $("#brokerchose-dialog");
@@ -42,18 +42,18 @@ $(function () {
             return;
         }
 
-        var url = '/broker/search/';
+        var url = '/broker/show_brokers/';
 
         zlajax.post({
             "url": url,
             'data':{
-                'namecall':namecall,
+                'search':namecall,
             },
             'success': function (data) {
                 dialog.modal("hide");
                 if(data['code'] === 200){
                     // 重新加载这个页面
-                    dialog2.modal("show")
+                    dialog2.modal("show");
                 }else{
                     zlalert.alertInfo(data['message']);
                 }

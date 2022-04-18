@@ -139,18 +139,13 @@
                             <label class="col-sm-4 control-label">所得人註記：</label>
                             <div class="col-sm-7">
                                 <input list="id_marks" class="form-control" name="id_mark" placeholder="所得人註記">
-{#                                <datalist id="id_marks">#}
-{#                                    <option value="旅行社">旅行社</option>#}
-{#                                    <option value="導遊">導遊</option>#}
-{#                                    <option value="員工">員工</option>#}
-{#                                    <option value="房東">房東</option>#}
-{#                                    <option value="其他">其他</option>#}
-{#                                    <option value="司機">司機</option>#}
-{#                                </datalist>#}
                                 <datalist id="id_marks">
-                                    {% for i in range(1,5) %}
-                                    <option value="{{ i }}">{{ i }}</option>
-                                    {% endfor %}
+                                    <option value="旅行社">旅行社</option>
+                                    <option value="導遊">導遊</option>
+                                    <option value="員工">員工</option>
+                                    <option value="房東">房東</option>
+                                    <option value="其他">其他</option>
+                                    <option value="司機">司機</option>
                                 </datalist>
                             </div>
                         </div>

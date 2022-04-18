@@ -55,7 +55,7 @@ def show_brokers():
     context = {
         'brokers': brokers
     }
-    return restful.success(**context)
+    return restful.success()
 
 # @bp.route('/show_brokers/', methods=['GET', 'POST'])
 # @login_required
