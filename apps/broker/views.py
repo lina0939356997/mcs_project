@@ -19,7 +19,7 @@ from utils import restful
 bp = Blueprint("broker", __name__, url_prefix='/broker')
 
 
-@bp.route('/', methods=['GET', 'POST'])
+@bp.route('/brokerinfors/', methods=['GET', 'POST'])
 @login_required
 def brokerinfors():
     page = request.args.get(get_page_parameter(), type=int, default=1)
