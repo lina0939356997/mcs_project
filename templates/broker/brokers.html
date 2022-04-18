@@ -17,15 +17,16 @@
 {% endblock %}
 
 {% block main_content %}
-    <form action="">
-        <input type="text" name="get_broker_id">
+    <form method="post" name="broker_list" action="{{ url_for('broker.show_comms') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <input type="text" name="search">
         <button class="btn btn-warning">搜尋</button>
     </form>
 
     <form method="post" name="commission_list" action="{{ url_for('broker.distribute') }}" role="form">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
         <div>
-            <input list="Brokerlists" class="form-control" name="brokerchose" placeholder="確認Broker">
+            <input list="Brokerlists" name="brokerchose" placeholder="確認Broker">
             <datalist id="Brokerlists">
                 {% for broker in brokers %}
                     <option name="brokerchose" value="{{ broker.brober_name }}{{ broker.phone }}">
@@ -38,6 +39,7 @@
             {#                </button>#}
             {#            </h2>#}
         </div>
+
         <table class="table table-bordered">
             <thead>
             <tr>
