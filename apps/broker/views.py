@@ -37,25 +37,38 @@ def brokers():
     return render_template('broker/brokers.html', **context)
 
 
-@bp.route('/show_brokers/', methods=['GET', 'POST'])
-@login_required
+# @bp.route('/show_brokers/', methods=['GET', 'POST'])
+# @login_required
+# def show_brokers():
+#     # query_obj = BrokerModel.query.order_by(BrokerModel.broker_id.desc())
+#     if request.method == 'POST':
+#         search = request.values['search']
+#         if search:
+#             broker = {
+#                 'broker_id': 1,
+#                 'brober_name': '導遊B',
+#                 'phone': '091234567',
+#             }
+#             brokers = [broker]
+#             # search_text = "%{}%".format(search)
+#             # query_obj = query_obj.filter
+#     context = {
+#         'brokers': brokers
+#     }
+#     return render_template('broker/brokers.html', **context)
+
+
 def show_brokers():
     # query_obj = BrokerModel.query.order_by(BrokerModel.broker_id.desc())
-    if request.method == 'POST':
-        search = request.values['search']
-        if search:
-            broker = {
-                'broker_id': 1,
-                'brober_name': '導遊B',
-                'phone': '091234567',
-            }
-            brokers = [broker]
-            # search_text = "%{}%".format(search)
-            # query_obj = query_obj.filter
-    context = {
-        'brokers': brokers
-    }
-    return render_template('broker/brokers.html', **context)
+    # if request.method == 'POST':
+    #     search = request.values['search']
+    #     if search:
+    #         search_text = "%{}%".format(search)
+    #         brokers = BrokerModel.query.filter(BrokerModel.broker_name.like(search_text))
+    # context = {
+    #     'brokers': brokers
+    # }
+    return render_template('broker/brokers.html')
 
 
 @bp.route('/show_comms/', methods=['GET', 'POST'])
