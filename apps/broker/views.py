@@ -299,7 +299,7 @@ def payment():
 
     payment2 = {
         'pay_date': '2020, 04, 11',
-        'pay_status': '已付款',
+        'pay_status': '未付款',
         'total_amt': 6000
     }
     payments = [payment1, payment2]
