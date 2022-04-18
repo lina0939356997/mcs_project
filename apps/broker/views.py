@@ -124,18 +124,16 @@ def dbrokerinfor():
 @bp.route('/show_comms/', methods=['GET', 'POST'])
 @login_required
 def show_comms():
-    query_obj = []
+    brokers = []
     if request.method == 'POST':
         search = request.values['search']
-        a = ord(search[0])
-        if a < 58:
-            search_text = "%{}%".format(search)
-            query_obj = query_obj.filter(BrokerModel.phone.like(search_text))
-        else:
-            search_text = "%{}%".format(search)
-            query_obj = query_obj.filter(BrokerModel.broker_name.like(search_text))
-
-    brokers = query_obj.slice(0, 10)
+        if search:
+            broker = {
+                'broker_id': 1,
+                'brober_name': '導遊B',
+                'phone': '091234567',
+            }
+            brokers = [broker]
 
     result = db.session.query(
         PosViewModel.order_num,
@@ -152,7 +150,7 @@ def show_comms():
 
     context = {
         'commissions': result,
-        'broker': brokers
+        'brokers': brokers
     }
 
     return render_template('broker/brokers.html', **context)
