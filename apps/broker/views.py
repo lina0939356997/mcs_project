@@ -152,7 +152,7 @@ def show_comms():
 
     context = {
         'commissions': result,
-        'brokers': brokers
+        'broker': brokers
     }
 
     return render_template('broker/brokers.html', **context)

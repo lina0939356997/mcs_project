@@ -26,10 +26,10 @@
     <form method="post" name="commission_list" action="{{ url_for('broker.distribute') }}" role="form">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
         <div>
-            <input list="Brokerlists" name="brokerchose" placeholder="確認Broker">
+            <input list="Brokerlists" name="brokerchose" placeholder="確認Broker" autocomplete="off">
             <datalist id="Brokerlists">
-                {% for broker in brokers %}
-                    <option name="brokerchose" value="{{ broker.brober_name }}{{ broker.phone }}">
+                {% for broker in broker %}
+                    <option name="brokerchose" value="{{broker.broker_id}}">
                         {{ broker.brober_name }}{{ broker.phone }}</option>
                 {% endfor %}
             </datalist>
