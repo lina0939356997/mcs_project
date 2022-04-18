@@ -55,7 +55,8 @@ def show_brokers():
     context = {
         'brokers': brokers
     }
-    return restful.success(**context)
+    return restful.success(message="success", data=context)
+
 
 # @bp.route('/show_brokers/', methods=['GET', 'POST'])
 # @login_required
@@ -66,6 +67,7 @@ def show_brokers():
 #         if search:
 #             search_text = "%{}%".format(search)
 #             query_obj = query_obj.filter(BrokerModel.broker_name.like(search_text))
+#     brokers = query_obj.slice(0, 10)
 #
 #     context = {
 #         'brokers': brokers
