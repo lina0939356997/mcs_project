@@ -3,9 +3,12 @@ CREATE SEQUENCE IF NOT EXISTS public.order_sale_sale_line_id_seq
     START 1
     MINVALUE 1
     MAXVALUE 2147483647
-    CACHE 1
+    CACHE 1 ;
 
- CREATE TABLE IF NOT EXISTS public.order_sale
+ALTER SEQUENCE public.order_sale_sale_line_id_seq
+    OWNER TO postgres;
+
+CREATE TABLE IF NOT EXISTS public.order_sale
 (
     sale_line_id integer NOT NULL DEFAULT nextval('order_sale_sale_line_id_seq'::regclass),
     order_num character varying(30) COLLATE pg_catalog."default",
