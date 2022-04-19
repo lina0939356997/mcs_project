@@ -24,21 +24,22 @@
 {% block main_content %}
     <form method="post" name="broker_list" action="{{ url_for('broker.show_count') }}">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-        <input type="text" name="search">
+        <input type="text" name="search" placeholder="輸入姓名或電話">
         <button class="btn btn-warning">搜尋</button>
     </form>
     <form method="post" name="commission_list" action="{{ url_for('broker.check_payment') }}" role="form">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
         <div>
-        {% if broker.broker_id %}
-            <input list="Brokerlists" name="brokerchose" value="{{broker.broker_id}}" placeholder="{{ broker.brober_name }}{{ broker.phone }}" autocomplete="off">
-        {% else %}
-            <input list="Brokerlists" name="brokerchose" placeholder="確認broker" autocomplete="off">
-        {% endif %}
+            {% if broker.broker_id %}
+                <input list="Brokerlists" name="brokerchose" value="{{ broker.broker_id }}"
+                       placeholder="{{ broker.brober_name }}{{ broker.phone }}" autocomplete="off">
+            {% else %}
+                <input list="Brokerlists" name="brokerchose" placeholder="確認broker" autocomplete="off">
+            {% endif %}
             <datalist id="Brokerlists">
-                {% for broker in broker %}
-                    <option name="brokerchose" value="{{broker.broker_id}}">
-                        {{ broker.brober_name }}{{ broker.phone }}</option>
+                {% for brokers in broker %}
+                    <option name="brokerchose" value="{{ brokers.broker_id }}">
+                        {{ brokers.brober_name }}{{ brokers.phone }}</option>
                 {% endfor %}
             </datalist>
             {#            <h2>{{ broker.broker_name }}#}
@@ -48,7 +49,7 @@
             {#            </h2>#}
         </div>
         <div class="top-box">
-{#            <button class="btn btn-warning" data-toggle="modal" data-target="#userset-dialog">新增</button>#}
+            {#            <button class="btn btn-warning" data-toggle="modal" data-target="#userset-dialog">新增</button>#}
             <button class="btn btn-warning add-broker-btn" type="button">新增</button>
         </div>
         <table class="table table-bordered">
@@ -80,7 +81,10 @@
                     <td>{{ comm.car }}</td>
                     <td>{{ comm.sale_amt }}</td>
                     <td>{{ comm.comm_amt }}
-                        <button class="btn btn-default btn-xs edit-broker-btn" type="button" onclick="window.open('{{ url_for('broker.salesheet', order_num=comm.order_num) }}', '_blank')">明細</button>
+                        <button class="btn btn-default btn-xs edit-broker-btn" type="button"
+                                onclick="window.open('{{ url_for('broker.salesheet', order_num=comm.order_num) }}', '_blank')">
+                            明細
+                        </button>
                     </td>
                     <td>
                         <button class="btn btn-default btn-xs edit-broker-btn" type="button">結算</button>
@@ -91,6 +95,12 @@
             {% endfor %}
             </tbody>
         </table>
+        <div>
+            <select class="btn btn-success" name="declare">
+                <option value="個人申報">個人申報</option>
+                <option value="開立發票">開立發票</option>
+            </select>
+        </div>
         <button class="btn btn-warning" style="float: right">付款</button>
         {#        type="button"#}
     </form>
