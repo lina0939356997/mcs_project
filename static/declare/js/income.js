@@ -57,9 +57,9 @@ $(function () {
 
         var url = '';
         if (submitType == 'update') {
-            url = '/uincomedata/';
+            url = '/declare/uincome/';
         } else {
-            url = '/aincomedata/';
+            url = '/declare/aincome/';
         }
 
         zlajax.post({
@@ -181,7 +181,7 @@ $(function () {
             "msg": "確認刪除？",
             'confirmCallback': function () {
                 zlajax.post({
-                    'url': '/dincomedata/',
+                    'url': '/declare/dincome/',
                     'data': {
                         'form_id': form_id
                     },
