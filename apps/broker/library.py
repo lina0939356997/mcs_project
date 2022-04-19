@@ -1,4 +1,4 @@
-from .models import CommModel
+from .models import CommModel, CommLineModel, PayModel, PayLineModel
 
 
 def calculate_comm(comm_key: list, broker_id: int):

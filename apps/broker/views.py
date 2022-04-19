@@ -237,7 +237,8 @@ def show_count():
                 search_text = "%{}%".format(search)
                 query_obj = BrokerModel.query.filter(BrokerModel.broker_name.like(search_text))
 
-            brokers = query_obj.all()
+            brokers = query_obj.slice(0, 10)
+            print(brokers)
             context = {
                 'comms': comms,
                 'broker': brokers
@@ -247,7 +248,7 @@ def show_count():
     else:
         context = {
             'comms': comms,
-            'broker': ''
+            'broker': ""
         }
         return render_template('broker/brokermaintenances.html', **context)
 
