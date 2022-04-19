@@ -247,7 +247,7 @@ def show_count():
     else:
         context = {
             'comms': comms,
-            'broker': None
+            'broker': ''
         }
         return render_template('broker/brokermaintenances.html', **context)
 

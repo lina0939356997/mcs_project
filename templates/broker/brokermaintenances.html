@@ -36,9 +36,9 @@
             <input list="Brokerlists" name="brokerchose" placeholder="確認broker" autocomplete="off">
         {% endif %}
             <datalist id="Brokerlists">
-                {% for broker in broker %}
-                    <option name="brokerchose" value="{{broker.broker_id}}">
-                        {{ broker.brober_name }}{{ broker.phone }}</option>
+                {% for brokers in broker %}
+                    <option name="brokerchose" value="{{brokers.broker_id}}">
+                        {{ brokers.brober_name }}{{ brokers.phone }}</option>
                 {% endfor %}
             </datalist>
             {#            <h2>{{ broker.broker_name }}#}
