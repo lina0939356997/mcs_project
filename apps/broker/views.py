@@ -210,7 +210,7 @@ def show_count():
             calculate_comm(comm_key, broker_id)
             result = select_broker_comm(broker_id)
             print(result)
-            broker = BrokerModel.query.filter(BrokerModel.broker_id == broker_id).first()
+            broker = BrokerModel.query.filter(BrokerModel.broker_id == broker_id)
             context = {
                 'comms': comms,
                 'broker': broker
@@ -221,7 +221,7 @@ def show_count():
             print("沒有要分配的佣金")
             result = select_broker_comm(broker_id)
             print(result)
-            broker = BrokerModel.query.filter(BrokerModel.broker_id == broker_id).first()
+            broker = BrokerModel.query.filter(BrokerModel.broker_id == broker_id)
             context = {
                 'comms': comms,
                 'broker': broker
