@@ -1,4 +1,4 @@
-from apps.mc.models import ListvalueModel
+from apps.mc.models import ValueSetModel
 from sqlalchemy import text
 from tests import engine
 
@@ -31,13 +31,13 @@ def test_mc_alistvalue(auth_client):
     with auth_client:
         response = auth_client.post(url, data=mock_request_data)
         assert response.status_code == 200
-        listvalue = ListvalueModel.query.filter_by(value_name="test").first()
+        listvalue = ValueSetModel.query.filter_by(value_name="test").first()
         assert listvalue.set_value_id is not None
 
 
 # 修改
 def test_mc_ulistvalue(auth_client):
-    listvalue = ListvalueModel.query.filter_by(value_name="test").first()
+    listvalue = ValueSetModel.query.filter_by(value_name="test").first()
     mock_request_data = {
         "set_value_id": listvalue.set_value_id,
         "set_type": "所得代碼2",
@@ -50,11 +50,11 @@ def test_mc_ulistvalue(auth_client):
     with auth_client:
         response = auth_client.post(url, data=mock_request_data)
         assert response.status_code == 200
-        listvalue = ListvalueModel.query.filter_by(value_name="test2").first()
+        listvalue = ValueSetModel.query.filter_by(value_name="test2").first()
         assert listvalue.set_value_id is not None
 
     # 刪除
-    listvalue = ListvalueModel.query.filter_by(value_name="test2").first()
+    listvalue = ValueSetModel.query.filter_by(value_name="test2").first()
     mock_request_data = {
         "set_value_id": listvalue.set_value_id,
     }

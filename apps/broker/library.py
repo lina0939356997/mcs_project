@@ -10,7 +10,4 @@ def select_broker_comm(broker_id: int):
     print(broker_id)
     query_obj = CommModel.query.filter_by(broker_id=broker_id).all()
     comms = query_obj
-    context = {
-        'comms': comms
-    }
-    return context
+    return comms

@@ -10,7 +10,7 @@ from .forms import (
     AddListvalueForm,
     UpdateListvalueForm,
 )
-from .models import UserModel, ListvalueModel
+from .models import UserModel, ValueSetModel
 from flask_paginate import Pagination, get_page_parameter
 from utils import restful
 
@@ -133,7 +133,7 @@ def listvalues():
     end = start + config.PER_PAGE
     total = 0
     query_obj = None
-    query_obj = ListvalueModel.query.order_by(ListvalueModel.set_value_id.desc())
+    query_obj = ValueSetModel.query.order_by(ValueSetModel.set_value_id.desc())
 
     listvalues = query_obj.slice(start, end)
     total = query_obj.count()
@@ -161,7 +161,7 @@ def alistvalue():
         value_name = form.value_name.data
         value_desc = form.value_desc.data
         parent_value = form.parent_value.data
-        listvalue = ListvalueModel(
+        listvalue = ValueSetModel(
             set_type=set_type, value_code=value_code, value_name=value_name, value_desc=value_desc, parent_value
             =parent_value, created_at=created_at, created_by=created_by, updated_at=updated_at, updated_by
             =updated_by)
@@ -185,7 +185,7 @@ def ulistvalue():
         value_name = form.value_name.data
         value_desc = form.value_desc.data
         parent_value = form.parent_value.data
-        listvalue = ListvalueModel.query.get(set_value_id)
+        listvalue = ValueSetModel.query.get(set_value_id)
         if listvalue:
             listvalue.set_type = set_type
             listvalue.value_code = value_code
@@ -209,7 +209,7 @@ def dlistvalue():
     if not set_value_id:
         return restful.params_error(message='請傳入ID！')
 
-    listvalue = ListvalueModel.query.get(set_value_id)
+    listvalue = ValueSetModel.query.get(set_value_id)
     if not listvalue:
         return restful.params_error(message='沒有這筆資料！')
 

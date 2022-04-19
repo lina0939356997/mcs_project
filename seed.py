@@ -1,14 +1,10 @@
 from exts import db
 from app import create_app
-from apps.mc import models as mc_models
 from apps.broker import models as broker_models
-from apps import models
+from apps.mc import models as mc_models
 
+BrokerModel = broker_models.BrokerModel
 UserModel = mc_models.UserModel
-# ReportBasicInform = models.R
-# Earner = models.EarnerBasicInformModel
-# Common = models.BrokerCommmonModel
-# Broker = broker_models.BrokerModel
 
 
 def load_seeds():
@@ -22,36 +18,13 @@ def load_seeds():
         user = UserModel(account=account, password=password, name=name, permission=permission, created_at
                          =created_at, created_by=created_by, updated_at=updated_at, updated_by=updated_by)
         db.session.add(user)
-
-    # for i, row in enumerate(open("seeds/mc_register_all.csv", encoding="utf-8")):
-    #     row = row.rstrip()
-    #     uniform_num, site_name, creation_date, creation_by, updated_date, updated_by = row.split(",")
-    #     register = ReportBasicInform(uniform_num=uniform_num, site_name=site_name, creation_date=creation_date
-    #                                  , creation_by=creation_by, updated_date=updated_date, updated_by=updated_by)
-    #     db.session.add(register)
-    #
-    # for i, row in enumerate(open("seeds/mc_id_set_all.csv", encoding="utf-8")):
-    #     row = row.rstrip()
-    #     id_no, id_num, id_name, phone_num, id_type, id_value_code, id_value_name, address, tel, id_mark\
-    #     , remark, status, creation_date, creation_by, updated_date, updated_by = row.split(",")
-    #     earner = Earner(id_no=id_no, id_num=id_num, id_name=id_name, phone_num=phone_num, id_type=id_type, id_value_code
-    #                     =id_value_code, id_value_name=id_value_name, address=address, tel=tel, id_mark
-    #                     =id_mark, remark=remark, status=bool(status), creation_date=creation_date, creation_by
-    #                     =creation_by, updated_date=updated_date, updated_by=updated_by)
-    #     db.session.add(earner)
-    #
-    # for i, row in enumerate(open("seeds/mc_comm_all.csv", encoding="utf-8")):
-    #     row = row.rstrip()
-    #     comm_id, comm_name = row.split(",")
-    #     comm = Common(comm_id=comm_id, comm_name=comm_name)
-    #     db.session.add(comm)
-    #
-    # for i, row in enumerate(open("seeds/broker.csv", encoding="utf-8")):
-    #     row = row.rstrip()
-    #     broker_name, broker_num, travel, phone, address, created_at, created_by, updated_at, updated_by = row.split(",")
-    #     broker = Broker(broker_name=broker_name, broker_num=broker_num, travel=travel, phone=phone, address=address,
-    #                     created_at=created_at, created_by=created_by, updated_at=updated_at, updated_by=updated_by)
-    #     db.session.add(broker)
+    for i, row in enumerate(open("seeds/broker.csv", encoding="utf-8")):
+        row = row.rstrip()
+        broker_name, broker_num, travel, phone, address, created_at, created_by, updated_at, updated_by = row.split(",")
+        broker = BrokerModel(broker_name=broker_name, broker_num=broker_num, travel=travel, phone=phone, address
+                             =address, created_at=created_at, created_by=created_by, updated_at=updated_at, updated_by
+                             =updated_by)
+        db.session.add(broker)
 
     db.session.commit()
     return True

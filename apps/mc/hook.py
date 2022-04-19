@@ -1,7 +1,7 @@
 from .views import bp
 import config
 from flask import session, g
-from .models import UserModel, ListvalueModel
+from .models import UserModel, ValueSetModel
 
 
 @bp.before_request

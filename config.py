@@ -35,7 +35,7 @@ MAIL_SERVER = 'smtp.office365.com'
 MAIL_PORT = '587'
 MAIL_USE_TLS = True
 MAIL_USERNAME = 'coreyteng@hotmail.com'
-MAIL_PASSWORD= 'XXXXX'
+MAIL_PASSWORD = 'XXXXX'
 MAIL_DEFAULT_SENDER = 'coreyteng@hotmail.com'
 
 # flask-paginate的相关配置

@@ -49,7 +49,7 @@ pytest
 # 補充_指令集
 ## -生成requirements.txt 檔
 ```angular2html
-pip freeze >requirements
+pip freeze >requirements.txt
 ```
 ## -查詢插件版本檔
 ```angular2html

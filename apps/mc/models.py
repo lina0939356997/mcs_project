@@ -15,7 +15,7 @@ class UserModel(db.Model):
     updated_by = db.Column(db.String(10), nullable=False)
 
 
-class ListvalueModel(db.Model):
+class ValueSetModel(db.Model):
     __tablename__ = 'value_set'
     set_value_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     set_type = db.Column(db.String(30), nullable=False)

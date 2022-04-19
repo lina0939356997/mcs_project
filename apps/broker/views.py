@@ -46,6 +46,7 @@ def brokerinfors():
     context = {
         'brokers': broker,
         'pagination': pagination,
+        'search': search
     }
     return render_template('broker/brokerinfors.html', **context)
 
@@ -163,28 +164,6 @@ def show_comms():
         return render_template('broker/brokers.html', **context)
 
 
-# @bp.route('/distribute/', methods=['POST'])
-# @login_required
-# def distribute():
-#     # 接收list處理完後存入comm, comm_line, comm_broker三張表中
-#     comm = request.form.getlist('order_num')
-#     print(comm)
-#     broker_id = request.form.get('brokerchose')
-#     print(broker_id)
-#
-#     # 傳遞broker_id去佣金維護畫面
-#     broker = {
-#         'broker_id': broker_id,
-#         'broker_name': '導遊B',
-#         'phone': '091234567'
-#     }
-#
-#     context = {
-#         'broker': broker
-#     }
-#     return redirect(url_for('broker.show_count', broker_id=request.form.get('brokerchose')))
-
-
 @bp.route('/show_count/', methods=['GET', 'POST'])
 @login_required
 def show_count():
@@ -202,8 +181,15 @@ def show_count():
         print("沒有要分配的佣金")
         result = select_broker_comm(broker_id)
         print(result)
+        context = {
+            'comms': result,
+            'broker_id': broker_id
+        }
+    # 什麼都沒有傳入，需要先傳入broker_id才能進行後續的操作
     else:
         print("啥都沒有")
+# ---------------------------------------------------------------
+
     comm1 = {
         'order_num': '1',
         'group_name': '佐登尼斯旅行團',
@@ -223,55 +209,39 @@ def show_count():
     }
     comms = [comm1, comm2]
 
-    broker = {
-        'broker_id': broker_id,
-        'broker_name': '導遊B',
-        'phone': '091234567'
-    }
+    if request.method == 'POST':
+        search = request.values['search']
+        a = ord(search[0])
+        if a < 58:
+            search_text = "%{}%".format(search)
+            query_obj = BrokerModel.query.filter(BrokerModel.phone.like(search_text))
+        else:
+            search_text = "%{}%".format(search)
+            query_obj = BrokerModel.query.filter(BrokerModel.broker_name.like(search_text))
 
-    context = {
-        'comms': comms,
-        'broker': broker
-    }
-    return render_template('broker/brokermaintenances.html', **context)
+        brokers = query_obj.slice(0, 10)
 
-
-# @bp.route('/show_count/', methods=['GET', 'POST'])
-# @login_required
-# def show_count(broker_id):
-#     # 如何接收redirect所傳過來的broker_id？
-#     broker_id = broker_id
-#     print(broker_id)
-#     comm1 = {
-#         'order_num': '1',
-#         'group_name': '佐登尼斯旅行團',
-#         'car': 'A車',
-#         'order_date': '2022, 4, 15',
-#         'sale_amt': 20000,
-#         'comm_amt': 2000
-#     }
-#
-#     comm2 = {
-#         'order_num': '1',
-#         'group_name': '佐登尼斯旅行團',
-#         'car': 'B車',
-#         'order_date': '2022, 4, 15',
-#         'sale_amt': 15000,
-#         'comm_amt': 1500
-#     }
-#     comms = [comm1, comm2]
-#
-#     broker = {
-#         'broker_id': broker_id,
-#         'broker_name': '導遊B',
-#         'phone': '091234567'
-#     }
-#
-#     context = {
-#         'comms': comms,
-#         'broker': broker
-#     }
-#     return render_template('broker/brokermaintenances.html', **context)
+        context = {
+            'comms': comms,
+            'brokers': brokers
+        }
+        return render_template('broker/brokermaintenances.html', **context)
+    else:
+        context = {
+            'comms': comms,
+        }
+        return render_template('broker/brokermaintenances.html', **context)
+    # broker = {
+    #     'broker_id': broker_id,
+    #     'broker_name': '導遊B',
+    #     'phone': '091234567'
+    # }
+    #
+    # context = {
+    #     'comms': comms,
+    #     'broker': broker
+    # }
+    # return render_template('broker/brokermaintenances.html', **context)
 
 
 @bp.route('/ashow_count/', methods=['POST'])
