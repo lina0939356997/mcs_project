@@ -22,7 +22,7 @@
 {% endblock %}
 
 {% block main_content %}
-    <form method="post" name="broker_list" action="{{ url_for('broker.payment') }}">
+    <form method="post" name="broker_list" action="{{ url_for('broker.show_count') }}">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
         <input type="text" name="search">
         <button class="btn btn-warning">搜尋</button>
