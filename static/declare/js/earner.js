@@ -41,9 +41,9 @@ $(function () {
 
         var url = '';
         if(submitType == 'update'){
-            url = '/uearnerinform/';
+            url = '/declare/uearner/';
         }else{
-            url = '/aearnerinform/';
+            url = '/declare/aearner/';
         }
 
         zlajax.post({
@@ -137,7 +137,7 @@ $(function () {
         var tr = self.parent().parent();
         var id_no = tr.attr("data-id_no");
         var status = Boolean(parseInt(tr.attr("data-status")));
-        var url = "/searnerinform/";
+        var url = "/declare/searner/";
         zlajax.post({
             'url': url,
             'data': {

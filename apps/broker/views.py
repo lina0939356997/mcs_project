@@ -184,6 +184,7 @@ def show_count():
         'order_date': '2022, 4, 15',
         'sale_amt': 20000,
         'comm_amt': 2000
+        'state':'已結算'
     }
 
     comm2 = {
@@ -193,6 +194,7 @@ def show_count():
         'order_date': '2022, 4, 15',
         'sale_amt': 15000,
         'comm_amt': 1500
+        'state': '未結算'
     }
     comms = [comm1, comm2]
 
