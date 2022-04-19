@@ -183,7 +183,7 @@ def show_count():
         'car': 'A車',
         'order_date': '2022, 4, 15',
         'sale_amt': 20000,
-        'comm_amt': 2000
+        'comm_amt': 2000,
         'state':'已結算'
     }
 
@@ -193,7 +193,7 @@ def show_count():
         'car': 'B車',
         'order_date': '2022, 4, 15',
         'sale_amt': 15000,
-        'comm_amt': 1500
+        'comm_amt': 1500,
         'state': '未結算'
     }
     comms = [comm1, comm2]

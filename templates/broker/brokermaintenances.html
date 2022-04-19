@@ -62,6 +62,7 @@
                 <th>車次</th>
                 <th>總額</th>
                 <th>佣金</th>
+                <th>狀態</th>
                 <th>操作</th>
             </tr>
             </thead>
@@ -69,12 +70,16 @@
             {#            {% for commission in commissions %}#}
             {% for comm in comms %}
                 <tr>
-                    <td>
-                        <input type="checkbox" name="order_num" value="{{ comm.order_num }}"/>
-                        {#                        <input type="hidden" name="group_name" value="{{ commission.group_name }}"/>#}
-                        {#                        <input type="hidden" name="car" value="{{ commission.car }}"/>#}
-                        {#                        <input type="hidden" name="order_date" value="{{ commission.order_date }}"/>#}
-                    </td>
+                    {% if comm.state == '已結算' %}
+                        <td>完成</td>
+                    {% else %}
+                        <td>
+                            <input type="checkbox" name="order_num" value="{{ comm.order_num }}"/>
+                            {#                        <input type="hidden" name="group_name" value="{{ commission.group_name }}"/>#}
+                            {#                        <input type="hidden" name="car" value="{{ commission.car }}"/>#}
+                            {#                        <input type="hidden" name="order_date" value="{{ commission.order_date }}"/>#}
+                        </td>
+                    {% endif %}
                     <td>{{ comm.order_num }}</td>
                     <td>{{ comm.order_date }}</td>
                     <td>{{ comm.group_name }}</td>
@@ -86,10 +91,15 @@
                             明細
                         </button>
                     </td>
-                    <td>
-                        <button class="btn btn-default btn-xs edit-broker-btn" type="button">結算</button>
-                        <button class="btn btn-danger btn-xs delete-broker-btn" type="button">刪除</button>
-                    </td>
+                    <td>{{ comm.state }}</td>
+                    {% if comm.state == '已結算' %}
+                        <td>已完成結算，不可更改</td>
+                    {% else %}
+                        <td>
+                            <button class="btn btn-default btn-xs edit-broker-btn" type="button">結算</button>
+                            <button class="btn btn-danger btn-xs delete-broker-btn" type="button">刪除</button>
+                        </td>
+                    {% endif %}
                 </tr>
                 {#            {% endfor %}#}
             {% endfor %}
