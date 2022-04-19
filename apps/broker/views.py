@@ -177,25 +177,6 @@ def show_count():
     print(comm_key)
     broker_id = request.form.get('brokerchose')
     print(broker_id)
-    # 有傳入需要計算的資料及broker_id，去pos系統抓取資料存入資料庫後再顯示該broker所擁有未結算的comm
-    if comm_key and broker_id:
-        calculate_comm(comm_key, broker_id)
-        result = select_broker_comm(broker_id)
-        print(result)
-    # 只有傳入broker_id，去comm表抓取屬於該broker的所有未結算的資料
-    elif broker_id:
-        print("沒有要分配的佣金")
-        result = select_broker_comm(broker_id)
-        print(result)
-        context = {
-            'comms': result,
-            'broker_id': broker_id
-        }
-    # 什麼都沒有傳入，需要先傳入broker_id才能進行後續的操作
-    else:
-        print("啥都沒有")
-# ---------------------------------------------------------------
-
     comm1 = {
         'order_num': '1',
         'group_name': '佐登尼斯旅行團',
@@ -215,39 +196,60 @@ def show_count():
     }
     comms = [comm1, comm2]
 
-    if request.method == 'POST':
-        search = request.values['search']
-        a = ord(search[0])
-        if a < 58:
-            search_text = "%{}%".format(search)
-            query_obj = BrokerModel.query.filter(BrokerModel.phone.like(search_text))
-        else:
-            search_text = "%{}%".format(search)
-            query_obj = BrokerModel.query.filter(BrokerModel.broker_name.like(search_text))
-
-        brokers = query_obj.slice(0, 10)
-
-        context = {
-            'comms': comms,
-            'brokers': brokers
-        }
-        return render_template('broker/brokermaintenances.html', **context)
-    else:
-        context = {
-            'comms': comms,
-        }
-        return render_template('broker/brokermaintenances.html', **context)
     # broker = {
     #     'broker_id': broker_id,
     #     'broker_name': '導遊B',
     #     'phone': '091234567'
     # }
-    #
-    # context = {
-    #     'comms': comms,
-    #     'broker': broker
-    # }
-    # return render_template('broker/brokermaintenances.html', **context)
+# --------------------------------------------------------------------------------------------
+    if request.method == 'POST':
+        # 有傳入需要計算的資料及broker_id，去pos系統抓取資料存入資料庫後再顯示該broker所擁有未結算的comm
+        if comm_key and broker_id:
+            calculate_comm(comm_key, broker_id)
+            result = select_broker_comm(broker_id)
+            print(result)
+            broker = BrokerModel.query.filter(BrokerModel.broker_id == broker_id).first()
+            context = {
+                'comms': comms,
+                'broker': broker
+            }
+            return render_template('broker/brokermaintenances.html', **context)
+        # 只有傳入broker_id，去comm表抓取屬於該broker的所有未結算的資料
+        elif broker_id:
+            print("沒有要分配的佣金")
+            result = select_broker_comm(broker_id)
+            print(result)
+            broker = BrokerModel.query.filter(BrokerModel.broker_id == broker_id).first()
+            context = {
+                'comms': comms,
+                'broker': broker
+            }
+            return render_template('broker/brokermaintenances.html', **context)
+        # 什麼都沒有傳入，需要先傳入broker_id才能進行後續的操作
+        else:
+            print("啥都沒有")
+            search = request.values['search']
+            a = ord(search[0])
+            if a < 58:
+                search_text = "%{}%".format(search)
+                query_obj = BrokerModel.query.filter(BrokerModel.phone.like(search_text))
+            else:
+                search_text = "%{}%".format(search)
+                query_obj = BrokerModel.query.filter(BrokerModel.broker_name.like(search_text))
+
+            brokers = query_obj.all()
+            context = {
+                'comms': comms,
+                'broker': brokers
+            }
+            return render_template('broker/brokermaintenances.html', **context)
+    # 直接進進入
+    else:
+        context = {
+            'comms': comms,
+            'broker': None
+        }
+        return render_template('broker/brokermaintenances.html', **context)
 
 
 @bp.route('/ashow_count/', methods=['POST'])
