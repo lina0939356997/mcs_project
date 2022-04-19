@@ -82,7 +82,14 @@
             {% endfor %}
             </tbody>
         </table>
-        <button class="btn btn-warning" style="float: right">確認付款單</button>
+    <div>
+        <select class="btn btn-success" name="declare">
+            <option value="個人申報">個人申報</option>
+            <option value="開立發票">開立發票</option>
+        </select>
+
+    </div>
+ <button class="btn btn-warning" style="float: right">確認付款單</button>
     </form>
 
 {% endblock %}
