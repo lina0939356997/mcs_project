@@ -116,7 +116,7 @@
                             <label class="col-sm-3 control-label">確認Broker：</label>
                             <div class="col-sm-8">
                                 <input list="Brokerlists" class="form-control" name="brokerchose"
-                                       placeholder="確認Broker">
+                                       placeholder="確認Broker" required>
                                 <datalist id="Brokerlists">
                                     {% for broker in brokers %}
                                         <option name="brokerchose" value="{{ broker.brober_name }}{{ broker.phone }}">

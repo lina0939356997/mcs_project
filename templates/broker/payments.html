@@ -28,9 +28,9 @@
         <div>
             {% if broker.broker_id %}
                 <input list="Brokerlists" name="brokerchose" value="{{ broker.broker_id }}"
-                       placeholder="{{ broker.brober_name }}{{ broker.phone }}" autocomplete="off">
+                       placeholder="{{ broker.brober_name }}{{ broker.phone }}" autocomplete="off" required>
             {% else %}
-                <input list="Brokerlists" name="brokerchose" placeholder="確認broker" autocomplete="off">
+                <input list="Brokerlists" name="brokerchose" placeholder="確認broker" autocomplete="off" required>
             {% endif %}
             <datalist id="Brokerlists">
                 {% for broker in brokers %}
