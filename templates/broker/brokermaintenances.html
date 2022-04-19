@@ -22,7 +22,7 @@
 {% endblock %}
 
 {% block main_content %}
-    <form method="post" name="broker_list" action="{{ url_for('broker.payment') }}">
+    <form method="post" name="broker_list" action="{{ url_for('broker.show_count') }}">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
         <input type="text" name="search">
         <button class="btn btn-warning">搜尋</button>
@@ -80,10 +80,10 @@
                     <td>{{ comm.car }}</td>
                     <td>{{ comm.sale_amt }}</td>
                     <td>{{ comm.comm_amt }}
-                        <button class="btn btn-default btn-xs edit-broker-btn" type="button">明細</button>
+                        <button class="btn btn-default btn-xs edit-broker-btn" type="button" onclick="window.open('{{ url_for('broker.salesheet', order_num=comm.order_num) }}', '_blank')">明細</button>
                     </td>
                     <td>
-                        <button class="btn btn-default btn-xs edit-broker-btn " type="button">結算</button>
+                        <button class="btn btn-default btn-xs edit-broker-btn" type="button">結算</button>
                         <button class="btn btn-danger btn-xs delete-broker-btn" type="button">刪除</button>
                     </td>
                 </tr>

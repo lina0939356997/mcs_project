@@ -24,6 +24,7 @@
         <button class="btn btn-warning">搜尋</button>
     </form>
     <form method="post" name="commission_list" action="{{ url_for('broker.check_payment') }}" role="form">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
         <div>
             {% if broker.broker_id %}
                 <input list="Brokerlists" name="brokerchose" value="{{ broker.broker_id }}"
@@ -82,7 +83,14 @@
             {% endfor %}
             </tbody>
         </table>
-        <button class="btn btn-warning" style="float: right">確認付款單</button>
+    <div>
+        <select class="btn btn-success" name="declare">
+            <option value="個人申報">個人申報</option>
+            <option value="開立發票">開立發票</option>
+        </select>
+
+    </div>
+ <button class="btn btn-warning" style="float: right">確認付款單</button>
     </form>
 
 {% endblock %}

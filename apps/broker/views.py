@@ -19,6 +19,12 @@ from .library import calculate_comm, select_broker_comm
 
 bp = Blueprint("broker", __name__, url_prefix='/broker')
 
+@bp.route('/salesheet/', methods=['GET', 'POST'])
+@login_required
+def salesheet():
+    order_num = request.args.get('order_num')
+    print(order_num)
+    return render_template('broker/salesheet.html')
 
 @bp.route('/brokerinfors/', methods=['GET', 'POST'])
 @login_required
