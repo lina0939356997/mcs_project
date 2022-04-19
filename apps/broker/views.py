@@ -183,8 +183,8 @@ def show_count():
         'car': 'A車',
         'order_date': '2022, 4, 15',
         'sale_amt': 20000,
-        'comm_amt': 2000
-        'state':'已結算'
+        'comm_amt': 2000,
+        'state': '已結算'
     }
 
     comm2 = {
@@ -193,7 +193,7 @@ def show_count():
         'car': 'B車',
         'order_date': '2022, 4, 15',
         'sale_amt': 15000,
-        'comm_amt': 1500
+        'comm_amt': 1500,
         'state': '未結算'
     }
     comms = [comm1, comm2]
@@ -210,7 +210,7 @@ def show_count():
             calculate_comm(comm_key, broker_id)
             result = select_broker_comm(broker_id)
             print(result)
-            broker = BrokerModel.query.filter(BrokerModel.broker_id == broker_id).first()
+            broker = BrokerModel.query.filter(BrokerModel.broker_id == broker_id)
             context = {
                 'comms': comms,
                 'broker': broker
@@ -221,7 +221,7 @@ def show_count():
             print("沒有要分配的佣金")
             result = select_broker_comm(broker_id)
             print(result)
-            broker = BrokerModel.query.filter(BrokerModel.broker_id == broker_id).first()
+            broker = BrokerModel.query.filter(BrokerModel.broker_id == broker_id)
             context = {
                 'comms': comms,
                 'broker': broker
