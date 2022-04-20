@@ -74,10 +74,7 @@
                         <td>完成</td>
                     {% else %}
                         <td>
-                            <input type="checkbox" name="order_num" value="{{ comm.order_num }}"/>
-                            {#                        <input type="hidden" name="group_name" value="{{ commission.group_name }}"/>#}
-                            {#                        <input type="hidden" name="car" value="{{ commission.car }}"/>#}
-                            {#                        <input type="hidden" name="order_date" value="{{ commission.order_date }}"/>#}
+                            <input type="checkbox" name="comm_id" value="{{ comm.comm_id }}"/>
                         </td>
                     {% endif %}
                     <td>{{ comm.order_num }}</td>
