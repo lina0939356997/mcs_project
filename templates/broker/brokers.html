@@ -26,7 +26,7 @@
     <form method="post" name="commission_list" action="{{ url_for('broker.show_count') }}" role="form">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
         <div>
-            <input list="Brokerlists" name="brokerchose" placeholder="確認Broker" autocomplete="off">
+            <input list="Brokerlists" name="brokerchose" placeholder="確認Broker" autocomplete="off" required>
             <datalist id="Brokerlists">
                 {% for broker in brokers %}
                     <option name="brokerchose" value="{{broker.broker_id}}">
