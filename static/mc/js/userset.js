@@ -65,7 +65,7 @@ $(function () {
         var permission = tr.attr("data-permission");
         dialog.modal('show')
 
-        var accountInput = dialog.find("input[name='account']");
+        var accountInput = dialog.find("input[name='account']").attr('readonly',true);
         var passwordInput = dialog.find("input[name='password']");
         var nameInput = dialog.find("input[name='username']");
         var permissionInput = dialog.find("input[name='permission']:checked");
